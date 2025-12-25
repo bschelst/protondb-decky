@@ -26,5 +26,12 @@
     "tierpending": "ODOTTAA",
     "tierplatinum": "PLATINA",
     "tiersilver": "HOPEA",
-    "expandOnHoverOff": "Pois Päältä"
+    "expandOnHoverOff": "Pois Päältä",
+    "submit": "LÄHETÄ",
+    "login": "Kirjaudu sisään",
+    "loading": "...",
+    "disableSubmit": "Poista lähetys käytöstä",
+    "disableSubmitDesc": "Piilota lähetyspainike, joka mahdollistaa raporttien lähettämisen ProtonDB:hen",
+    "enableStoreBadge": "Ota merkki käyttöön kauppasivuilla",
+    "enableStoreBadgeDesc": "Näytä ProtonDB merkki Steam Deck yhteensopivuuden alla kauppasivuilla"
 }

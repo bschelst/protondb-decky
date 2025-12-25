@@ -26,5 +26,12 @@
     "tierpending": "PENDING",
     "tierplatinum": "PLATINUM",
     "tiersilver": "SILVER",
-    "expandOnHoverOff": "Off"
+    "expandOnHoverOff": "Off",
+    "submit": "SUBMIT",
+    "login": "Login",
+    "loading": "...",
+    "disableSubmit": "Disable Submit",
+    "disableSubmitDesc": "Hide the submit button that allows contributing reports to ProtonDB",
+    "enableStoreBadge": "Enable Badge on Store Pages",
+    "enableStoreBadgeDesc": "Show ProtonDB badge below Steam Deck compatibility on store pages"
 }

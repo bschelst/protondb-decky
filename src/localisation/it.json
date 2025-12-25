@@ -26,5 +26,12 @@
     "tierpending": "IN ATTESA",
     "tierplatinum": "PLATINO",
     "tiersilver": "ARGENTO",
-    "expandOnHoverOff": "Off"
+    "expandOnHoverOff": "Disattivato",
+    "submit": "INVIA",
+    "login": "Accedi",
+    "loading": "...",
+    "disableSubmit": "Disabilita invio",
+    "disableSubmitDesc": "Nascondi il pulsante di invio che consente di contribuire rapporti a ProtonDB",
+    "enableStoreBadge": "Abilita badge sulle pagine del negozio",
+    "enableStoreBadgeDesc": "Mostra il badge ProtonDB sotto la compatibilità Steam Deck sulle pagine del negozio"
 }

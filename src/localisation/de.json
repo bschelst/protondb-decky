@@ -26,5 +26,12 @@
     "tierpending": "UNBESTIMMT",
     "tierplatinum": "PLATIN",
     "tiersilver": "SILBER",
-    "expandOnHoverOff": "Aus"
+    "expandOnHoverOff": "Aus",
+    "submit": "SENDEN",
+    "login": "Anmelden",
+    "loading": "...",
+    "disableSubmit": "Senden deaktivieren",
+    "disableSubmitDesc": "Verberge die Senden-Schaltfläche, die das Einreichen von Berichten an ProtonDB ermöglicht",
+    "enableStoreBadge": "Abzeichen auf Store-Seiten aktivieren",
+    "enableStoreBadgeDesc": "Zeige ProtonDB Abzeichen unter Steam Deck Kompatibilität auf Store-Seiten"
 }

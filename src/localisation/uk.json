@@ -26,5 +26,12 @@
     "tierpending": "В ОЧІКУВАННІ",
     "tierplatinum": "ПЛАТИНУМ",
     "tiersilver": "СРІБЛО",
-    "expandOnHoverOff": "Вимк"
+    "expandOnHoverOff": "Вимк",
+    "submit": "НАДІСЛАТИ",
+    "login": "Увійти",
+    "loading": "...",
+    "disableSubmit": "Вимкнути надсилання",
+    "disableSubmitDesc": "Приховати кнопку надсилання, яка дозволяє надсилати звіти до ProtonDB",
+    "enableStoreBadge": "Увімкнути значок на сторінках магазину",
+    "enableStoreBadgeDesc": "Показувати значок ProtonDB під сумісністю Steam Deck на сторінках магазину"
 }

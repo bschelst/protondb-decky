@@ -26,5 +26,12 @@
     "tierpending": "리뷰 대기중",
     "tierplatinum": "플래티넘",
     "tiersilver": "실버",
-    "expandOnHoverOff": "끄기"
+    "expandOnHoverOff": "끄기",
+    "submit": "제출",
+    "login": "로그인",
+    "loading": "...",
+    "disableSubmit": "제출 비활성화",
+    "disableSubmitDesc": "ProtonDB에 보고서를 제출할 수 있는 제출 버튼 숨기기",
+    "enableStoreBadge": "상점 페이지에서 배지 활성화",
+    "enableStoreBadgeDesc": "상점 페이지의 Steam Deck 호환성 아래에 ProtonDB 배지 표시"
 }

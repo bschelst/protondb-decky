@@ -4,7 +4,8 @@ import {
   DropdownItem,
   PanelSection,
   PanelSectionProps,
-  PanelSectionRow
+  PanelSectionRow,
+  ToggleField
 } from '@decky/ui'
 import React, { FC, ReactNode } from 'react'
 import { clearCache } from '../../cache/protobDbCache'
@@ -31,7 +32,7 @@ type ExtendedButtonItemProps = ButtonItemProps & {
 const DeckButtonItem = ButtonItem as FC<ExtendedButtonItemProps>
 
 export default function Index() {
-  const { settings, setSize, setPosition, setLabelOnHover, loading } =
+  const { settings, setSize, setPosition, setLabelOnHover, setDisableSubmit, loading } =
     useSettings()
   const t = useTranslations()
 
@@ -132,6 +133,18 @@ export default function Index() {
                 positionOptions.find((o) => o.data === newVal.data)?.value ||
                 'tl'
               setPosition(newPosition)
+            }}
+          />
+        </DeckPanelSectionRow>
+      </DeckPanelSection>
+      <DeckPanelSection title="eXtended">
+        <DeckPanelSectionRow>
+          <ToggleField
+            label={t('disableSubmit')}
+            description={t('disableSubmitDesc')}
+            checked={settings.disableSubmit}
+            onChange={(checked: boolean) => {
+              setDisableSubmit(checked)
             }}
           />
         </DeckPanelSectionRow>

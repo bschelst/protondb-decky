@@ -26,5 +26,12 @@
     "tierpending": "等您回報",
     "tierplatinum": "白金",
     "tiersilver": "銀",
-    "expandOnHoverOff": "關閉"
+    "expandOnHoverOff": "關閉",
+    "submit": "提交",
+    "login": "登入",
+    "loading": "...",
+    "disableSubmit": "停用提交",
+    "disableSubmitDesc": "隱藏允許向ProtonDB提交報告的提交按鈕",
+    "enableStoreBadge": "在商店頁面啟用徽章",
+    "enableStoreBadgeDesc": "在商店頁面的Steam Deck相容性下方顯示ProtonDB徽章"
 }

@@ -161,5 +161,116 @@ export default (
       line-height: 24px;
       margin-right: 28px;
     }
+
+    .protondb-decky-submit-button {
+      background: #646464;
+      border: 1px solid #1a1a1a;
+      border-radius: 8px;
+      padding: 6px 18px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: Abel, "Motiva Sans", Arial, Helvetica, sans-serif;
+    }
+
+    .protondb-decky-submit-button.gpfocus, .protondb-decky-submit-button:hover {
+      background: #8a8a8a;
+    }
+
+    .protondb-decky-submit-button > div {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 28px;
+    }
+
+    .protondb-decky-submit-button > div > svg {
+      color: #ffffff;
+      width: 28px;
+      height: 28px;
+    }
+
+    .protondb-decky-submit-button > span {
+      margin-left: 10px;
+      font-size: 24px;
+      color: #ffffff;
+      white-space: nowrap;
+      line-height: 24px;
+    }
+
+    .protondb-decky-submit-button.protondb-decky-indicator-small {
+      padding: 6px 12px;
+    }
+
+    .protondb-decky-submit-button.protondb-decky-indicator-small > div {
+      height: 20px;
+    }
+
+    .protondb-decky-submit-button.protondb-decky-indicator-small > span {
+      font-size: 12px;
+      line-height: 12px;
+    }
+
+    .protondb-decky-submit-button.protondb-decky-indicator-small > div > svg {
+      width: 20px;
+      height: 20px;
+    }
+
+    .protondb-decky-submit-button.protondb-decky-indicator-minimalist {
+      padding: 6px;
+    }
+
+    .protondb-decky-submit-button.protondb-decky-indicator-minimalist > div {
+      height: 20px;
+    }
+
+    .protondb-decky-submit-button.protondb-decky-indicator-minimalist > span {
+      display: none;
+    }
+
+    .protondb-decky-submit-button.protondb-decky-indicator-minimalist > div > svg {
+      width: 20px;
+      height: 20px;
+    }
+
+    .protondb-decky-submit-button.protondb-decky-indicator-label-on-hover-small:hover > span,
+    .protondb-decky-submit-button.protondb-decky-indicator-label-on-hover-small.gpfocus > span {
+      display: block;
+      font-size: 12px;
+      line-height: 12px;
+    }
+
+    .protondb-decky-submit-button.protondb-decky-indicator-label-on-hover-regular:hover > span,
+    .protondb-decky-submit-button.protondb-decky-indicator-label-on-hover-regular.gpfocus > span {
+      display: block;
+      margin-left: 10px;
+      font-size: 24px;
+      line-height: 24px;
+    }
+
+    .protondb-decky-submit-button.protondb-decky-not-logged-in {
+      background: #ff6b35;
+      border: 1px solid #e55a2e;
+    }
+
+    .protondb-decky-submit-button.protondb-decky-not-logged-in.gpfocus,
+    .protondb-decky-submit-button.protondb-decky-not-logged-in:hover {
+      background: #ff7a4a;
+    }
+
+    /* Store page specific styles */
+    .protondb-store-context {
+      position: relative;
+      margin-top: 16px;
+      margin-bottom: 16px;
+      display: flex;
+      justify-content: flex-start;
+      width: 100%;
+    }
+
+    .protondb-store-context .protondb-decky-indicator {
+      /* Ensure badges flow naturally in store context */
+      position: static;
+    }
 `}</style>
 )

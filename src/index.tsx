@@ -10,8 +10,9 @@ import { loadSettings } from './hooks/useSettings'
 export default definePlugin(() => {
   loadSettings()
   const libraryPatch = patchLibraryApp()
+
   return {
-    title: <div className={staticClasses.Title}>ProtonDB Badges</div>,
+    title: <div className={staticClasses.Title}>ProtonDB Badges Extended</div>,
     icon: <FaReact />,
     content: <Settings />,
     onDismount() {

@@ -26,5 +26,12 @@
     "tierpending": "BRAK DANYCH",
     "tierplatinum": "PLATYNA",
     "tiersilver": "SREBRO",
-    "expandOnHoverOff": "Wyłączone"
+    "expandOnHoverOff": "Wyłączone",
+    "submit": "WYŚLIJ",
+    "login": "Zaloguj się",
+    "loading": "...",
+    "disableSubmit": "Wyłącz wysyłanie",
+    "disableSubmitDesc": "Ukryj przycisk wysyłania, który umożliwia przesyłanie raportów do ProtonDB",
+    "enableStoreBadge": "Włącz odznakę na stronach sklepu",
+    "enableStoreBadgeDesc": "Pokaż odznakę ProtonDB pod kompatybilnością Steam Deck na stronach sklepu"
 }

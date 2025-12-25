@@ -6,13 +6,15 @@ export type Settings = {
   size: 'regular' | 'small' | 'minimalist'
   position: 'tl' | 'tr' | 'bl' | 'br'
   labelTypeOnHover: 'off' | 'small' | 'regular'
+  disableSubmit: boolean
 }
 
 // Not using the React context here as this approach is simpler.
-const SettingsContext = new BehaviorSubject<Settings>({
+export const SettingsContext = new BehaviorSubject<Settings>({
   size: 'regular',
   position: 'tl',
-  labelTypeOnHover: 'off'
+  labelTypeOnHover: 'off',
+  disableSubmit: false
 })
 const LoadingContext = new BehaviorSubject(true)
 
@@ -58,5 +60,9 @@ export const useSettings = () => {
     updateSettings('labelTypeOnHover', value)
   }
 
-  return { settings, setSize, setPosition, setLabelOnHover, loading }
+  function setDisableSubmit(value: Settings['disableSubmit']) {
+    updateSettings('disableSubmit', value)
+  }
+
+  return { settings, setSize, setPosition, setLabelOnHover, setDisableSubmit, loading }
 }

@@ -43,3 +43,35 @@ export async function getLinuxInfo(
   }
   return false
 }
+
+export async function checkProtonDBLoginStatus(): Promise<boolean> {
+  try {
+    // Check if user is logged in by accessing the contribute page
+    const res = await fetchNoCors(
+      'https://www.protondb.com/contribute',
+      {
+        method: 'GET',
+        credentials: 'include'
+      }
+    )
+
+    if (res.status === 200) {
+      const text = await res.text()
+
+      // If the page contains "Not Ready Yet!" or "Not logged in with Steam", user is not logged in
+      const isNotLoggedIn = text.includes('Not Ready Yet!') ||
+                           text.includes('Not logged in with Steam')
+
+      // Return true if user IS logged in (i.e., NOT showing the error messages)
+      return !isNotLoggedIn
+    }
+
+    // If we can't get the page, assume not logged in
+    return false
+  } catch (error) {
+    console.log('ProtonDB login check failed:', error)
+    // If we can't check, assume not logged in for safety
+    return false
+  }
+}
+

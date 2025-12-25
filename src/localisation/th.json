@@ -26,5 +26,12 @@
     "tierpending": "รอตรวจสอบ",
     "tierplatinum": "แพลตตินั่ม",
     "tiersilver": "เงิน",
-    "expandOnHoverOff": "ปิด"
+    "expandOnHoverOff": "ปิด",
+    "submit": "ส่ง",
+    "login": "เข้าสู่ระบบ",
+    "loading": "...",
+    "disableSubmit": "ปิดใช้งานการส่ง",
+    "disableSubmitDesc": "ซ่อนปุ่มส่งที่อนุญาตให้ส่งรายงานไปยัง ProtonDB",
+    "enableStoreBadge": "เปิดใช้งานตรารับรองในหน้าร้านค้า",
+    "enableStoreBadgeDesc": "แสดงตรารับรอง ProtonDB ด้านล่างความเข้ากันได้ของ Steam Deck ในหน้าร้านค้า"
 }

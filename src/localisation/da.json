@@ -26,5 +26,12 @@
     "tierpending": "AFVENTER",
     "tierplatinum": "PLATIN",
     "tiersilver": "SØLV",
-    "expandOnHoverOff": "Fra"
+    "expandOnHoverOff": "Fra",
+    "submit": "INDSEND",
+    "login": "Log ind",
+    "loading": "...",
+    "disableSubmit": "Deaktiver indsendelse",
+    "disableSubmitDesc": "Skjul indsendelsesknappen, der tillader bidrag af rapporter til ProtonDB",
+    "enableStoreBadge": "Aktiver mærke på butikssider",
+    "enableStoreBadgeDesc": "Vis ProtonDB mærke under Steam Deck kompatibilitet på butikssider"
 }

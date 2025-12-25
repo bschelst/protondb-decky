@@ -26,5 +26,12 @@
     "tierpending": "ÎN AȘTEPTARE",
     "tierplatinum": "PLATINUM",
     "tiersilver": "ARGINT",
-    "expandOnHoverOff": "Dezactivată"
+    "expandOnHoverOff": "Dezactivată",
+    "submit": "TRIMITE",
+    "login": "Autentificare",
+    "loading": "...",
+    "disableSubmit": "Dezactivați trimiterea",
+    "disableSubmitDesc": "Ascundeți butonul de trimitere care permite contribuirea rapoartelor către ProtonDB",
+    "enableStoreBadge": "Activați ecusonul pe paginile magazinului",
+    "enableStoreBadgeDesc": "Afișați ecusonul ProtonDB sub compatibilitatea Steam Deck pe paginile magazinului"
 }
