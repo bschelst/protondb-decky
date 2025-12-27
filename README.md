@@ -74,4 +74,32 @@ Your support—small or large—is genuinely appreciated and helps keep this pro
 
 This plugin requires [Decky Loader](https://github.com/SteamDeckHomebrew/decky-loader).
 
+## 📦 Installation (Decky Loader)
+
+Follow these steps to install **ProtonDB Badges eXtended** using Decky Loader, manually. (plugin is not available on the decky store yet)
+
+### Requirements
+- Steam Deck
+- Decky Loader installed
+- Steam Deck in **Game Mode**
+
+### Installation steps
+
+1. **Download the latest release**
+   - Open the GitHub releases page:
+     https://github.com/bschelst/protondb-decky-extended/releases
+   - Download the **latest `.zip` file** from the most recent release.
+
+2. **Open Decky Loader**
+   - Switch to **Game Mode** on your Steam Deck.
+   - Open the **Decky Loader** menu (⋯ button).
+
+3. **Install the plugin**
+   - Go to **Decky Settings** → **Plugins**.
+   - Choose **Install from ZIP** (or **Upload Plugin**, depending on Decky version).
+   - Select the downloaded `protondb-decky-extended-<version>.zip` file.
+
+4. **Enable the plugin**
+   - Once installed, ensure the plugin is enabled in Decky.
+   - The ProtonDB Badges eXtended features will now appear automatically for supported games in your library.
 
