@@ -12,6 +12,12 @@ This plugin retrieves ProtonDB ratings from the ProtonDB API and overlays a tapp
 This is an update to the protondb-decky plugin, extending it with a Submit button. It allows users to submit a report directly from their library.
 The new submit button can be disabled in the settings.
 
+## Why was the eXtended plugin created
+
+I really like the protondb-decky plugin and consider it a must-have on my Steam Deck.
+Recently, I noticed that the plugin is no longer maintained and has been archived. At the same time, I found the process of submitting ProtonDB reports rather cumbersome—opening a browser, searching for the game, and so on.
+I wanted a more straightforward approach: the ability to submit a report directly from the game itself, with a simple button.
+
 ## Options
 
 ### Size

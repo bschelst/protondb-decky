@@ -2,7 +2,7 @@
   "name": "ProtonDB Badges eXtended",
   "author": "Schelstraete Bart",
   "flags": [],
-  "api_version": 1,
+  "api_version": 2,
   "publish": {
     "tags": ["protondb"],
     "description": "Display tappable ProtonDB badges on your game pages, extended edition",
