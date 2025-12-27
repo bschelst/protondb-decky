@@ -57,11 +57,9 @@ If you spot an incorrect or awkward translation, feedback or pull requests are w
 Tested on:
 - **SteamOS 3.9** — Steam Deck LCD  
 - **Ubuntu 25.10** — Steam Big Picture  
-- **Bazzite 43 (NVIDIA)**  
+- **Bazzite 43 (NVIDIA)** - Decky Loader v3.2.1 — SteamClient023__
 
-Decky Loader v3.2.1 — SteamClient023
-
-Steam Deck OLED has not been tested yet.
+Steam Deck OLED has not been tested yet, because I don't own a Steam Deck OLED. Feel free to send me one.
 
 ---
 
