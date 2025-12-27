@@ -1,6 +1,18 @@
 # Changelog
 All notable changes to the Protondb-decky-eXtended plugin are documented in this file.
 
+## [0.0.5] - 2025-12-27
+### Added
+- Option to position badges at bottom of hero image (bottom-left, bottom-middle, bottom-right)
+- Dynamic hero height detection for accurate bottom positioning
+- Black border on badges when focused/selected
+- Controller navigation support between badges
+
+### Fixed
+- Fixed plugin loading issue with Decky's install from zip feature
+- Removed outdated pnpm-lock.yaml causing false Dependabot security alerts
+- Added npm overrides for glob and cross-spawn to ensure secure versions
+- Hide badges for non-Steam games in library
 
 ## [0.0.4] - 2025-12-27
 ### Added
