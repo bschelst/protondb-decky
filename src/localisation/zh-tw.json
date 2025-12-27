@@ -10,6 +10,10 @@
     "expandOnHoverDescription": "僅極簡可用。在被選擇時顯示徽章文字。",
     "positionTopLeft": "左上",
     "positionTopRight": "右上",
+    "positionBottomLeft": "Bottom Left",
+    "positionBottomMiddle": "Bottom Middle",
+    "positionBottomRight": "Bottom Right",
+    "positionTopMiddle": "頂部置中",
     "settings": "設定",
     "sizeMinimalist": "極簡",
     "sizeRegular": "正常",
@@ -34,5 +38,8 @@
     "disableSubmit": "停用提交",
     "disableSubmitDesc": "隱藏允許向ProtonDB提交報告的提交按鈕",
     "enableStoreBadge": "在商店頁面啟用徽章",
-    "enableStoreBadgeDesc": "在商店頁面的Steam Deck相容性下方顯示ProtonDB徽章"
+    "enableStoreBadgeDesc": "在商店頁面的Steam Deck相容性下方顯示ProtonDB徽章",
+    "originalPluginDetected": "偵測到原版插件",
+    "originalPluginWarning": "原版的「ProtonDB Badges」插件仍然已安裝。請在Decky設定中停用它，以避免與此擴充版本發生衝突。",
+    "originalPluginVersion": "版本"
 }

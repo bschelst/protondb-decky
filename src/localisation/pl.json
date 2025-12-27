@@ -10,6 +10,10 @@
     "expandOnHoverDescription": "Dotyczy tylko rozmiaru 'Minimalistyczny'. Wyświetlaj tekst odznaki po wybraniu kursorem",
     "positionTopLeft": "Lewy górny róg",
     "positionTopRight": "Prawy górny róg",
+    "positionBottomLeft": "Bottom Left",
+    "positionBottomMiddle": "Bottom Middle",
+    "positionBottomRight": "Bottom Right",
+    "positionTopMiddle": "Górny środek",
     "settings": "Ustawienia",
     "sizeMinimalist": "Minimalistyczny",
     "sizeRegular": "Normalny",
@@ -34,5 +38,8 @@
     "disableSubmit": "Wyłącz wysyłanie",
     "disableSubmitDesc": "Ukryj przycisk wysyłania, który umożliwia przesyłanie raportów do ProtonDB",
     "enableStoreBadge": "Włącz odznakę na stronach sklepu",
-    "enableStoreBadgeDesc": "Pokaż odznakę ProtonDB pod kompatybilnością Steam Deck na stronach sklepu"
+    "enableStoreBadgeDesc": "Pokaż odznakę ProtonDB pod kompatybilnością Steam Deck na stronach sklepu",
+    "originalPluginDetected": "Wykryto oryginalną wtyczkę",
+    "originalPluginWarning": "Oryginalna wtyczka 'ProtonDB Badges' jest nadal zainstalowana. Wyłącz ją w ustawieniach Decky, aby uniknąć konfliktów z tą rozszerzoną wersją.",
+    "originalPluginVersion": "Wersja"
 }

@@ -1,4 +1,4 @@
-import { appDetailsClasses, appDetailsHeaderClasses, Navigation } from '@decky/ui'
+import { appDetailsClasses, appDetailsHeaderClasses, Focusable, Navigation } from '@decky/ui'
 import React, { ReactElement, FC, CSSProperties, ReactNode, useState, useRef, useEffect } from 'react'
 import { FaReact, FaPaperPlane } from 'react-icons/fa'
 import { IoLogoTux } from 'react-icons/io'
@@ -22,11 +22,32 @@ type ExtendedButtonProps = ButtonProps & {
 
 const DeckButton = Button as FC<ExtendedButtonProps>
 
-const positonSettings = {
+const TOP_POSITIONS = {
   tl: { top: '40px', left: '20px' },
   tr: { top: '60px', right: '20px' },
-  bl: { bottom: '40px', left: '20px' },
-  br: { bottom: '40px', right: '20px' }
+  tm: { top: '60px', left: '50%', transform: 'translateX(-50%)' }
+}
+
+const BOTTOM_OFFSET = 40 // pixels from bottom of hero image
+
+function getPositionStyle(position: string, heroHeight: number | null): CSSProperties {
+  if (position in TOP_POSITIONS) {
+    return TOP_POSITIONS[position as keyof typeof TOP_POSITIONS]
+  }
+
+  // For bottom positions, calculate based on hero height
+  const topValue = heroHeight ? `${heroHeight - BOTTOM_OFFSET}px` : '290px' // fallback if height unknown
+
+  switch (position) {
+    case 'bl':
+      return { top: topValue, left: '20px' }
+    case 'br':
+      return { top: topValue, right: '20px' }
+    case 'bm':
+      return { top: topValue, left: '50%', transform: 'translateX(-50%)' }
+    default:
+      return TOP_POSITIONS.tl
+  }
 }
 
 function findTopCapsuleParent(ref: HTMLDivElement | null): Element | null {
@@ -75,44 +96,76 @@ export default function ProtonMedal({ hideSubmit = false, context = 'library', a
   // There will be no mutation when the page is loaded (either from exiting the game
   // or just newly opening the page), therefore it's visible by default.
   const [show, setShow] = useState<boolean>(true)
+  const [heroHeight, setHeroHeight] = useState<number | null>(null)
   const ref = useRef<HTMLDivElement | null>(null)
 
+  // Combined effect for mutation observer and height measurement
   useEffect(() => {
     // Only observe mutations for library context
     if (context !== 'library') {
       return
     }
 
-    const topCapsule = findTopCapsuleParent(ref?.current)
-    if (!topCapsule) {
-      console.error("TopCapsule container not found!")
-      return
+    let mutationObserver: MutationObserver | null = null
+    let resizeObserver: ResizeObserver | null = null
+    let retryTimeout: ReturnType<typeof setTimeout> | null = null
+
+    const setupObservers = () => {
+      const topCapsule = findTopCapsuleParent(ref?.current)
+      if (!topCapsule) {
+        // Retry after a short delay - the DOM might not be fully ready
+        retryTimeout = setTimeout(setupObservers, 100)
+        return
+      }
+
+      // Set up mutation observer for fullscreen detection
+      mutationObserver = new MutationObserver((entries) => {
+        for (const entry of entries) {
+          if (entry.type !== "attributes" || entry.attributeName !== "class") {
+            continue
+          }
+
+          const className = (entry.target as Element).className
+          const fullscreenMode =
+            className.includes(appDetailsHeaderClasses.FullscreenEnterStart) ||
+            className.includes(appDetailsHeaderClasses.FullscreenEnterActive) ||
+            className.includes(appDetailsHeaderClasses.FullscreenEnterDone) ||
+            className.includes(appDetailsHeaderClasses.FullscreenExitStart) ||
+            className.includes(appDetailsHeaderClasses.FullscreenExitActive)
+          const fullscreenAborted =
+            className.includes(appDetailsHeaderClasses.FullscreenExitDone)
+
+          setShow(!fullscreenMode || fullscreenAborted)
+        }
+      })
+      mutationObserver.observe(topCapsule, { attributes: true, attributeFilter: ["class"] })
+
+      // Set up height measurement
+      const updateHeight = () => {
+        const height = topCapsule.getBoundingClientRect().height
+        setHeroHeight(height)
+      }
+      updateHeight()
+
+      // Observe for resize changes
+      resizeObserver = new ResizeObserver(updateHeight)
+      resizeObserver.observe(topCapsule)
     }
 
-    const mutationObserver = new MutationObserver((entries) => {
-      for (const entry of entries) {
-        if (entry.type !== "attributes" || entry.attributeName !== "class") {
-          continue
-        }
+    // Start setup after a micro-task to ensure ref is attached
+    setTimeout(setupObservers, 0)
 
-        const className = (entry.target as Element).className
-        const fullscreenMode =
-          className.includes(appDetailsHeaderClasses.FullscreenEnterStart) ||
-          className.includes(appDetailsHeaderClasses.FullscreenEnterActive) ||
-          className.includes(appDetailsHeaderClasses.FullscreenEnterDone) ||
-          className.includes(appDetailsHeaderClasses.FullscreenExitStart) ||
-          className.includes(appDetailsHeaderClasses.FullscreenExitActive)
-        const fullscreenAborted =
-          className.includes(appDetailsHeaderClasses.FullscreenExitDone)
-
-        setShow(!fullscreenMode || fullscreenAborted)
-      }
-    })
-    mutationObserver.observe(topCapsule, { attributes: true, attributeFilter: ["class"] })
     return () => {
-      mutationObserver.disconnect()
+      if (retryTimeout) clearTimeout(retryTimeout)
+      if (mutationObserver) mutationObserver.disconnect()
+      if (resizeObserver) resizeObserver.disconnect()
     }
   }, [context])
+
+  // Don't render for non-Steam games (no valid appId means it's not a Steam game)
+  if (!appId) {
+    return <></>
+  }
 
   const tierClass = `protondb-decky-indicator-${protonDBTier || 'silver'}` as const
   const nativeClass = linuxSupport ? 'protondb-decky-indicator-native' : ''
@@ -135,7 +188,7 @@ export default function ProtonMedal({ hideSubmit = false, context = 'library', a
       }
     : {
         position: 'absolute' as const,
-        ...positonSettings[settings.position]
+        ...getPositionStyle(settings.position, heroHeight)
       }
 
   const containerClassName = context === 'store'
@@ -151,7 +204,7 @@ export default function ProtonMedal({ hideSubmit = false, context = 'library', a
       {show && !loading &&
         <>
           {style}
-          <div style={{ display: 'flex', gap: '8px' }}>
+          <Focusable style={{ display: 'flex', gap: '8px' }} flow-children="row">
             <DeckButton
               className={`protondb-decky-indicator ${tierClass} ${nativeClass} ${sizeClass} ${labelTypeOnHoverClass}`}
               type="button"
@@ -217,7 +270,7 @@ export default function ProtonMedal({ hideSubmit = false, context = 'library', a
                 )}
               </DeckButton>
             )}
-          </div>
+          </Focusable>
         </>
       }
     </div>

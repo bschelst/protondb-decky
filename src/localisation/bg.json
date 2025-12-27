@@ -10,6 +10,10 @@
     "expandOnHoverDescription": "Само минималистичен. Показване на текста на значката при фокусиране",
     "positionTopLeft": "Горе вляво",
     "positionTopRight": "Горе вдясно",
+    "positionBottomLeft": "Bottom Left",
+    "positionBottomMiddle": "Bottom Middle",
+    "positionBottomRight": "Bottom Right",
+    "positionTopMiddle": "Горе в центъра",
     "settings": "Настройки",
     "sizeMinimalist": "Минималистичен",
     "sizeRegular": "Обикновен",
@@ -34,5 +38,8 @@
     "disableSubmit": "Деактивиране на изпращането",
     "disableSubmitDesc": "Скриване на бутона за изпращане, който позволява изпращане на доклади към ProtonDB",
     "enableStoreBadge": "Активиране на значката в страниците на магазина",
-    "enableStoreBadgeDesc": "Показване на ProtonDB значката под съвместимостта на Steam Deck в страниците на магазина"
+    "enableStoreBadgeDesc": "Показване на ProtonDB значката под съвместимостта на Steam Deck в страниците на магазина",
+    "originalPluginDetected": "Открит оригинален плъгин",
+    "originalPluginWarning": "Оригиналният плъгин 'ProtonDB Badges' все още е инсталиран. Моля, деактивирайте го в настройките на Decky, за да избегнете конфликти с тази разширена версия.",
+    "originalPluginVersion": "Версия"
 }

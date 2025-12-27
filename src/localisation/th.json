@@ -10,6 +10,10 @@
     "expandOnHoverDescription": "เฉพาะแบบย่อ แสดงตรารับรองเมื่อโฟกัส",
     "positionTopLeft": "ด้านบนซ้าย",
     "positionTopRight": "ด้านบนขวา",
+    "positionBottomLeft": "Bottom Left",
+    "positionBottomMiddle": "Bottom Middle",
+    "positionBottomRight": "Bottom Right",
+    "positionTopMiddle": "ด้านบนกลาง",
     "settings": "การตั้งค่า",
     "sizeMinimalist": "แบบย่อ",
     "sizeRegular": "ปกติ",
@@ -34,5 +38,8 @@
     "disableSubmit": "ปิดใช้งานการส่ง",
     "disableSubmitDesc": "ซ่อนปุ่มส่งที่อนุญาตให้ส่งรายงานไปยัง ProtonDB",
     "enableStoreBadge": "เปิดใช้งานตรารับรองในหน้าร้านค้า",
-    "enableStoreBadgeDesc": "แสดงตรารับรอง ProtonDB ด้านล่างความเข้ากันได้ของ Steam Deck ในหน้าร้านค้า"
+    "enableStoreBadgeDesc": "แสดงตรารับรอง ProtonDB ด้านล่างความเข้ากันได้ของ Steam Deck ในหน้าร้านค้า",
+    "originalPluginDetected": "ตรวจพบปลั๊กอินต้นฉบับ",
+    "originalPluginWarning": "ปลั๊กอินต้นฉบับ 'ProtonDB Badges' ยังคงติดตั้งอยู่ โปรดปิดการใช้งานในการตั้งค่า Decky เพื่อหลีกเลี่ยงความขัดแย้งกับเวอร์ชันขยายนี้",
+    "originalPluginVersion": "เวอร์ชัน"
 }

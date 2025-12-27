@@ -1,6 +1,6 @@
 {
   "name": "protondb-decky-extended",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "Display tappable ProtonDB badges on your game pages, eXtended",
   "type": "module",
   "scripts": {
@@ -15,7 +15,8 @@
   "keywords": [
     "decky",
     "plugin",
-    "plugin-template",
+    "protondb",
+    "proton",
     "steam-deck",
     "deck"
   ],
@@ -37,7 +38,7 @@
     "eslint-config-prettier": "^9.1.0",
     "eslint-plugin-prettier": "^5.1.2",
     "prettier": "^3.1.1",
-    "rollup": "^4.19.1",
+    "rollup": "^4.22.4",
     "shx": "^0.3.4",
     "tslib": "^2.6.2",
     "typescript": "^5.3.3"
@@ -56,5 +57,8 @@
         "decky-frontend-lib"
       ]
     }
+  },
+  "overrides": {
+    "glob": ">=10.5.0"
   }
 }

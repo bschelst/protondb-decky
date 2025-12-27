@@ -10,6 +10,10 @@
     "expandOnHoverDescription": "최소한 전용. 포커스 시에 배지 내용을 표시 합니다",
     "positionTopLeft": "좌상단",
     "positionTopRight": "우상단",
+    "positionBottomLeft": "Bottom Left",
+    "positionBottomMiddle": "Bottom Middle",
+    "positionBottomRight": "Bottom Right",
+    "positionTopMiddle": "상단 중앙",
     "settings": "설정",
     "sizeMinimalist": "최소",
     "sizeRegular": "기본",
@@ -34,5 +38,8 @@
     "disableSubmit": "제출 비활성화",
     "disableSubmitDesc": "ProtonDB에 보고서를 제출할 수 있는 제출 버튼 숨기기",
     "enableStoreBadge": "상점 페이지에서 배지 활성화",
-    "enableStoreBadgeDesc": "상점 페이지의 Steam Deck 호환성 아래에 ProtonDB 배지 표시"
+    "enableStoreBadgeDesc": "상점 페이지의 Steam Deck 호환성 아래에 ProtonDB 배지 표시",
+    "originalPluginDetected": "원본 플러그인 감지됨",
+    "originalPluginWarning": "원본 'ProtonDB Badges' 플러그인이 여전히 설치되어 있습니다. 이 확장 버전과의 충돌을 피하려면 Decky 설정에서 비활성화하십시오.",
+    "originalPluginVersion": "버전"
 }

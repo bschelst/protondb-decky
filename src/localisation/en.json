@@ -9,7 +9,11 @@
     "expandOnHover": "Expand Label on hover",
     "expandOnHoverDescription": "Minimalist Only. Display badge text on focus",
     "positionTopLeft": "Top Left",
+    "positionTopMiddle": "Top Middle",
     "positionTopRight": "Top Right",
+    "positionBottomLeft": "Bottom Left",
+    "positionBottomMiddle": "Bottom Middle",
+    "positionBottomRight": "Bottom Right",
     "settings": "Settings",
     "sizeMinimalist": "Minimalist",
     "sizeRegular": "Regular",
@@ -34,5 +38,8 @@
     "disableSubmit": "Disable Submit",
     "disableSubmitDesc": "Hide the submit button that allows contributing reports to ProtonDB",
     "enableStoreBadge": "Enable Badge on Store Pages",
-    "enableStoreBadgeDesc": "Show ProtonDB badge below Steam Deck compatibility on store pages"
+    "enableStoreBadgeDesc": "Show ProtonDB badge below Steam Deck compatibility on store pages",
+    "originalPluginDetected": "Original Plugin Detected",
+    "originalPluginWarning": "The original 'ProtonDB Badges' plugin is still installed. Please disable it in the Decky settings to avoid conflicts with this extended version.",
+    "originalPluginVersion": "Version"
 }

@@ -10,6 +10,10 @@
     "expandOnHoverDescription": "Bare minimalistisk. Vis merketekst ved fokus",
     "positionTopLeft": "Øverst til venstre",
     "positionTopRight": "Øverst til høyre",
+    "positionBottomLeft": "Bottom Left",
+    "positionBottomMiddle": "Bottom Middle",
+    "positionBottomRight": "Bottom Right",
+    "positionTopMiddle": "Øverst i midten",
     "settings": "Innstillinger",
     "sizeMinimalist": "Minimalistisk",
     "sizeRegular": "Normal",
@@ -34,5 +38,8 @@
     "disableSubmit": "Deaktiver innsending",
     "disableSubmitDesc": "Skjul innsendingsknappen som tillater bidrag av rapporter til ProtonDB",
     "enableStoreBadge": "Aktiver merke på butikksider",
-    "enableStoreBadgeDesc": "Vis ProtonDB merke under Steam Deck kompatibilitet på butikksider"
+    "enableStoreBadgeDesc": "Vis ProtonDB merke under Steam Deck kompatibilitet på butikksider",
+    "originalPluginDetected": "Opprinnelig plugin oppdaget",
+    "originalPluginWarning": "Den opprinnelige 'ProtonDB Badges' plugin er fortsatt installert. Vennligst deaktiver den i Decky-innstillingene for å unngå konflikter med denne utvidede versjonen.",
+    "originalPluginVersion": "Versjon"
 }

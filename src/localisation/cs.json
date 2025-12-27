@@ -10,6 +10,10 @@
     "expandOnHoverDescription": "Pouze minimalistický. Zobrazit text odznaku při zaměření",
     "positionTopLeft": "Vlevo nahoře",
     "positionTopRight": "Vpravo nahoře",
+    "positionBottomLeft": "Bottom Left",
+    "positionBottomMiddle": "Bottom Middle",
+    "positionBottomRight": "Bottom Right",
+    "positionTopMiddle": "Nahoře uprostřed",
     "settings": "Nastavení",
     "sizeMinimalist": "Minimalistický",
     "sizeRegular": "Běžný",
@@ -34,5 +38,8 @@
     "disableSubmit": "Zakázat odeslání",
     "disableSubmitDesc": "Skrýt tlačítko odeslání, které umožňuje přispívat reporty do ProtonDB",
     "enableStoreBadge": "Povolit odznak na stránkách obchodu",
-    "enableStoreBadgeDesc": "Zobrazit ProtonDB odznak pod kompatibilitou Steam Deck na stránkách obchodu"
+    "enableStoreBadgeDesc": "Zobrazit ProtonDB odznak pod kompatibilitou Steam Deck na stránkách obchodu",
+    "originalPluginDetected": "Detekován původní plugin",
+    "originalPluginWarning": "Původní plugin 'ProtonDB Badges' je stále nainstalován. Deaktivujte jej v nastavení Decky, abyste se vyhnuli konfliktům s touto rozšířenou verzí.",
+    "originalPluginVersion": "Verze"
 }

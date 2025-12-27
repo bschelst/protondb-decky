@@ -10,6 +10,10 @@
     "expandOnHoverDescription": "Yalnızca minimalist. Odaklandığında rozet metnini göster",
     "positionTopLeft": "Sol Üst",
     "positionTopRight": "Sağ Üst",
+    "positionBottomLeft": "Bottom Left",
+    "positionBottomMiddle": "Bottom Middle",
+    "positionBottomRight": "Bottom Right",
+    "positionTopMiddle": "Üst Orta",
     "settings": "Ayarlar",
     "sizeMinimalist": "Minimalist",
     "sizeRegular": "Normal",
@@ -34,5 +38,8 @@
     "disableSubmit": "Göndermeyi devre dışı bırak",
     "disableSubmitDesc": "ProtonDB'ye rapor göndermeyi sağlayan gönder düğmesini gizle",
     "enableStoreBadge": "Mağaza sayfalarında rozeti etkinleştir",
-    "enableStoreBadgeDesc": "Mağaza sayfalarında Steam Deck uyumluluğunun altında ProtonDB rozetini göster"
+    "enableStoreBadgeDesc": "Mağaza sayfalarında Steam Deck uyumluluğunun altında ProtonDB rozetini göster",
+    "originalPluginDetected": "Orijinal eklenti tespit edildi",
+    "originalPluginWarning": "Orijinal 'ProtonDB Badges' eklentisi hala yüklü. Bu genişletilmiş sürümle çakışmaları önlemek için lütfen Decky ayarlarından devre dışı bırakın.",
+    "originalPluginVersion": "Sürüm"
 }

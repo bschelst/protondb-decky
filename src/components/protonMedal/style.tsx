@@ -20,6 +20,7 @@ export default (
 
     .protondb-decky-indicator.gpfocus, .protondb-decky-indicator:hover {
       filter: brightness(1.3);
+      outline: 2px solid black;
     }
 
     .protondb-decky-indicator span {
@@ -176,6 +177,7 @@ export default (
 
     .protondb-decky-submit-button.gpfocus, .protondb-decky-submit-button:hover {
       background: #8a8a8a;
+      outline: 2px solid black;
     }
 
     .protondb-decky-submit-button > div {

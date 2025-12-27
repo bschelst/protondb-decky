@@ -10,6 +10,10 @@
     "expandOnHoverDescription": "Chỉ tối giản. Hiển thị văn bản huy hiệu khi được chọn",
     "positionTopLeft": "Trên cùng bên trái",
     "positionTopRight": "Trên cùng bên phải",
+    "positionBottomLeft": "Bottom Left",
+    "positionBottomMiddle": "Bottom Middle",
+    "positionBottomRight": "Bottom Right",
+    "positionTopMiddle": "Trên cùng giữa",
     "settings": "Cài đặt",
     "sizeMinimalist": "Tối giản",
     "sizeRegular": "Thông thường",
@@ -34,5 +38,8 @@
     "disableSubmit": "Vô hiệu hóa gửi",
     "disableSubmitDesc": "Ẩn nút gửi cho phép đóng góp báo cáo cho ProtonDB",
     "enableStoreBadge": "Bật huy hiệu trên trang cửa hàng",
-    "enableStoreBadgeDesc": "Hiển thị huy hiệu ProtonDB bên dưới khả năng tương thích Steam Deck trên trang cửa hàng"
+    "enableStoreBadgeDesc": "Hiển thị huy hiệu ProtonDB bên dưới khả năng tương thích Steam Deck trên trang cửa hàng",
+    "originalPluginDetected": "Đã phát hiện plugin gốc",
+    "originalPluginWarning": "Plugin gốc 'ProtonDB Badges' vẫn đang được cài đặt. Vui lòng tắt nó trong cài đặt Decky để tránh xung đột với phiên bản mở rộng này.",
+    "originalPluginVersion": "Phiên bản"
 }

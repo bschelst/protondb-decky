@@ -10,6 +10,10 @@
     "expandOnHoverDescription": "Solo minimalista. Mostrar texto al enfocar",
     "positionTopLeft": "Superior izquierda",
     "positionTopRight": "Superior derecha",
+    "positionBottomLeft": "Bottom Left",
+    "positionBottomMiddle": "Bottom Middle",
+    "positionBottomRight": "Bottom Right",
+    "positionTopMiddle": "Superior centro",
     "settings": "Configuración",
     "sizeMinimalist": "Minimalista",
     "sizeRegular": "Regular",
@@ -34,5 +38,8 @@
     "disableSubmit": "Desactivar envío",
     "disableSubmitDesc": "Ocultar el botón de envío que permite contribuir informes a ProtonDB",
     "enableStoreBadge": "Activar medalla en páginas de la tienda",
-    "enableStoreBadgeDesc": "Mostrar medalla ProtonDB debajo de la compatibilidad Steam Deck en páginas de la tienda"
+    "enableStoreBadgeDesc": "Mostrar medalla ProtonDB debajo de la compatibilidad Steam Deck en páginas de la tienda",
+    "originalPluginDetected": "Plugin original detectado",
+    "originalPluginWarning": "El plugin original 'ProtonDB Badges' todavía está instalado. Por favor desactívalo en la configuración de Decky para evitar conflictos con esta versión extendida.",
+    "originalPluginVersion": "Versión"
 }

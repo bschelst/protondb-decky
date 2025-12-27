@@ -10,6 +10,10 @@
     "expandOnHoverDescription": "Nur für Minimalistisch. Zeige den Abzeichen-Text beim Fokussieren",
     "positionTopLeft": "Oben Links",
     "positionTopRight": "Oben Rechts",
+    "positionBottomLeft": "Bottom Left",
+    "positionBottomMiddle": "Bottom Middle",
+    "positionBottomRight": "Bottom Right",
+    "positionTopMiddle": "Oben Mitte",
     "settings": "Einstellungen",
     "sizeMinimalist": "Minimalistisch",
     "sizeRegular": "Regulär",
@@ -34,5 +38,8 @@
     "disableSubmit": "Senden deaktivieren",
     "disableSubmitDesc": "Verberge die Senden-Schaltfläche, die das Einreichen von Berichten an ProtonDB ermöglicht",
     "enableStoreBadge": "Abzeichen auf Store-Seiten aktivieren",
-    "enableStoreBadgeDesc": "Zeige ProtonDB Abzeichen unter Steam Deck Kompatibilität auf Store-Seiten"
+    "enableStoreBadgeDesc": "Zeige ProtonDB Abzeichen unter Steam Deck Kompatibilität auf Store-Seiten",
+    "originalPluginDetected": "Original-Plugin erkannt",
+    "originalPluginWarning": "Das Original-Plugin 'ProtonDB Badges' ist noch installiert. Bitte deaktivieren Sie es in den Decky-Einstellungen, um Konflikte mit dieser erweiterten Version zu vermeiden.",
+    "originalPluginVersion": "Version"
 }

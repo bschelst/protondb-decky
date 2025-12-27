@@ -10,6 +10,10 @@
     "expandOnHoverDescription": "Vain minimalisti. Näytä merkkiteksti tarkennettaessa",
     "positionTopLeft": "Vasen Yläreuna",
     "positionTopRight": "Oikea Yläreuna",
+    "positionBottomLeft": "Bottom Left",
+    "positionBottomMiddle": "Bottom Middle",
+    "positionBottomRight": "Bottom Right",
+    "positionTopMiddle": "Keskellä Yläreuna",
     "settings": "Asetukset",
     "sizeMinimalist": "Minimalisti",
     "sizeRegular": "Tavallinen",
@@ -34,5 +38,8 @@
     "disableSubmit": "Poista lähetys käytöstä",
     "disableSubmitDesc": "Piilota lähetyspainike, joka mahdollistaa raporttien lähettämisen ProtonDB:hen",
     "enableStoreBadge": "Ota merkki käyttöön kauppasivuilla",
-    "enableStoreBadgeDesc": "Näytä ProtonDB merkki Steam Deck yhteensopivuuden alla kauppasivuilla"
+    "enableStoreBadgeDesc": "Näytä ProtonDB merkki Steam Deck yhteensopivuuden alla kauppasivuilla",
+    "originalPluginDetected": "Alkuperäinen lisäosa havaittu",
+    "originalPluginWarning": "Alkuperäinen 'ProtonDB Badges' -lisäosa on edelleen asennettuna. Poista se käytöstä Decky-asetuksista välttääksesi ristiriitoja tämän laajennetun version kanssa.",
+    "originalPluginVersion": "Versio"
 }

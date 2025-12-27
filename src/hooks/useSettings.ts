@@ -4,7 +4,7 @@ import { BehaviorSubject } from 'rxjs'
 
 export type Settings = {
   size: 'regular' | 'small' | 'minimalist'
-  position: 'tl' | 'tr' | 'bl' | 'br'
+  position: 'tl' | 'tr' | 'tm' | 'bl' | 'br' | 'bm'
   labelTypeOnHover: 'off' | 'small' | 'regular'
   disableSubmit: boolean
 }

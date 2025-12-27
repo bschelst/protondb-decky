@@ -10,6 +10,10 @@
     "expandOnHoverDescription": "Μόνο για Μινιμαλιστικό. Εμφάνιση κειμένου σήματος στην εστίαση",
     "positionTopLeft": "Πάνω Αριστερά",
     "positionTopRight": "Πάνω Δεξιά",
+    "positionBottomLeft": "Bottom Left",
+    "positionBottomMiddle": "Bottom Middle",
+    "positionBottomRight": "Bottom Right",
+    "positionTopMiddle": "Πάνω Κέντρο",
     "settings": "Ρυθμίσεις",
     "sizeMinimalist": "Μινιμαλιστικό",
     "sizeRegular": "Κανονικό",
@@ -34,5 +38,8 @@
     "disableSubmit": "Απενεργοποίηση υποβολής",
     "disableSubmitDesc": "Απόκρυψη του κουμπιού υποβολής που επιτρέπει την υποβολή αναφορών στο ProtonDB",
     "enableStoreBadge": "Ενεργοποίηση σήματος στις σελίδες καταστήματος",
-    "enableStoreBadgeDesc": "Εμφάνιση σήματος ProtonDB κάτω από τη συμβατότητα Steam Deck στις σελίδες καταστήματος"
+    "enableStoreBadgeDesc": "Εμφάνιση σήματος ProtonDB κάτω από τη συμβατότητα Steam Deck στις σελίδες καταστήματος",
+    "originalPluginDetected": "Ανιχνεύθηκε το αρχικό plugin",
+    "originalPluginWarning": "Το αρχικό plugin 'ProtonDB Badges' είναι ακόμα εγκατεστημένο. Απενεργοποιήστε το στις ρυθμίσεις Decky για να αποφύγετε διενέξεις με αυτήν την εκτεταμένη έκδοση.",
+    "originalPluginVersion": "Έκδοση"
 }

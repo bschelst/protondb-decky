@@ -10,6 +10,10 @@
     "expandOnHoverDescription": "Samo minimalistično. Prikaži besedilo značke ob fokusu",
     "positionTopLeft": "Zgoraj levo",
     "positionTopRight": "Zgoraj desno",
+    "positionBottomLeft": "Bottom Left",
+    "positionBottomMiddle": "Bottom Middle",
+    "positionBottomRight": "Bottom Right",
+    "positionTopMiddle": "Zgoraj na sredini",
     "settings": "Nastavitve",
     "sizeMinimalist": "Minimalistično",
     "sizeRegular": "Običajno",
@@ -34,5 +38,8 @@
     "disableSubmit": "Onemogoči pošiljanje",
     "disableSubmitDesc": "Skrij gumb za pošiljanje, ki omogoča prispevanje poročil v ProtonDB",
     "enableStoreBadge": "Omogoči značko na straneh trgovine",
-    "enableStoreBadgeDesc": "Prikaži značko ProtonDB pod kompatibilnostjo Steam Deck na straneh trgovine"
+    "enableStoreBadgeDesc": "Prikaži značko ProtonDB pod kompatibilnostjo Steam Deck na straneh trgovine",
+    "originalPluginDetected": "Zaznan izvirni vtičnik",
+    "originalPluginWarning": "Izvirni vtičnik 'ProtonDB Badges' je še vedno nameščen. Onemogočite ga v nastavitvah Decky, da se izognete konfliktom s to razširjeno različico.",
+    "originalPluginVersion": "Različica"
 }

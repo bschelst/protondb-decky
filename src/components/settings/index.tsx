@@ -11,6 +11,7 @@ import React, { FC, ReactNode } from 'react'
 import { clearCache } from '../../cache/protobDbCache'
 import useTranslations from '../../hooks/useTranslations'
 import { useSettings } from '../../hooks/useSettings'
+import { useOriginalPluginCheck } from '../../hooks/useOriginalPluginCheck'
 import Spinner from '../spinner'
 
 type ExtendedPanelSectionProps = PanelSectionProps & {
@@ -35,6 +36,7 @@ export default function Index() {
   const { settings, setSize, setPosition, setLabelOnHover, setDisableSubmit, loading } =
     useSettings()
   const t = useTranslations()
+  const { status: originalPluginStatus, loading: pluginCheckLoading } = useOriginalPluginCheck()
 
   const sizeOptions = [
     { data: 0, label: t('sizeRegular'), value: 'regular' },
@@ -44,7 +46,11 @@ export default function Index() {
 
   const positionOptions = [
     { data: 0, label: t('positionTopLeft'), value: 'tl' },
-    { data: 1, label: t('positionTopRight'), value: 'tr' }
+    { data: 1, label: t('positionTopMiddle'), value: 'tm' },
+    { data: 2, label: t('positionTopRight'), value: 'tr' },
+    { data: 3, label: t('positionBottomLeft'), value: 'bl' },
+    { data: 4, label: t('positionBottomMiddle'), value: 'bm' },
+    { data: 5, label: t('positionBottomRight'), value: 'br' }
   ] as const
 
   const hoverTypeOptions = [
@@ -68,6 +74,35 @@ export default function Index() {
   }
   return (
     <div>
+      {originalPluginStatus?.installed && !pluginCheckLoading && (
+        <div style={{
+          background: '#ff6b35',
+          border: '2px solid #e55a2e',
+          borderRadius: '8px',
+          padding: '16px',
+          marginBottom: '16px',
+          color: '#000000'
+        }}>
+          <div style={{
+            fontSize: '16px',
+            fontWeight: 'bold',
+            marginBottom: '8px',
+            display: 'flex',
+            alignItems: 'center',
+            gap: '8px'
+          }}>
+            ⚠️ {t('originalPluginDetected')}
+          </div>
+          <div style={{ fontSize: '14px', marginBottom: '8px' }}>
+            {t('originalPluginWarning')}
+          </div>
+          {originalPluginStatus.version && (
+            <div style={{ fontSize: '12px', opacity: 0.8 }}>
+              {t('originalPluginVersion')}: {originalPluginStatus.version}
+            </div>
+          )}
+        </div>
+      )}
       <DeckPanelSection title={t('settings')}>
         <DeckPanelSectionRow>
           <DropdownItem

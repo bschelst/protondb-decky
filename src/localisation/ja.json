@@ -10,6 +10,10 @@
     "expandOnHoverDescription": "ミニマリストのみ。フォーカス時にバッジテキストを表示",
     "positionTopLeft": "左上",
     "positionTopRight": "右上",
+    "positionBottomLeft": "Bottom Left",
+    "positionBottomMiddle": "Bottom Middle",
+    "positionBottomRight": "Bottom Right",
+    "positionTopMiddle": "上中央",
     "settings": "設定",
     "sizeMinimalist": "ミニマリスト",
     "sizeRegular": "標準",
@@ -34,5 +38,8 @@
     "disableSubmit": "送信を無効化",
     "disableSubmitDesc": "ProtonDBへのレポート送信を可能にする送信ボタンを非表示にする",
     "enableStoreBadge": "ストアページでバッジを有効化",
-    "enableStoreBadgeDesc": "ストアページのSteam Deck互換性の下にProtonDBバッジを表示"
+    "enableStoreBadgeDesc": "ストアページのSteam Deck互換性の下にProtonDBバッジを表示",
+    "originalPluginDetected": "オリジナルプラグインが検出されました",
+    "originalPluginWarning": "オリジナルの「ProtonDB Badges」プラグインがまだインストールされています。この拡張版との競合を避けるため、Decky設定で無効にしてください。",
+    "originalPluginVersion": "バージョン"
 }

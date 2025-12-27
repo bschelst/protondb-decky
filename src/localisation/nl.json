@@ -10,6 +10,10 @@
     "expandOnHoverDescription": "Alleen minimalistisch. Badge-tekst weergeven bij focus",
     "positionTopLeft": "Linksboven",
     "positionTopRight": "Rechtsboven",
+    "positionBottomLeft": "Bottom Left",
+    "positionBottomMiddle": "Bottom Middle",
+    "positionBottomRight": "Bottom Right",
+    "positionTopMiddle": "Midden boven",
     "settings": "Instellingen",
     "sizeMinimalist": "Minimalistisch",
     "sizeRegular": "Normaal",
@@ -34,5 +38,8 @@
     "disableSubmit": "Verzenden uitschakelen",
     "disableSubmitDesc": "Verberg de verzendknop waarmee rapporten naar ProtonDB kunnen worden bijgedragen",
     "enableStoreBadge": "Badge inschakelen op winkelpagina's",
-    "enableStoreBadgeDesc": "Toon ProtonDB badge onder Steam Deck compatibiliteit op winkelpagina's"
+    "enableStoreBadgeDesc": "Toon ProtonDB badge onder Steam Deck compatibiliteit op winkelpagina's",
+    "originalPluginDetected": "Originele plugin gedetecteerd",
+    "originalPluginWarning": "De originele 'ProtonDB Badges' plugin is nog steeds geïnstalleerd. Schakel deze uit in de Decky-instellingen om conflicten met deze uitgebreide versie te voorkomen.",
+    "originalPluginVersion": "Versie"
 }

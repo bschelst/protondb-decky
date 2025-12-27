@@ -10,6 +10,10 @@
     "expandOnHoverDescription": "Doar minimalist. Afișați textul ecusonului la focalizare",
     "positionTopLeft": "Stânga Sus",
     "positionTopRight": "Dreapta Sus",
+    "positionBottomLeft": "Bottom Left",
+    "positionBottomMiddle": "Bottom Middle",
+    "positionBottomRight": "Bottom Right",
+    "positionTopMiddle": "Centru Sus",
     "settings": "Setări",
     "sizeMinimalist": "Minimalist",
     "sizeRegular": "Obișnuit",
@@ -34,5 +38,8 @@
     "disableSubmit": "Dezactivați trimiterea",
     "disableSubmitDesc": "Ascundeți butonul de trimitere care permite contribuirea rapoartelor către ProtonDB",
     "enableStoreBadge": "Activați ecusonul pe paginile magazinului",
-    "enableStoreBadgeDesc": "Afișați ecusonul ProtonDB sub compatibilitatea Steam Deck pe paginile magazinului"
+    "enableStoreBadgeDesc": "Afișați ecusonul ProtonDB sub compatibilitatea Steam Deck pe paginile magazinului",
+    "originalPluginDetected": "Plugin original detectat",
+    "originalPluginWarning": "Plugin-ul original 'ProtonDB Badges' este încă instalat. Vă rugăm să îl dezactivați în setările Decky pentru a evita conflictele cu această versiune extinsă.",
+    "originalPluginVersion": "Versiune"
 }

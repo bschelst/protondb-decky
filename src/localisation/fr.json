@@ -10,6 +10,10 @@
     "expandOnHoverDescription": "Minimaliste uniquement. Afficher le texte du badge au focus",
     "positionTopLeft": "En haut à gauche",
     "positionTopRight": "En haut à droite",
+    "positionBottomLeft": "Bottom Left",
+    "positionBottomMiddle": "Bottom Middle",
+    "positionBottomRight": "Bottom Right",
+    "positionTopMiddle": "En haut au centre",
     "settings": "Paramètres",
     "sizeMinimalist": "Minimaliste",
     "sizeRegular": "Standard",
@@ -34,5 +38,8 @@
     "disableSubmit": "Désactiver l'envoi",
     "disableSubmitDesc": "Masquer le bouton d'envoi qui permet de contribuer des rapports à ProtonDB",
     "enableStoreBadge": "Activer le badge sur les pages du magasin",
-    "enableStoreBadgeDesc": "Afficher le badge ProtonDB sous la compatibilité Steam Deck sur les pages du magasin"
+    "enableStoreBadgeDesc": "Afficher le badge ProtonDB sous la compatibilité Steam Deck sur les pages du magasin",
+    "originalPluginDetected": "Plugin original détecté",
+    "originalPluginWarning": "Le plugin original 'ProtonDB Badges' est toujours installé. Veuillez le désactiver dans les paramètres Decky pour éviter les conflits avec cette version étendue.",
+    "originalPluginVersion": "Version"
 }
