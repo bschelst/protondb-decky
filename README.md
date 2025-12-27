@@ -26,6 +26,10 @@ Choose between Regular, Small, and Minimalist (No text)
 ### Position
 Place the badge around different corners of the game page header.
 
+### Disable Submit
+If you don't want to submit reports, you can disable the submit badge.
+
+
 ## Limitations
 
 **Store Pages:** ProtonDB badges are currently **not supported on Steam store pages** due to Steam's security architecture. Store pages run in an isolated browsing context that cannot be accessed by Decky plugins. Badges work on **library game pages only**.
