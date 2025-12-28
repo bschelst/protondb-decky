@@ -112,7 +112,7 @@ https://github.com/SteamDeckHomebrew/decky-loader
 
 4. Select the downloaded `protondb-decky-extended-<version>.zip`.
 
-5. Enable the plugin.
+5. Restart steam client.
 
 The badges will appear automatically on supported games in your library.
 
