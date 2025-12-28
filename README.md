@@ -14,7 +14,7 @@ Display **tappable ProtonDB badges** directly on your Steam library game pages â
 
 ProtonDB Badges eXtended retrieves ProtonDB ratings via the ProtonDB API and overlays them as a tappable badge on each gameâ€™s library page. Tapping the badge opens the corresponding ProtonDB page.
 
-This plugin is an actively maintained extension of the original *protondb-decky* plugin and adds a **Submit** button, allowing users to submit ProtonDB reports **directly from Game Mode**, without opening a browser.  
+This plugin is an actively maintained extension of the original *protondb-decky* plugin and adds a **Submit** button, allowing users to submit ProtonDB reports **directly from Game Mode**, from their library, without opening a browser.  
 The submit button can be enabled or disabled in the plugin settings.
 
 ---
@@ -24,7 +24,7 @@ The submit button can be enabled or disabled in the plugin settings.
 The original protondb-decky plugin is no longer maintained and has been archived. Additionally, submitting ProtonDB reports required several manual steps outside Game Mode.
 
 This plugin was created to:
-- Keep ProtonDB badges available on Steam Deck/Steam Client Bid mode.
+- Keep ProtonDB badges available on Steam Deck/Steam Client Big mode.
 - Simplify report submission.
 - Allow submission to be done directly from the game page in Game Mode.
 
