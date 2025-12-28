@@ -14,6 +14,7 @@ All notable changes to the Protondb-decky-eXtended plugin are documented in this
 
 ### Known issues
 - Store page/Library badges disabled by default
+- With external controller it is impossible to open the store badge.
 
 ### Fixed
 - Fixed plugin loading issue with Decky's install from zip feature
