@@ -25,9 +25,10 @@ The submit button can be enabled or disabled in the plugin settings.
 The original protondb-decky plugin is no longer maintained and has been archived. Additionally, submitting ProtonDB reports required several manual steps outside Game Mode.
 
 This plugin was created to:
-- Keep ProtonDB badges available on Steam Deck/Steam Client Big mode.
+- Keep ProtonDB badges available on Steam Deck/Steam Client Picture Big mode.
 - Simplify report submission.
 - Allow submission to be done directly from the game page in Game Mode.
+- Show badges on Steam Store page.
 
 ---
 
