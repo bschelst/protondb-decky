@@ -232,15 +232,19 @@ export default function ProtonMedal({ hideSubmit = false, context = 'library', a
                 <FaReact />
               </div>
               <span>
-                {protonDBTier ? (
-                  settings.size === 'small' ||
-                  (settings.size === 'minimalist' &&
-                    settings.labelTypeOnHover !== 'regular')
-                  ? t(`tierMin${protonDBTier}`)
-                  : t(`tier${protonDBTier}`)
-                ) : (
-                  t('noReport')
-                )}
+                {(() => {
+                  const text = protonDBTier ? (
+                    settings.size === 'small' ||
+                    (settings.size === 'minimalist' &&
+                      settings.labelTypeOnHover !== 'regular')
+                    ? t(`tierMin${protonDBTier}`)
+                    : t(`tier${protonDBTier}`)
+                  ) : (
+                    t('noReport')
+                  )
+                  // Limit to 20 characters max
+                  return text.length > 20 ? text.slice(0, 20) : text
+                })()}
               </span>
             </DeckButton>
             {!settings.disableSubmit && !hideSubmit && (

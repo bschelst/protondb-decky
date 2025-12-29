@@ -6,3 +6,5 @@ export const appTypes = {
   2048: 'video',
   65536: 'playtest'
 }
+
+export const PLUGIN_VERSION = '0.0.7'

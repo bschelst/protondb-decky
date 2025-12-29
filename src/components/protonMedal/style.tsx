@@ -81,9 +81,9 @@ export default (
     .protondb-decky-indicator-regular > span {
       margin-left: 10px;
       font-size: 24px;
-      width: 132px;
       line-height: 24px;
       margin-right: 28px;
+      white-space: nowrap;
     }
 
     .protondb-decky-indicator-small {
@@ -158,9 +158,9 @@ export default (
       display: block;
       margin-left: 10px;
       font-size: 24px;
-      width: 132px;
       line-height: 24px;
       margin-right: 28px;
+      white-space: nowrap;
     }
 
     .protondb-decky-submit-button {

@@ -1,6 +1,6 @@
 {
   "name": "protondb-decky-extended",
-  "version": "0.0.6",
+  "version": "0.0.7",
   "description": "Display tappable ProtonDB badges on your game pages, eXtended",
   "type": "module",
   "scripts": {

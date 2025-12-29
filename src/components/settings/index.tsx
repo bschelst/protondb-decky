@@ -2,17 +2,26 @@ import {
   ButtonItem,
   ButtonItemProps,
   DropdownItem,
+  Field,
+  Navigation,
   PanelSection,
   PanelSectionProps,
   PanelSectionRow,
+  showModal,
   ToggleField
 } from '@decky/ui'
 import React, { FC, ReactNode } from 'react'
+import { FaGithub, FaQuestionCircle } from 'react-icons/fa'
 import { clearCache } from '../../cache/protobDbCache'
 import useTranslations from '../../hooks/useTranslations'
 import { useSettings } from '../../hooks/useSettings'
 import { useOriginalPluginCheck } from '../../hooks/useOriginalPluginCheck'
+import { useSystemInfo } from '../../hooks/useSystemInfo'
+import { PLUGIN_VERSION } from '../../constants'
 import Spinner from '../spinner'
+import HelpModal from '../helpModal'
+
+const GITHUB_URL = 'https://github.com/bschelst/protondb-decky-extended'
 
 type ExtendedPanelSectionProps = PanelSectionProps & {
   children: ReactNode
@@ -37,6 +46,7 @@ export default function Index() {
     useSettings()
   const t = useTranslations()
   const { status: originalPluginStatus, loading: pluginCheckLoading } = useOriginalPluginCheck()
+  const { systemInfo, getOsDisplay } = useSystemInfo()
 
   const sizeOptions = [
     { data: 0, label: t('sizeRegular'), value: 'regular' },
@@ -215,6 +225,51 @@ export default function Index() {
           >
             {t('clearCache')}
           </DeckButtonItem>
+        </DeckPanelSectionRow>
+      </DeckPanelSection>
+      <DeckPanelSection title={t('sectionLinks')}>
+        <DeckPanelSectionRow>
+          <DeckButtonItem
+            bottomSeparator="standard"
+            layout="below"
+            onClick={() => showModal(<HelpModal />)}
+          >
+            <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+              <FaQuestionCircle size={20} />
+              <span>{t('helpButton')}</span>
+            </div>
+          </DeckButtonItem>
+        </DeckPanelSectionRow>
+        <DeckPanelSectionRow>
+          <DeckButtonItem
+            bottomSeparator="none"
+            layout="below"
+            onClick={() => Navigation.NavigateToExternalWeb(GITHUB_URL)}
+          >
+            <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+              <FaGithub size={20} />
+              <span>GitHub</span>
+            </div>
+          </DeckButtonItem>
+        </DeckPanelSectionRow>
+      </DeckPanelSection>
+      <DeckPanelSection title="VERSION INFO">
+        <DeckPanelSectionRow>
+          <Field label="eXtended" bottomSeparator="none">
+            {PLUGIN_VERSION}
+          </Field>
+        </DeckPanelSectionRow>
+        <DeckPanelSectionRow>
+          <Field label={systemInfo?.os_name?.toLowerCase().includes('steamos') ? 'SteamOS' : 'Linux'} bottomSeparator="none">
+            {systemInfo?.os_name?.toLowerCase().includes('steamos')
+              ? systemInfo?.os_version || 'Loading...'
+              : systemInfo?.os_name || 'Loading...'}
+          </Field>
+        </DeckPanelSectionRow>
+        <DeckPanelSectionRow>
+          <Field label="Decky" bottomSeparator="none">
+            {systemInfo?.decky_version || 'Loading...'}
+          </Field>
         </DeckPanelSectionRow>
       </DeckPanelSection>
     </div>

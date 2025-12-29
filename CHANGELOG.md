@@ -1,6 +1,14 @@
 # Changelog
 All important changes to the Protondb-decky-eXtended plugin are documented here.
 
+## [0.0.7] - 2025-12-28
+### Added
+- timeout for ProtonDB API requests to avoid slow page loads
+- GitHub button in settings to quickly access the project repository
+- "How to Use" help page with instructions on using the plugin and registering Steam Deck on ProtonDB
+- font synced on storage page
+- System info added.
+
 ## [0.0.6] - 2025-12-28
 ### Added
 - Toggle to enable/disable library page badges.

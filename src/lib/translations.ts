@@ -19,6 +19,7 @@ import pt from '../localisation/pt.json'
 import ptBr from '../localisation/pt-br.json'
 import ro from '../localisation/ro.json'
 import ru from '../localisation/ru.json'
+import sl from '../localisation/sl.json'
 import sv from '../localisation/sv.json'
 import th from '../localisation/th.json'
 import tr from '../localisation/tr.json'
@@ -49,6 +50,7 @@ const languages = {
   ptBr,
   ro,
   ru,
+  sl,
   sv,
   th,
   tr,

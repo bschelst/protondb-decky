@@ -3,6 +3,19 @@ import { findModuleExport } from '@decky/ui'
 import { BehaviorSubject } from 'rxjs'
 import { SettingsContext } from '../hooks/useSettings'
 
+const FETCH_TIMEOUT_MS = 2000
+
+// Helper function to add timeout to fetch requests
+async function fetchWithTimeout(
+  fetchPromise: Promise<Response>,
+  timeoutMs: number = FETCH_TIMEOUT_MS
+): Promise<Response> {
+  const timeoutPromise = new Promise<never>((_, reject) => {
+    setTimeout(() => reject(new Error('Request timeout')), timeoutMs)
+  })
+  return Promise.race([fetchPromise, timeoutPromise])
+}
+
 // Store app ID observable - components can subscribe to this
 export const storeAppId$ = new BehaviorSubject<string>('')
 
@@ -46,11 +59,14 @@ async function injectBadgeIntoStore(appId: string) {
     return
   }
 
-  // Fetch ProtonDB data from plugin side to avoid CORS issues
+  // Fetch ProtonDB data
   let tier = 'pending'
   let tierLabel = 'NO REPORT'
+
   try {
-    const response = await fetchNoCors(`https://www.protondb.com/api/v1/reports/summaries/${appId}.json`)
+    const response = await fetchWithTimeout(
+      fetchNoCors(`https://www.protondb.com/api/v1/reports/summaries/${appId}.json`)
+    )
     if (response.ok) {
       const data = await response.json()
       if (data.tier) {
@@ -71,11 +87,11 @@ async function injectBadgeIntoStore(appId: string) {
       const existing = document.getElementById('protondb-store-badge');
       if (existing) existing.remove();
 
-      // Create badge container
+      // Create badge container (matching library badge regular size styling)
       const badge = document.createElement('div');
       badge.id = 'protondb-store-badge';
-      badge.style.cssText = 'position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%); z-index: 999999; background: ${tierColor.bg}; padding: 10px 20px; border-radius: 8px; color: ${tierColor.text}; font-family: Arial; font-size: 14px; cursor: pointer; border: 2px solid ${tierColor.border};';
-      badge.innerHTML = '<span style="margin-right: 8px; font-size: 24px; vertical-align: middle;">⚛️</span> PROTONDB: ${tierLabel}';
+      badge.style.cssText = 'position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%); z-index: 999999; background: ${tierColor.bg}; padding: 6px 18px; border-radius: 8px; color: ${tierColor.text}; cursor: pointer; display: flex; align-items: center; width: max-content; height: max-content;';
+      badge.innerHTML = '<span style="font-size: 28px; line-height: 28px;">⚛️</span><span style="margin-left: 10px; font-size: 24px; line-height: 24px; white-space: nowrap;">${tierLabel}</span>';
       badge.onclick = function() { window.open('https://www.protondb.com/app/${appId}', '_blank'); };
       document.body.appendChild(badge);
     })();
