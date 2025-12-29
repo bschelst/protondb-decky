@@ -34,7 +34,7 @@ This plugin was created to:
 - Keep ProtonDB badges available on Steam Deck/Steam Client Picture Big mode.
 - Simplify report submission.
 - Allow submission to be done directly from the game page in Game Mode.
-- Show badge on Steam Store page.
+- Show badge on Steam Store page. (only on Steam Deck)
 
 ---
 
