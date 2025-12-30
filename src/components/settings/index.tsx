@@ -15,7 +15,6 @@ import { FaGithub, FaQuestionCircle } from 'react-icons/fa'
 import { clearCache } from '../../cache/protobDbCache'
 import useTranslations from '../../hooks/useTranslations'
 import { useSettings } from '../../hooks/useSettings'
-import { useOriginalPluginCheck } from '../../hooks/useOriginalPluginCheck'
 import { useSystemInfo } from '../../hooks/useSystemInfo'
 import { PLUGIN_VERSION } from '../../constants'
 import Spinner from '../spinner'
@@ -45,7 +44,6 @@ export default function Index() {
   const { settings, setSize, setPosition, setLabelOnHover, setDisableSubmit, setEnableLibraryBadge, setEnableStoreBadge, loading } =
     useSettings()
   const t = useTranslations()
-  const { status: originalPluginStatus, loading: pluginCheckLoading } = useOriginalPluginCheck()
   const { systemInfo, getOsDisplay } = useSystemInfo()
 
   const sizeOptions = [
@@ -85,35 +83,6 @@ export default function Index() {
   }
   return (
     <div>
-      {originalPluginStatus?.installed && !pluginCheckLoading && (
-        <div style={{
-          background: '#ff6b35',
-          border: '2px solid #e55a2e',
-          borderRadius: '8px',
-          padding: '16px',
-          marginBottom: '16px',
-          color: '#000000'
-        }}>
-          <div style={{
-            fontSize: '16px',
-            fontWeight: 'bold',
-            marginBottom: '8px',
-            display: 'flex',
-            alignItems: 'center',
-            gap: '8px'
-          }}>
-            ⚠️ {t('originalPluginDetected')}
-          </div>
-          <div style={{ fontSize: '14px', marginBottom: '8px' }}>
-            {t('originalPluginWarning')}
-          </div>
-          {originalPluginStatus.version && (
-            <div style={{ fontSize: '12px', opacity: 0.8 }}>
-              {t('originalPluginVersion')}: {originalPluginStatus.version}
-            </div>
-          )}
-        </div>
-      )}
       <DeckPanelSection title={t('sectionLibrary')}>
         <DeckPanelSectionRow>
           <ToggleField
