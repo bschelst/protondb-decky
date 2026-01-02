@@ -13,6 +13,7 @@ lib-cov
 *.vscode*
 package.sh
 *loc*
+!pnpm-lock.yaml
 pids
 logs
 results
