@@ -113,7 +113,7 @@ https://github.com/SteamDeckHomebrew/decky-loader
 
 ## 📦 Installation (Decky Loader)
 
-> The plugin is not available in the Decky Store **yet** and must be installed manually.
+Use Decky Store, search for ProtonDB badges or use manual instructions below:
 
 1. Download the **latest `.zip` release**:
    https://github.com/bschelst/protondb-decky/releases
