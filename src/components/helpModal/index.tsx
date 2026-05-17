@@ -1,13 +1,17 @@
 import { ConfirmModal, DialogButton, Focusable } from '@decky/ui'
 import React, { FC, useRef } from 'react'
-import { FaBook, FaCog, FaGamepad, FaSteam } from 'react-icons/fa'
+import { FaBook, FaChartBar, FaCog, FaGamepad, FaSteam } from 'react-icons/fa'
 import useTranslations from '../../hooks/useTranslations'
 
 interface HelpModalProps {
   closeModal?: () => void
 }
 
-const SectionHeader: FC<{ icon: React.ReactNode; title: string; id?: string }> = ({ icon, title, id }) => (
+const SectionHeader: FC<{
+  icon: React.ReactNode
+  title: string
+  id?: string
+}> = ({ icon, title, id }) => (
   <div
     id={id}
     style={{
@@ -24,7 +28,10 @@ const SectionHeader: FC<{ icon: React.ReactNode; title: string; id?: string }> =
   </div>
 )
 
-const HelpSection: FC<{ children: React.ReactNode; sectionRef?: React.RefObject<HTMLDivElement> }> = ({ children, sectionRef }) => (
+const HelpSection: FC<{
+  children: React.ReactNode
+  sectionRef?: React.RefObject<HTMLDivElement>
+}> = ({ children, sectionRef }) => (
   <div
     ref={sectionRef}
     style={{
@@ -38,31 +45,42 @@ const HelpSection: FC<{ children: React.ReactNode; sectionRef?: React.RefObject<
   </div>
 )
 
-const Step: FC<{ number: number; children: React.ReactNode }> = ({ number, children }) => (
-  <div style={{
-    display: 'flex',
-    gap: '12px',
-    marginBottom: '10px',
-    alignItems: 'flex-start'
-  }}>
-    <div style={{
-      minWidth: '24px',
-      height: '24px',
-      borderRadius: '50%',
-      background: 'rgba(255,255,255,0.2)',
+const Step: FC<{ number: number; children: React.ReactNode }> = ({
+  number,
+  children
+}) => (
+  <div
+    style={{
       display: 'flex',
-      alignItems: 'center',
-      justifyContent: 'center',
-      fontSize: '12px',
-      fontWeight: 'bold'
-    }}>
+      gap: '12px',
+      marginBottom: '10px',
+      alignItems: 'flex-start'
+    }}
+  >
+    <div
+      style={{
+        minWidth: '24px',
+        height: '24px',
+        borderRadius: '50%',
+        background: 'rgba(255,255,255,0.2)',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        fontSize: '12px',
+        fontWeight: 'bold'
+      }}
+    >
       {number}
     </div>
     <div style={{ flex: 1, lineHeight: '1.5' }}>{children}</div>
   </div>
 )
 
-const TocButton: FC<{ icon: React.ReactNode; label: string; onClick: () => void }> = ({ icon, label, onClick }) => (
+const TocButton: FC<{
+  icon: React.ReactNode
+  label: string
+  onClick: () => void
+}> = ({ icon, label, onClick }) => (
   <DialogButton
     onClick={onClick}
     style={{
@@ -84,6 +102,7 @@ const HelpModal: FC<HelpModalProps> = ({ closeModal }) => {
   const scrollContainerRef = useRef<HTMLDivElement>(null)
   const aboutRef = useRef<HTMLDivElement>(null)
   const usingRef = useRef<HTMLDivElement>(null)
+  const analysisRef = useRef<HTMLDivElement>(null)
   const protondbRef = useRef<HTMLDivElement>(null)
   const submitRef = useRef<HTMLDivElement>(null)
 
@@ -102,19 +121,23 @@ const HelpModal: FC<HelpModalProps> = ({ closeModal }) => {
       bHideCloseIcon={false}
     >
       {/* Table of Contents */}
-      <div style={{
-        marginBottom: '16px',
-        padding: '12px',
-        background: 'rgba(255,255,255,0.08)',
-        borderRadius: '8px'
-      }}>
-        <div style={{
-          fontSize: '12px',
-          opacity: 0.7,
-          marginBottom: '8px',
-          textTransform: 'uppercase',
-          letterSpacing: '1px'
-        }}>
+      <div
+        style={{
+          marginBottom: '16px',
+          padding: '12px',
+          background: 'rgba(255,255,255,0.08)',
+          borderRadius: '8px'
+        }}
+      >
+        <div
+          style={{
+            fontSize: '12px',
+            opacity: 0.7,
+            marginBottom: '8px',
+            textTransform: 'uppercase',
+            letterSpacing: '1px'
+          }}
+        >
           {t('helpToc')}
         </div>
         <Focusable
@@ -135,6 +158,11 @@ const HelpModal: FC<HelpModalProps> = ({ closeModal }) => {
             icon={<FaCog size={14} />}
             label={t('helpUsingTitle')}
             onClick={() => scrollToSection(usingRef)}
+          />
+          <TocButton
+            icon={<FaChartBar size={14} />}
+            label={t('helpAnalysisTitle')}
+            onClick={() => scrollToSection(analysisRef)}
           />
           <TocButton
             icon={<FaSteam size={14} />}
@@ -165,7 +193,9 @@ const HelpModal: FC<HelpModalProps> = ({ closeModal }) => {
         >
           {/* About Section */}
           <Focusable
-            onFocus={(e) => e.target.scrollIntoView({ behavior: 'smooth', block: 'nearest' })}
+            onFocus={(e) =>
+              e.target.scrollIntoView({ behavior: 'smooth', block: 'nearest' })
+            }
           >
             <HelpSection sectionRef={aboutRef}>
               <SectionHeader icon={<FaBook />} title={t('helpAboutTitle')} />
@@ -177,41 +207,139 @@ const HelpModal: FC<HelpModalProps> = ({ closeModal }) => {
 
           {/* Using the Plugin Section */}
           <Focusable
-            onFocus={(e) => e.target.scrollIntoView({ behavior: 'smooth', block: 'nearest' })}
+            onFocus={(e) =>
+              e.target.scrollIntoView({ behavior: 'smooth', block: 'nearest' })
+            }
           >
             <HelpSection sectionRef={usingRef}>
               <SectionHeader icon={<FaCog />} title={t('helpUsingTitle')} />
 
               <div style={{ marginBottom: '16px' }}>
                 <strong>{t('helpBadgeTiers')}</strong>
-                <ul style={{ marginTop: '8px', paddingLeft: '20px', lineHeight: '1.6' }}>
-                  <li><span style={{ color: '#b4c7dc' }}>Platinum</span> - {t('helpTierPlatinum')}</li>
-                  <li><span style={{ color: '#cfb53b' }}>Gold</span> - {t('helpTierGold')}</li>
-                  <li><span style={{ color: '#a6a6a6' }}>Silver</span> - {t('helpTierSilver')}</li>
-                  <li><span style={{ color: '#cd7f32' }}>Bronze</span> - {t('helpTierBronze')}</li>
-                  <li><span style={{ color: '#ff0000' }}>Borked</span> - {t('helpTierBorked')}</li>
-                  <li><span style={{ color: '#6c757d' }}>Pending</span> - {t('helpTierPending')}</li>
-                  <li><span style={{ color: '#4a4a4a' }}>No Report</span> - {t('helpTierNoReport')}</li>
+                <ul
+                  style={{
+                    marginTop: '8px',
+                    paddingLeft: '20px',
+                    lineHeight: '1.6'
+                  }}
+                >
+                  <li>
+                    <span style={{ color: '#b4c7dc' }}>Platinum</span> -{' '}
+                    {t('helpTierPlatinum')}
+                  </li>
+                  <li>
+                    <span style={{ color: '#cfb53b' }}>Gold</span> -{' '}
+                    {t('helpTierGold')}
+                  </li>
+                  <li>
+                    <span style={{ color: '#a6a6a6' }}>Silver</span> -{' '}
+                    {t('helpTierSilver')}
+                  </li>
+                  <li>
+                    <span style={{ color: '#cd7f32' }}>Bronze</span> -{' '}
+                    {t('helpTierBronze')}
+                  </li>
+                  <li>
+                    <span style={{ color: '#ff0000' }}>Borked</span> -{' '}
+                    {t('helpTierBorked')}
+                  </li>
+                  <li>
+                    <span style={{ color: '#6c757d' }}>Pending</span> -{' '}
+                    {t('helpTierPending')}
+                  </li>
+                  <li>
+                    <span style={{ color: '#4a4a4a' }}>No Report</span> -{' '}
+                    {t('helpTierNoReport')}
+                  </li>
                 </ul>
               </div>
 
               <div style={{ marginBottom: '16px' }}>
                 <strong>{t('helpSettingsExplain')}</strong>
-                <ul style={{ marginTop: '8px', paddingLeft: '20px', lineHeight: '1.6' }}>
-                  <li><strong>{t('helpSettingSize')}</strong> - {t('helpSettingSizeDesc')}</li>
-                  <li><strong>{t('helpSettingPosition')}</strong> - {t('helpSettingPositionDesc')}</li>
-                  <li><strong>{t('helpSettingSubmit')}</strong> - {t('helpSettingSubmitDesc')}</li>
+                <ul
+                  style={{
+                    marginTop: '8px',
+                    paddingLeft: '20px',
+                    lineHeight: '1.6'
+                  }}
+                >
+                  <li>
+                    <strong>{t('helpSettingSize')}</strong> -{' '}
+                    {t('helpSettingSizeDesc')}
+                  </li>
+                  <li>
+                    <strong>{t('helpSettingPosition')}</strong> -{' '}
+                    {t('helpSettingPositionDesc')}
+                  </li>
+                  <li>
+                    <strong>{t('helpSettingSubmit')}</strong> -{' '}
+                    {t('helpSettingSubmitDesc')}
+                  </li>
                 </ul>
+              </div>
+            </HelpSection>
+          </Focusable>
+
+          {/* Compatibility Analysis Section */}
+          <Focusable
+            onFocus={(e) =>
+              e.target.scrollIntoView({ behavior: 'smooth', block: 'nearest' })
+            }
+          >
+            <HelpSection sectionRef={analysisRef}>
+              <SectionHeader
+                icon={<FaChartBar />}
+                title={t('helpAnalysisTitle')}
+              />
+              <p style={{ lineHeight: '1.6', marginBottom: '12px' }}>
+                {t('helpAnalysisDesc')}
+              </p>
+              <div style={{ marginBottom: '12px' }}>
+                <strong>{t('helpAnalysisDetails')}</strong>
+                <ul
+                  style={{
+                    marginTop: '8px',
+                    paddingLeft: '20px',
+                    lineHeight: '1.6'
+                  }}
+                >
+                  <li>{t('helpAnalysisWorking')}</li>
+                  <li>{t('helpAnalysisConfidence')}</li>
+                  <li>{t('helpAnalysisTrend')}</li>
+                  <li>{t('helpAnalysisFreshness')}</li>
+                  <li>{t('helpAnalysisWarnings')}</li>
+                </ul>
+              </div>
+              <p style={{ lineHeight: '1.6', marginBottom: '12px' }}>
+                {t('helpAnalysisChart')}
+              </p>
+              <div
+                style={{
+                  padding: '12px',
+                  background: 'rgba(207, 181, 59, 0.2)',
+                  borderRadius: '6px',
+                  borderLeft: '3px solid #cfb53b'
+                }}
+              >
+                <strong>💡 {t('helpTip')}</strong>
+                <p style={{ marginTop: '4px', lineHeight: '1.5' }}>
+                  {t('helpAnalysisToggle')}
+                </p>
               </div>
             </HelpSection>
           </Focusable>
 
           {/* Adding Steam Deck to ProtonDB Section */}
           <Focusable
-            onFocus={(e) => e.target.scrollIntoView({ behavior: 'smooth', block: 'nearest' })}
+            onFocus={(e) =>
+              e.target.scrollIntoView({ behavior: 'smooth', block: 'nearest' })
+            }
           >
             <HelpSection sectionRef={protondbRef}>
-              <SectionHeader icon={<FaSteam />} title={t('helpProtonDBTitle')} />
+              <SectionHeader
+                icon={<FaSteam />}
+                title={t('helpProtonDBTitle')}
+              />
               <p style={{ marginBottom: '16px', lineHeight: '1.6' }}>
                 {t('helpProtonDBDesc')}
               </p>
@@ -226,25 +354,34 @@ const HelpModal: FC<HelpModalProps> = ({ closeModal }) => {
                 <Step number={6}>{t('helpStep6')}</Step>
               </div>
 
-              <div style={{
-                marginTop: '16px',
-                padding: '12px',
-                background: 'rgba(207, 181, 59, 0.2)',
-                borderRadius: '6px',
-                borderLeft: '3px solid #cfb53b'
-              }}>
+              <div
+                style={{
+                  marginTop: '16px',
+                  padding: '12px',
+                  background: 'rgba(207, 181, 59, 0.2)',
+                  borderRadius: '6px',
+                  borderLeft: '3px solid #cfb53b'
+                }}
+              >
                 <strong>💡 {t('helpTip')}</strong>
-                <p style={{ marginTop: '4px', lineHeight: '1.5' }}>{t('helpTipContent')}</p>
+                <p style={{ marginTop: '4px', lineHeight: '1.5' }}>
+                  {t('helpTipContent')}
+                </p>
               </div>
             </HelpSection>
           </Focusable>
 
           {/* Submitting Reports Section */}
           <Focusable
-            onFocus={(e) => e.target.scrollIntoView({ behavior: 'smooth', block: 'nearest' })}
+            onFocus={(e) =>
+              e.target.scrollIntoView({ behavior: 'smooth', block: 'nearest' })
+            }
           >
             <HelpSection sectionRef={submitRef}>
-              <SectionHeader icon={<FaGamepad />} title={t('helpSubmitTitle')} />
+              <SectionHeader
+                icon={<FaGamepad />}
+                title={t('helpSubmitTitle')}
+              />
               <p style={{ marginBottom: '12px', lineHeight: '1.6' }}>
                 {t('helpSubmitDesc')}
               </p>

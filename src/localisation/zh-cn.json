@@ -87,5 +87,19 @@
     "helpSubmitDesc": "通过分享您的游戏体验来帮助社区！报告可以帮助其他人了解游戏表现。",
     "helpSubmitStep1": "玩游戏至少15-30分钟",
     "helpSubmitStep2": "点击ProtonDB徽章上的提交按钮",
-    "helpSubmitStep3": "在ProtonDB网站上填写报告表单"
+    "helpSubmitStep3": "在ProtonDB网站上填写报告表单",
+    "sectionEnhancedFeatures": "增强功能",
+    "showAnalysisButton": "显示分析按钮",
+    "showAnalysisButtonDesc": "在徽章旁显示按钮，查看详细的兼容性分析，包括报告趋势和历史图表",
+    "helpAnalysisTitle": "兼容性分析",
+    "helpAnalysisDesc": "徽章旁的分析按钮（柱状图图标）可打开每款游戏的详细兼容性分析。数据来自社区提交的所有 ProtonDB 报告。",
+    "helpAnalysisDetails": "详情标签页显示：",
+    "helpAnalysisWorking": "运行状态 — 游戏目前是否能在 Linux 上运行，以及该评估的可靠程度",
+    "helpAnalysisConfidence": "置信度评分 — 有多少报告数据可用于评估游戏（0-100）",
+    "helpAnalysisTrend": "趋势 — 根据近期和较早的报告，兼容性是在改善、稳定还是下降",
+    "helpAnalysisFreshness": "新鲜度 — 最新报告的提交时间",
+    "helpAnalysisWarnings": "关于 Proton 版本不匹配、GPU 问题或反作弊的警告",
+    "helpAnalysisChart": "报告历史标签页显示过去 2 年中每月好评（绿色）和差评（红色）报告的图表。",
+    "helpAnalysisToggle": "您可以在设置的增强功能中启用或禁用分析按钮。",
+    "clearCacheSuccess": "缓存已清除"
 }

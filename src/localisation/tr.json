@@ -87,5 +87,19 @@
     "helpSubmitDesc": "Oyun deneyiminizi paylaşarak topluluğa yardım edin! Raporlar başkalarının ne bekleyeceğini bilmesine yardımcı olur.",
     "helpSubmitStep1": "Bir oyunu en az 15-30 dakika oynayın",
     "helpSubmitStep2": "ProtonDB rozetindeki Gönder düğmesine tıklayın",
-    "helpSubmitStep3": "ProtonDB web sitesindeki rapor formunu doldurun"
+    "helpSubmitStep3": "ProtonDB web sitesindeki rapor formunu doldurun",
+    "sectionEnhancedFeatures": "Gelişmiş özellikler",
+    "showAnalysisButton": "Analiz düğmesini göster",
+    "showAnalysisButtonDesc": "Rozet yanında ayrıntılı uyumluluk analizi, rapor eğilimleri ve geçmiş grafiği görüntülemek için bir düğme gösterir",
+    "helpAnalysisTitle": "Uyumluluk analizi",
+    "helpAnalysisDesc": "Rozet yanındaki analiz düğmesi (çubuk grafik simgesi), her oyun için ayrıntılı bir uyumluluk dökümü açar. Bu veriler topluluk tarafından gönderilen tüm ProtonDB raporlarından toplanmıştır.",
+    "helpAnalysisDetails": "Ayrıntılar sekmesi şunları gösterir:",
+    "helpAnalysisWorking": "Çalışma durumu — oyunun Linux'ta çalışıp çalışmadığı ve bu değerlendirmenin ne kadar kesin olduğu",
+    "helpAnalysisConfidence": "Güven puanı — oyunu değerlendirmek için ne kadar rapor verisi mevcut (0-100)",
+    "helpAnalysisTrend": "Eğilim — uyumluluğun iyileşip, sabit kalıp veya kötüleşip kötüleşmediği",
+    "helpAnalysisFreshness": "Güncellik — en son raporun ne zaman gönderildiği",
+    "helpAnalysisWarnings": "Proton sürüm uyumsuzlukları, GPU sorunları veya hile önleme ile ilgili uyarılar",
+    "helpAnalysisChart": "Rapor Geçmişi sekmesi, son 2 yılda aylık iyi (yeşil) ve kötü (kırmızı) raporların grafiğini gösterir.",
+    "helpAnalysisToggle": "Analiz düğmesini Ayarlar'da Gelişmiş özellikler altından açıp kapatabilirsiniz.",
+    "clearCacheSuccess": "Önbellek temizlendi"
 }

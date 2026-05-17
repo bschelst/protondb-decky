@@ -87,5 +87,20 @@
     "helpSubmitDesc": "Help the community by sharing your gaming experience! Reports help others know what to expect.",
     "helpSubmitStep1": "Play a game for at least 15-30 minutes",
     "helpSubmitStep2": "Click the Submit button on the ProtonDB badge",
-    "helpSubmitStep3": "Fill out the report form on ProtonDB's website"
+    "helpSubmitStep3": "Fill out the report form on ProtonDB's website",
+    "helpAnalysisTitle": "Compatibility Analysis",
+    "helpAnalysisDesc": "The analysis button (bar chart icon) next to the badge opens a detailed compatibility breakdown for each game. This data is gathered from all ProtonDB reports submitted by the community.",
+    "helpAnalysisDetails": "The Details tab shows:",
+    "helpAnalysisWorking": "Working Status — whether the game currently works on Linux, and how certain that assessment is",
+    "helpAnalysisConfidence": "Confidence Score — how much report data is available to judge the game (0-100)",
+    "helpAnalysisTrend": "Trend — whether compatibility is improving, stable, or declining based on recent vs older reports",
+    "helpAnalysisFreshness": "Freshness — how recently the latest report was submitted",
+    "helpAnalysisWarnings": "Warnings about Proton version mismatches, GPU issues, or anti-cheat",
+    "helpAnalysisChart": "The Report History tab shows a chart of good (green) vs bad (red) reports per month over the last 2 years, so you can see how compatibility has changed over time.",
+    "helpAnalysisToggle": "You can enable or disable the analysis button in Settings under Enhanced Features.",
+    "sectionEnhancedFeatures": "Enhanced Features",
+    "showAnalysisButton": "Show Analysis Button",
+    "showAnalysisButtonDesc": "Display a button next to the badge to view detailed compatibility analysis, including report trends and a history chart",
+    "clearCacheSuccess": "Cache cleared successfully",
+    "version": "Version"
 }

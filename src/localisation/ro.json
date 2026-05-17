@@ -87,5 +87,19 @@
     "helpSubmitDesc": "Ajută comunitatea împărtășindu-ți experiența de joc! Rapoartele ajută pe alții să știe la ce să se aștepte.",
     "helpSubmitStep1": "Joacă un joc cel puțin 15-30 de minute",
     "helpSubmitStep2": "Apasă butonul Trimite de pe ecusonul ProtonDB",
-    "helpSubmitStep3": "Completează formularul de raport pe site-ul ProtonDB"
+    "helpSubmitStep3": "Completează formularul de raport pe site-ul ProtonDB",
+    "sectionEnhancedFeatures": "Funcții avansate",
+    "showAnalysisButton": "Afișează butonul de analiză",
+    "showAnalysisButtonDesc": "Afișează un buton lângă insignă pentru a vizualiza o analiză detaliată a compatibilității, inclusiv tendințe ale rapoartelor și graficul istoricului",
+    "helpAnalysisTitle": "Analiză de compatibilitate",
+    "helpAnalysisDesc": "Butonul de analiză (pictograma grafic cu bare) de lângă insignă deschide o privire detaliată asupra compatibilității pentru fiecare joc. Datele provin din toate rapoartele ProtonDB trimise de comunitate.",
+    "helpAnalysisDetails": "Fila Detalii arată:",
+    "helpAnalysisWorking": "Starea de funcționare — dacă jocul funcționează pe Linux și cât de sigură este această evaluare",
+    "helpAnalysisConfidence": "Scor de încredere — câte date din rapoarte sunt disponibile pentru evaluarea jocului (0-100)",
+    "helpAnalysisTrend": "Tendință — dacă compatibilitatea se îmbunătățește, este stabilă sau scade",
+    "helpAnalysisFreshness": "Actualitate — când a fost trimis ultimul raport",
+    "helpAnalysisWarnings": "Avertismente despre nepotriviri de versiune Proton, probleme GPU sau anti-cheat",
+    "helpAnalysisChart": "Fila Istoric rapoarte arată un grafic al rapoartelor bune (verzi) și rele (roșii) pe lună din ultimii 2 ani.",
+    "helpAnalysisToggle": "Puteți activa sau dezactiva butonul de analiză în Setări, la Funcții avansate.",
+    "clearCacheSuccess": "Cache-ul a fost șters"
 }

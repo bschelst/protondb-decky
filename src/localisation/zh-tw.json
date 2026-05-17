@@ -87,5 +87,19 @@
     "helpSubmitDesc": "透過分享您的遊戲體驗來幫助社群！報告可以幫助其他人了解遊戲表現。",
     "helpSubmitStep1": "玩遊戲至少15-30分鐘",
     "helpSubmitStep2": "點擊ProtonDB徽章上的提交按鈕",
-    "helpSubmitStep3": "在ProtonDB網站上填寫報告表單"
+    "helpSubmitStep3": "在ProtonDB網站上填寫報告表單",
+    "sectionEnhancedFeatures": "進階功能",
+    "showAnalysisButton": "顯示分析按鈕",
+    "showAnalysisButtonDesc": "在徽章旁顯示按鈕，查看詳細的相容性分析，包括報告趨勢和歷史圖表",
+    "helpAnalysisTitle": "相容性分析",
+    "helpAnalysisDesc": "徽章旁的分析按鈕（長條圖圖示）可開啟每款遊戲的詳細相容性分析。資料來自社群提交的所有 ProtonDB 報告。",
+    "helpAnalysisDetails": "詳情分頁顯示：",
+    "helpAnalysisWorking": "運行狀態 — 遊戲目前是否能在 Linux 上運行，以及該評估的可靠程度",
+    "helpAnalysisConfidence": "信心評分 — 有多少報告資料可用於評估遊戲（0-100）",
+    "helpAnalysisTrend": "趨勢 — 根據近期和較早的報告，相容性是在改善、穩定還是下降",
+    "helpAnalysisFreshness": "新鮮度 — 最新報告的提交時間",
+    "helpAnalysisWarnings": "關於 Proton 版本不匹配、GPU 問題或防作弊的警告",
+    "helpAnalysisChart": "報告歷史分頁顯示過去 2 年中每月好評（綠色）和差評（紅色）報告的圖表。",
+    "helpAnalysisToggle": "您可以在設定的進階功能中啟用或停用分析按鈕。",
+    "clearCacheSuccess": "快取已清除"
 }

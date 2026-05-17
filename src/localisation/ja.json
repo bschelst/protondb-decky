@@ -87,5 +87,19 @@
     "helpSubmitDesc": "ゲーム体験を共有してコミュニティを助けましょう！レポートは他のユーザーが何を期待できるか知るのに役立ちます。",
     "helpSubmitStep1": "ゲームを少なくとも15〜30分プレイ",
     "helpSubmitStep2": "ProtonDBバッジの送信ボタンをクリック",
-    "helpSubmitStep3": "ProtonDBのウェブサイトでレポートフォームに記入"
+    "helpSubmitStep3": "ProtonDBのウェブサイトでレポートフォームに記入",
+    "sectionEnhancedFeatures": "拡張機能",
+    "showAnalysisButton": "分析ボタンを表示",
+    "showAnalysisButtonDesc": "バッジの横にボタンを表示し、レポートの傾向や履歴グラフを含む詳細な互換性分析を確認できます",
+    "helpAnalysisTitle": "互換性分析",
+    "helpAnalysisDesc": "バッジの横にある分析ボタン（棒グラフアイコン）を押すと、各ゲームの詳細な互換性分析が表示されます。このデータはコミュニティが提出したすべてのProtonDBレポートから集められています。",
+    "helpAnalysisDetails": "詳細タブの表示内容：",
+    "helpAnalysisWorking": "動作状況 — ゲームが現在Linuxで動作するかどうか、およびその評価の確実性",
+    "helpAnalysisConfidence": "信頼度スコア — ゲームを評価するために利用可能なレポートデータの量（0-100）",
+    "helpAnalysisTrend": "トレンド — 最近のレポートと古いレポートに基づき、互換性が改善、安定、または低下しているか",
+    "helpAnalysisFreshness": "鮮度 — 最新のレポートがいつ提出されたか",
+    "helpAnalysisWarnings": "Protonバージョンの不一致、GPU問題、アンチチートに関する警告",
+    "helpAnalysisChart": "レポート履歴タブには、過去2年間の月別の良い（緑）レポートと悪い（赤）レポートのグラフが表示されます。",
+    "helpAnalysisToggle": "分析ボタンは設定の拡張機能でオン・オフを切り替えられます。",
+    "clearCacheSuccess": "キャッシュをクリアしました"
 }

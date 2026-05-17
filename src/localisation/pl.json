@@ -87,5 +87,19 @@
     "helpSubmitDesc": "Pomóż społeczności, dzieląc się swoim doświadczeniem z gry! Raporty pomagają innym wiedzieć, czego się spodziewać.",
     "helpSubmitStep1": "Graj w grę przez co najmniej 15-30 minut",
     "helpSubmitStep2": "Kliknij przycisk Wyślij na odznace ProtonDB",
-    "helpSubmitStep3": "Wypełnij formularz raportu na stronie ProtonDB"
+    "helpSubmitStep3": "Wypełnij formularz raportu na stronie ProtonDB",
+    "sectionEnhancedFeatures": "Funkcje zaawansowane",
+    "showAnalysisButton": "Pokaż przycisk analizy",
+    "showAnalysisButtonDesc": "Wyświetla przycisk obok odznaki do przeglądania szczegółowej analizy kompatybilności, w tym trendów raportów i wykresu historii",
+    "helpAnalysisTitle": "Analiza kompatybilności",
+    "helpAnalysisDesc": "Przycisk analizy (ikona wykresu słupkowego) obok odznaki otwiera szczegółowy przegląd kompatybilności dla każdej gry. Dane pochodzą ze wszystkich raportów ProtonDB przesłanych przez społeczność.",
+    "helpAnalysisDetails": "Zakładka Szczegóły pokazuje:",
+    "helpAnalysisWorking": "Status działania — czy gra działa na Linuxie i jak pewna jest ta ocena",
+    "helpAnalysisConfidence": "Wynik pewności — ile danych z raportów jest dostępnych do oceny gry (0-100)",
+    "helpAnalysisTrend": "Trend — czy kompatybilność się poprawia, jest stabilna czy spada",
+    "helpAnalysisFreshness": "Aktualność — kiedy przesłano ostatni raport",
+    "helpAnalysisWarnings": "Ostrzeżenia o niezgodnościach wersji Proton, problemach z GPU lub systemach antycheat",
+    "helpAnalysisChart": "Zakładka Historia raportów pokazuje wykres dobrych (zielonych) i złych (czerwonych) raportów miesięcznie z ostatnich 2 lat.",
+    "helpAnalysisToggle": "Możesz włączyć lub wyłączyć przycisk analizy w Ustawieniach w sekcji Funkcje zaawansowane.",
+    "clearCacheSuccess": "Pamięć podręczna wyczyszczona"
 }

@@ -10,6 +10,7 @@ export type Settings = {
   enableLibraryBadge: boolean
   enableStoreBadge: boolean
   storeBadgePosition: 'bc' | 'bl' | 'br' | 'tm'
+  showAnalysisButton?: boolean
 }
 
 const DEFAULT_SETTINGS: Settings = {
@@ -19,26 +20,32 @@ const DEFAULT_SETTINGS: Settings = {
   disableSubmit: false,
   enableLibraryBadge: true,
   enableStoreBadge: true,
-  storeBadgePosition: 'bc'
+  storeBadgePosition: 'bc',
+  showAnalysisButton: true
 }
 
 // Not using the React context here as this approach is simpler.
 export const SettingsContext = new BehaviorSubject<Settings>(DEFAULT_SETTINGS)
 const LoadingContext = new BehaviorSubject(true)
 
-function updateSettings(
-  key: keyof Settings,
-  value: Settings[keyof Settings]
-) {
+function updateSettings(key: keyof Settings, value: Settings[keyof Settings]) {
   const newSettings = { ...SettingsContext.value, [key]: value }
-  call<[string, Settings], Settings>('set_setting', 'settings', newSettings).catch(console.error)
+  call<[string, Settings], Settings>(
+    'set_setting',
+    'settings',
+    newSettings
+  ).catch(console.error)
   SettingsContext.next(newSettings)
 }
 
 export function loadSettings() {
   LoadingContext.next(true)
-  call<[string, Settings], Settings>('get_setting', 'settings', DEFAULT_SETTINGS)
-    .then(settings => {
+  call<[string, Settings], Settings>(
+    'get_setting',
+    'settings',
+    DEFAULT_SETTINGS
+  )
+    .then((settings) => {
       // Merge with defaults to handle missing fields from older versions
       const mergedSettings = { ...DEFAULT_SETTINGS, ...settings }
       SettingsContext.next(mergedSettings)
@@ -52,13 +59,17 @@ export const useSettings = () => {
   const [loading, setLoading] = useState(LoadingContext.value)
 
   useEffect(() => {
-    const settingsSub = SettingsContext.asObservable().subscribe((value) => setSettings(value));
-    const loadingSub = LoadingContext.asObservable().subscribe((value) => setLoading(value));
+    const settingsSub = SettingsContext.asObservable().subscribe((value) =>
+      setSettings(value)
+    )
+    const loadingSub = LoadingContext.asObservable().subscribe((value) =>
+      setLoading(value)
+    )
     return () => {
-      loadingSub.unsubscribe();
-      settingsSub.unsubscribe();
-    };
-  }, []);
+      loadingSub.unsubscribe()
+      settingsSub.unsubscribe()
+    }
+  }, [])
 
   function setSize(value: Settings['size']) {
     updateSettings('size', value)
@@ -88,5 +99,20 @@ export const useSettings = () => {
     updateSettings('storeBadgePosition', value)
   }
 
-  return { settings, setSize, setPosition, setLabelOnHover, setDisableSubmit, setEnableLibraryBadge, setEnableStoreBadge, setStoreBadgePosition, loading }
+  function setShowAnalysisButton(value: Settings['showAnalysisButton']) {
+    updateSettings('showAnalysisButton', value)
+  }
+
+  return {
+    settings,
+    setSize,
+    setPosition,
+    setLabelOnHover,
+    setDisableSubmit,
+    setEnableLibraryBadge,
+    setEnableStoreBadge,
+    setStoreBadgePosition,
+    setShowAnalysisButton,
+    loading
+  }
 }

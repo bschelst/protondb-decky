@@ -87,5 +87,19 @@
     "helpSubmitDesc": "게임 경험을 공유하여 커뮤니티를 도와주세요! 보고서는 다른 사람들이 무엇을 기대할 수 있는지 알 수 있게 합니다.",
     "helpSubmitStep1": "게임을 최소 15-30분 플레이",
     "helpSubmitStep2": "ProtonDB 배지의 제출 버튼 클릭",
-    "helpSubmitStep3": "ProtonDB 웹사이트에서 보고서 양식 작성"
+    "helpSubmitStep3": "ProtonDB 웹사이트에서 보고서 양식 작성",
+    "sectionEnhancedFeatures": "고급 기능",
+    "showAnalysisButton": "분석 버튼 표시",
+    "showAnalysisButtonDesc": "배지 옆에 버튼을 표시하여 보고서 추세와 기록 그래프를 포함한 상세 호환성 분석을 확인합니다",
+    "helpAnalysisTitle": "호환성 분석",
+    "helpAnalysisDesc": "배지 옆의 분석 버튼(막대 그래프 아이콘)을 누르면 각 게임의 상세 호환성 분석을 볼 수 있습니다. 이 데이터는 커뮤니티가 제출한 모든 ProtonDB 보고서에서 수집됩니다.",
+    "helpAnalysisDetails": "상세 탭 표시 내용:",
+    "helpAnalysisWorking": "작동 상태 — 게임이 현재 리눅스에서 작동하는지와 그 평가의 확실성",
+    "helpAnalysisConfidence": "신뢰도 점수 — 게임을 평가하기 위한 보고서 데이터의 양 (0-100)",
+    "helpAnalysisTrend": "추세 — 최근과 이전 보고서를 기반으로 호환성이 개선, 안정, 또는 하락 중인지",
+    "helpAnalysisFreshness": "최신성 — 마지막 보고서가 제출된 시기",
+    "helpAnalysisWarnings": "Proton 버전 불일치, GPU 문제 또는 안티치트 관련 경고",
+    "helpAnalysisChart": "보고서 기록 탭은 지난 2년간 월별 좋은(녹색) 보고서와 나쁜(빨간) 보고서 그래프를 보여줍니다.",
+    "helpAnalysisToggle": "설정의 고급 기능에서 분석 버튼을 켜거나 끌 수 있습니다.",
+    "clearCacheSuccess": "캐시가 지워졌습니다"
 }

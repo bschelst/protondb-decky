@@ -87,5 +87,19 @@
     "helpSubmitDesc": "Help de community door je spelervaring te delen! Rapporten helpen anderen te weten wat ze kunnen verwachten.",
     "helpSubmitStep1": "Speel een spel minimaal 15-30 minuten",
     "helpSubmitStep2": "Klik op de Verzend-knop op de ProtonDB badge",
-    "helpSubmitStep3": "Vul het rapportformulier in op de ProtonDB website"
+    "helpSubmitStep3": "Vul het rapportformulier in op de ProtonDB website",
+    "sectionEnhancedFeatures": "Uitgebreide functies",
+    "showAnalysisButton": "Analyseknop tonen",
+    "showAnalysisButtonDesc": "Toont een knop naast de badge om een gedetailleerde compatibiliteitsanalyse te bekijken, inclusief rapporttrends en een geschiedenisgrafiek",
+    "helpAnalysisTitle": "Compatibiliteitsanalyse",
+    "helpAnalysisDesc": "De analyseknop (staafdiagram-icoon) naast de badge opent een gedetailleerd compatibiliteitsoverzicht voor elk spel. Deze gegevens komen uit alle ProtonDB-rapporten die door de community zijn ingediend.",
+    "helpAnalysisDetails": "Het tabblad Details toont:",
+    "helpAnalysisWorking": "Werkstatus — of het spel momenteel werkt op Linux en hoe zeker die beoordeling is",
+    "helpAnalysisConfidence": "Betrouwbaarheidsscore — hoeveel rapportgegevens beschikbaar zijn om het spel te beoordelen (0-100)",
+    "helpAnalysisTrend": "Trend — of de compatibiliteit verbetert, stabiel is of afneemt op basis van recente en oudere rapporten",
+    "helpAnalysisFreshness": "Actualiteit — wanneer het laatste rapport is ingediend",
+    "helpAnalysisWarnings": "Waarschuwingen over Proton-versieverschillen, GPU-problemen of anti-cheat",
+    "helpAnalysisChart": "Het tabblad Rapportgeschiedenis toont een grafiek van goede (groene) en slechte (rode) rapporten per maand over de afgelopen 2 jaar.",
+    "helpAnalysisToggle": "Je kunt de analyseknop in- of uitschakelen bij Instellingen onder Uitgebreide functies.",
+    "clearCacheSuccess": "Cache gewist"
 }

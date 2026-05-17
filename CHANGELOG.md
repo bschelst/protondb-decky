@@ -1,6 +1,24 @@
 # Changelog
 All important changes to the ProtonDB Badges plugin are documented here.
 
+## [1.3.0] - 2026-01-24
+### Added
+- **Enhanced Badge System** - Integration with ProtonDB Gateway for advanced compatibility insights
+- **Confidence Indicators** - Visual 5-dot system showing reliability of ratings (high/medium/low/none)
+- **Trend Arrows** - Displays if compatibility is improving (↗), stable (→), or declining (↘)
+- **Contextual Warnings** - Hover tooltips showing alerts for stale data, Proton version mismatches, GPU issues, and anti-cheat
+- **Enhanced Features Settings Panel** - Individual toggles to control confidence, trend, and warning displays
+- **Confidence Display Styles** - Choose between dots or text visualization for confidence levels
+- **Graceful Fallback** - Maintains tier-only display when gateway unavailable or for unsupported games
+- **ProtonDB Gateway API Integration** - Fetches pre-computed analysis data with confidence scores, freshness info, and trends
+
+### Technical
+- Created gateway API client with timeout and error handling
+- Extended cache to store analysis data alongside tier information
+- Added TypeScript interfaces for gateway responses
+- Implemented glassmorphic styling for new UI components
+- Enhanced features automatically hidden in minimalist/compact mode
+
 ## [1.2.0] - 2025-12-30
 
 - Changing release numbers & repo for Decky store submission

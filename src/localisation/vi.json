@@ -87,5 +87,19 @@
     "helpSubmitDesc": "Giúp đỡ cộng đồng bằng cách chia sẻ trải nghiệm chơi game của bạn! Báo cáo giúp người khác biết điều gì sẽ xảy ra.",
     "helpSubmitStep1": "Chơi game ít nhất 15-30 phút",
     "helpSubmitStep2": "Nhấp vào nút Gửi trên huy hiệu ProtonDB",
-    "helpSubmitStep3": "Điền vào biểu mẫu báo cáo trên trang web ProtonDB"
+    "helpSubmitStep3": "Điền vào biểu mẫu báo cáo trên trang web ProtonDB",
+    "sectionEnhancedFeatures": "Tính năng nâng cao",
+    "showAnalysisButton": "Hiển thị nút phân tích",
+    "showAnalysisButtonDesc": "Hiển thị nút bên cạnh huy hiệu để xem phân tích chi tiết về khả năng tương thích, bao gồm xu hướng báo cáo và biểu đồ lịch sử",
+    "helpAnalysisTitle": "Phân tích tương thích",
+    "helpAnalysisDesc": "Nút phân tích (biểu tượng biểu đồ cột) bên cạnh huy hiệu mở tổng quan chi tiết về khả năng tương thích cho mỗi trò chơi. Dữ liệu được thu thập từ tất cả báo cáo ProtonDB do cộng đồng gửi.",
+    "helpAnalysisDetails": "Tab Chi tiết hiển thị:",
+    "helpAnalysisWorking": "Trạng thái hoạt động — trò chơi có hoạt động trên Linux không và đánh giá đó đáng tin cậy đến mức nào",
+    "helpAnalysisConfidence": "Điểm tin cậy — có bao nhiêu dữ liệu báo cáo để đánh giá trò chơi (0-100)",
+    "helpAnalysisTrend": "Xu hướng — khả năng tương thích đang cải thiện, ổn định hay giảm sút",
+    "helpAnalysisFreshness": "Độ mới — báo cáo gần nhất được gửi khi nào",
+    "helpAnalysisWarnings": "Cảnh báo về phiên bản Proton không khớp, vấn đề GPU hoặc chống gian lận",
+    "helpAnalysisChart": "Tab Lịch sử báo cáo hiển thị biểu đồ báo cáo tốt (xanh) và xấu (đỏ) theo tháng trong 2 năm qua.",
+    "helpAnalysisToggle": "Bạn có thể bật hoặc tắt nút phân tích trong Cài đặt mục Tính năng nâng cao.",
+    "clearCacheSuccess": "Đã xóa bộ nhớ đệm"
 }

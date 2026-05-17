@@ -87,5 +87,19 @@
     "helpSubmitDesc": "Auta yhteisöä jakamalla pelikokemuksesi! Raportit auttavat muita tietämään, mitä odottaa.",
     "helpSubmitStep1": "Pelaa peliä vähintään 15-30 minuuttia",
     "helpSubmitStep2": "Napsauta Lähetä-painiketta ProtonDB-merkissä",
-    "helpSubmitStep3": "Täytä raporttilomake ProtonDB:n verkkosivustolla"
+    "helpSubmitStep3": "Täytä raporttilomake ProtonDB:n verkkosivustolla",
+    "sectionEnhancedFeatures": "Lisäominaisuudet",
+    "showAnalysisButton": "Näytä analyysipainike",
+    "showAnalysisButtonDesc": "Näyttää painikkeen merkin vieressä yksityiskohtaisen yhteensopivuusanalyysin katselua varten, sisältäen raporttitrendit ja historiakaavion",
+    "helpAnalysisTitle": "Yhteensopivuusanalyysi",
+    "helpAnalysisDesc": "Analyysipainike (pylväskaavion kuvake) merkin vieressä avaa yksityiskohtaisen yhteensopivuuskatsauksen jokaiselle pelille. Tiedot on kerätty kaikista yhteisön lähettämistä ProtonDB-raporteista.",
+    "helpAnalysisDetails": "Tiedot-välilehti näyttää:",
+    "helpAnalysisWorking": "Toimintatila — toimiiko peli Linuxissa ja kuinka varma arvio on",
+    "helpAnalysisConfidence": "Luottamuspisteet — kuinka paljon raporttidataa on saatavilla pelin arviointiin (0-100)",
+    "helpAnalysisTrend": "Trendi — paraneeko, pysyykö vakaana vai heikkeneekö yhteensopivuus",
+    "helpAnalysisFreshness": "Tuoreus — milloin viimeisin raportti lähetettiin",
+    "helpAnalysisWarnings": "Varoitukset Proton-versioeroista, GPU-ongelmista tai huijauksenestosta",
+    "helpAnalysisChart": "Raporttihistoria-välilehti näyttää kaavion hyvistä (vihreä) ja huonoista (punainen) raporteista kuukausittain viimeisen 2 vuoden ajalta.",
+    "helpAnalysisToggle": "Voit ottaa analyysipainikkeen käyttöön tai poistaa sen käytöstä Asetuksissa kohdassa Lisäominaisuudet.",
+    "clearCacheSuccess": "Välimuisti tyhjennetty"
 }

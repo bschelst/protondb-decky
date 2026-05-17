@@ -87,5 +87,19 @@
     "helpSubmitDesc": "Pomagajte skupnosti z deljenjem vaše igralne izkušnje! Poročila pomagajo drugim vedeti, kaj pričakovati.",
     "helpSubmitStep1": "Igrajte igro vsaj 15-30 minut",
     "helpSubmitStep2": "Kliknite gumb Pošlji na znački ProtonDB",
-    "helpSubmitStep3": "Izpolnite obrazec za poročilo na spletni strani ProtonDB"
+    "helpSubmitStep3": "Izpolnite obrazec za poročilo na spletni strani ProtonDB",
+    "sectionEnhancedFeatures": "Napredne funkcije",
+    "showAnalysisButton": "Prikaži gumb za analizo",
+    "showAnalysisButtonDesc": "Prikaže gumb poleg značke za ogled podrobne analize združljivosti, vključno s trendi poročil in grafom zgodovine",
+    "helpAnalysisTitle": "Analiza združljivosti",
+    "helpAnalysisDesc": "Gumb za analizo (ikona stolpičnega grafikona) poleg značke odpre podroben pregled združljivosti za vsako igro. Podatki so zbrani iz vseh poročil ProtonDB, ki jih je poslala skupnost.",
+    "helpAnalysisDetails": "Zavihek Podrobnosti prikazuje:",
+    "helpAnalysisWorking": "Stanje delovanja — ali igra trenutno deluje na Linuxu in kako zanesljiva je ta ocena",
+    "helpAnalysisConfidence": "Ocena zaupanja — koliko podatkov iz poročil je na voljo za oceno igre (0-100)",
+    "helpAnalysisTrend": "Trend — ali se združljivost izboljšuje, je stabilna ali upada",
+    "helpAnalysisFreshness": "Svežina — kdaj je bilo poslano zadnje poročilo",
+    "helpAnalysisWarnings": "Opozorila o neskladnostih različic Proton, težavah z GPU ali proti-goljufijah",
+    "helpAnalysisChart": "Zavihek Zgodovina poročil prikazuje grafikon dobrih (zelenih) in slabih (rdečih) poročil po mesecih v zadnjih 2 letih.",
+    "helpAnalysisToggle": "Gumb za analizo lahko omogočite ali onemogočite v Nastavitvah pod Napredne funkcije.",
+    "clearCacheSuccess": "Predpomnilnik izpraznjen"
 }

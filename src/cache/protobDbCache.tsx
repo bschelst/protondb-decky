@@ -1,5 +1,6 @@
 import localforage from 'localforage'
 import ProtonDBTier from '../../types/ProtonDBTier'
+import { GatewayAnalysis } from '../../types/gateway'
 
 const STORAGE_KEY = 'protondb-badges-cache'
 
@@ -10,6 +11,7 @@ localforage.config({
 type ProtonDBCache = {
   tier: ProtonDBTier
   linuxSupport: boolean
+  analysis?: GatewayAnalysis
   lastUpdated: string
 }
 

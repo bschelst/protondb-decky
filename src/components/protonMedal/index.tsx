@@ -1,7 +1,22 @@
-import { appDetailsClasses, appDetailsHeaderClasses, Focusable, Navigation } from '@decky/ui'
-import React, { ReactElement, FC, CSSProperties, ReactNode, useState, useRef, useEffect } from 'react'
-import { FaReact, FaPaperPlane } from 'react-icons/fa'
+import {
+  appDetailsClasses,
+  appDetailsHeaderClasses,
+  Focusable,
+  Navigation,
+  showModal
+} from '@decky/ui'
+import React, {
+  ReactElement,
+  FC,
+  CSSProperties,
+  ReactNode,
+  useState,
+  useRef,
+  useEffect
+} from 'react'
+import { FaReact, FaPaperPlane, FaChartBar } from 'react-icons/fa'
 import { IoLogoTux } from 'react-icons/io'
+import AnalysisModal from './AnalysisModal'
 
 import useAppId from '../../hooks/useAppId'
 import useBadgeData from '../../hooks/useBadgeData'
@@ -30,7 +45,10 @@ const TOP_POSITIONS = {
 
 const BOTTOM_OFFSET = 40 // pixels from bottom of hero image
 
-function getPositionStyle(position: string, heroHeight: number | null): CSSProperties {
+function getPositionStyle(
+  position: string,
+  heroHeight: number | null
+): CSSProperties {
   if (position in TOP_POSITIONS) {
     return TOP_POSITIONS[position as keyof typeof TOP_POSITIONS]
   }
@@ -85,13 +103,21 @@ interface ProtonMedalProps {
   appId?: string
 }
 
-export default function ProtonMedal({ hideSubmit = false, context = 'library', appId: propAppId }: ProtonMedalProps): ReactElement {
+export default function ProtonMedal({
+  hideSubmit = false,
+  context = 'library',
+  appId: propAppId
+}: ProtonMedalProps): ReactElement {
   const t = useTranslations()
   const detectedAppId = useAppId()
   const appId = propAppId || detectedAppId
-  const { protonDBTier, linuxSupport, refresh } = useBadgeData(appId)
+  const { protonDBTier, linuxSupport, analysis, refresh } = useBadgeData(appId)
   const { settings, loading } = useSettings()
-  const { isLoggedIn, isLoading: authLoading, recheckLoginStatus } = useProtonDBAuth()
+  const {
+    isLoggedIn,
+    isLoading: authLoading,
+    recheckLoginStatus
+  } = useProtonDBAuth()
 
   // There will be no mutation when the page is loaded (either from exiting the game
   // or just newly opening the page), therefore it's visible by default.
@@ -121,7 +147,7 @@ export default function ProtonMedal({ hideSubmit = false, context = 'library', a
       // Set up mutation observer for fullscreen detection
       mutationObserver = new MutationObserver((entries) => {
         for (const entry of entries) {
-          if (entry.type !== "attributes" || entry.attributeName !== "class") {
+          if (entry.type !== 'attributes' || entry.attributeName !== 'class') {
             continue
           }
 
@@ -132,13 +158,17 @@ export default function ProtonMedal({ hideSubmit = false, context = 'library', a
             className.includes(appDetailsHeaderClasses.FullscreenEnterDone) ||
             className.includes(appDetailsHeaderClasses.FullscreenExitStart) ||
             className.includes(appDetailsHeaderClasses.FullscreenExitActive)
-          const fullscreenAborted =
-            className.includes(appDetailsHeaderClasses.FullscreenExitDone)
+          const fullscreenAborted = className.includes(
+            appDetailsHeaderClasses.FullscreenExitDone
+          )
 
           setShow(!fullscreenMode || fullscreenAborted)
         }
       })
-      mutationObserver.observe(topCapsule, { attributes: true, attributeFilter: ["class"] })
+      mutationObserver.observe(topCapsule, {
+        attributes: true,
+        attributeFilter: ['class']
+      })
 
       // Set up height measurement
       const updateHeight = () => {
@@ -172,10 +202,12 @@ export default function ProtonMedal({ hideSubmit = false, context = 'library', a
     return <></>
   }
 
-  const tierClass = `protondb-decky-indicator-${protonDBTier || 'silver'}` as const
+  const tierClass =
+    `protondb-decky-indicator-${protonDBTier || 'silver'}` as const
   const nativeClass = linuxSupport ? 'protondb-decky-indicator-native' : ''
-  const sizeClass = `protondb-decky-indicator-${settings.size || 'regular'
-    }` as const
+  const sizeClass = `protondb-decky-indicator-${
+    settings.size || 'regular'
+  }` as const
 
   const labelTypeOnHoverClass =
     settings.size !== 'minimalist' || settings.labelTypeOnHover === 'off'
@@ -183,87 +215,99 @@ export default function ProtonMedal({ hideSubmit = false, context = 'library', a
       : `protondb-decky-indicator-label-on-hover-${settings.labelTypeOnHover}`
 
   // Conditional styling based on context
-  const containerStyle = context === 'store'
-    ? {
-        position: 'relative' as const,
-        marginTop: '16px',
-        marginBottom: '16px',
-        display: 'flex',
-        justifyContent: 'flex-start'
-      }
-    : {
-        position: 'absolute' as const,
-        ...getPositionStyle(settings.position, heroHeight)
-      }
+  const containerStyle =
+    context === 'store'
+      ? {
+          position: 'relative' as const,
+          marginTop: '16px',
+          marginBottom: '16px',
+          display: 'flex',
+          justifyContent: 'flex-start'
+        }
+      : {
+          position: 'absolute' as const,
+          ...getPositionStyle(settings.position, heroHeight)
+        }
 
-  const containerClassName = context === 'store'
-    ? 'protondb-decky-indicator-container protondb-store-context'
-    : 'protondb-decky-indicator-container'
+  const containerClassName =
+    context === 'store'
+      ? 'protondb-decky-indicator-container protondb-store-context'
+      : 'protondb-decky-indicator-container'
+
+  const compact = context === 'library' && settings.size === 'minimalist'
+
+  const trendBorderColors: Record<string, string> = {
+    improving: '#4ade80',
+    declining: '#f87171'
+  }
+  const trendDirection = analysis?.trend?.direction
+  const trendBorderStyle: CSSProperties =
+    trendDirection && trendBorderColors[trendDirection]
+      ? {
+          border: `2px solid ${trendBorderColors[trendDirection]}`,
+          boxShadow: `0 0 6px ${trendBorderColors[trendDirection]}55`
+        }
+      : {}
 
   return (
-    <div
-      ref={ref}
-      className={containerClassName}
-      style={containerStyle}
-    >
-      {show && !loading &&
+    <div ref={ref} className={containerClassName} style={containerStyle}>
+      {show && !loading && (
         <>
           {style}
-          <Focusable style={{ display: 'flex', gap: '8px' }} flow-children="row">
-            <DeckButton
-              className={`protondb-decky-indicator ${tierClass} ${nativeClass} ${sizeClass} ${labelTypeOnHoverClass}`}
-              type="button"
-              onClick={async () => {
-                refresh()
-                Navigation.NavigateToExternalWeb(
-                  `https://www.protondb.com/app/${appId}`
-                )
-              }}
-            >
-              <div>
-                {linuxSupport ? (
-                  <IoLogoTux
-                    style={{ marginRight: 10 }}
-                  />
-                ) : (
-                  <></>
-                )}
-                {/* The ProtonDB logo has a distracting background, so React's logo is being used as a close substitute */}
-                <FaReact />
-              </div>
-              <span>
-                {(() => {
-                  const text = protonDBTier ? (
-                    settings.size === 'small' ||
-                    (settings.size === 'minimalist' &&
-                      settings.labelTypeOnHover !== 'regular')
-                    ? t(`tierMin${protonDBTier}`)
-                    : t(`tier${protonDBTier}`)
-                  ) : (
-                    t('noReport')
+          <Focusable
+            style={{ display: 'flex', gap: '8px' }}
+            flow-children="row"
+          >
+            <div style={{ borderRadius: '4px', ...trendBorderStyle }}>
+              <DeckButton
+                className={`protondb-decky-indicator ${tierClass} ${nativeClass} ${sizeClass} ${labelTypeOnHoverClass}`}
+                type="button"
+                onClick={async () => {
+                  refresh()
+                  Navigation.NavigateToExternalWeb(
+                    `https://www.protondb.com/app/${appId}`
                   )
-                  // Limit to 20 characters max
-                  return text.length > 20 ? text.slice(0, 20) : text
-                })()}
-              </span>
-            </DeckButton>
+                }}
+              >
+                <div>
+                  {linuxSupport ? (
+                    <IoLogoTux style={{ marginRight: 10 }} />
+                  ) : (
+                    <></>
+                  )}
+                  {/* The ProtonDB logo has a distracting background, so React's logo is being used as a close substitute */}
+                  <FaReact />
+                </div>
+                <span>
+                  {(() => {
+                    const text = protonDBTier
+                      ? settings.size === 'small' ||
+                        (settings.size === 'minimalist' &&
+                          settings.labelTypeOnHover !== 'regular')
+                        ? t(`tierMin${protonDBTier}`)
+                        : t(`tier${protonDBTier}`)
+                      : t('noReport')
+                    // Limit to 20 characters max
+                    return text.length > 20 ? text.slice(0, 20) : text
+                  })()}
+                </span>
+              </DeckButton>
+            </div>
+
             {!settings.disableSubmit && !hideSubmit && (
               <DeckButton
-                className={`protondb-decky-indicator protondb-decky-submit-button ${sizeClass} ${labelTypeOnHoverClass} ${isLoggedIn === false ? 'protondb-decky-not-logged-in' : ''}`}
+                className={`protondb-decky-submit-button ${sizeClass} ${isLoggedIn === false ? 'protondb-decky-not-logged-in' : ''}`}
                 type="button"
                 onClick={async () => {
                   if (isLoggedIn === false) {
-                    // User is not logged in, direct them to profile page to login
                     Navigation.NavigateToExternalWeb(
                       'https://www.protondb.com/profile'
                     )
                   } else {
-                    // User is logged in or status unknown, go to contribute page
                     Navigation.NavigateToExternalWeb(
                       `https://www.protondb.com/contribute?appId=${appId}`
                     )
                   }
-                  // Recheck login status after user potentially logs in
                   setTimeout(() => {
                     recheckLoginStatus()
                   }, 2000)
@@ -272,16 +316,30 @@ export default function ProtonMedal({ hideSubmit = false, context = 'library', a
                 <div>
                   <FaPaperPlane />
                 </div>
-                {settings.size !== 'minimalist' && (
-                  <span>
-                    {authLoading ? t('loading') : (isLoggedIn === false ? t('login') : t('submit'))}
-                  </span>
-                )}
+              </DeckButton>
+            )}
+
+            {analysis && settings.showAnalysisButton !== false && !compact && (
+              <DeckButton
+                className={`protondb-decky-info-button ${sizeClass}`}
+                type="button"
+                onClick={() => {
+                  showModal(
+                    <AnalysisModal
+                      analysis={analysis}
+                      appId={appId as string}
+                    />
+                  )
+                }}
+              >
+                <div>
+                  <FaChartBar />
+                </div>
               </DeckButton>
             )}
           </Focusable>
         </>
-      }
+      )}
     </div>
   )
 }

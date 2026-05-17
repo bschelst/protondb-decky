@@ -87,5 +87,19 @@
     "helpSubmitDesc": "¡Ayuda a la comunidad compartiendo tu experiencia de juego! Los reportes ayudan a otros a saber qué esperar.",
     "helpSubmitStep1": "Juega un juego durante al menos 15-30 minutos",
     "helpSubmitStep2": "Haz clic en el botón Enviar en la medalla de ProtonDB",
-    "helpSubmitStep3": "Completa el formulario de reporte en el sitio web de ProtonDB"
+    "helpSubmitStep3": "Completa el formulario de reporte en el sitio web de ProtonDB",
+    "sectionEnhancedFeatures": "Funciones avanzadas",
+    "showAnalysisButton": "Mostrar botón de análisis",
+    "showAnalysisButtonDesc": "Muestra un botón junto a la insignia para ver un análisis detallado de compatibilidad, incluyendo tendencias de reportes y gráfico de historial",
+    "helpAnalysisTitle": "Análisis de compatibilidad",
+    "helpAnalysisDesc": "El botón de análisis (ícono de gráfico de barras) junto a la insignia abre un desglose detallado de compatibilidad para cada juego. Estos datos provienen de todos los reportes de ProtonDB enviados por la comunidad.",
+    "helpAnalysisDetails": "La pestaña Detalles muestra:",
+    "helpAnalysisWorking": "Estado de funcionamiento — si el juego funciona actualmente en Linux y qué tan segura es esa evaluación",
+    "helpAnalysisConfidence": "Puntuación de confianza — cuántos datos de reportes hay disponibles para evaluar el juego (0-100)",
+    "helpAnalysisTrend": "Tendencia — si la compatibilidad está mejorando, es estable o está empeorando",
+    "helpAnalysisFreshness": "Actualidad — cuándo se envió el último reporte",
+    "helpAnalysisWarnings": "Advertencias sobre incompatibilidades de versión de Proton, problemas de GPU o anti-trampas",
+    "helpAnalysisChart": "La pestaña Historial de reportes muestra un gráfico de reportes buenos (verdes) y malos (rojos) por mes durante los últimos 2 años.",
+    "helpAnalysisToggle": "Puedes activar o desactivar el botón de análisis en Ajustes, en Funciones avanzadas.",
+    "clearCacheSuccess": "Caché borrada correctamente"
 }

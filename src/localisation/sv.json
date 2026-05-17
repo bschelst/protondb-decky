@@ -87,5 +87,19 @@
     "helpSubmitDesc": "Hjälp gemenskapen genom att dela din spelupplevelse! Rapporter hjälper andra att veta vad de kan förvänta sig.",
     "helpSubmitStep1": "Spela ett spel i minst 15-30 minuter",
     "helpSubmitStep2": "Klicka på Skicka-knappen på ProtonDB-märket",
-    "helpSubmitStep3": "Fyll i rapportformuläret på ProtonDBs webbplats"
+    "helpSubmitStep3": "Fyll i rapportformuläret på ProtonDBs webbplats",
+    "sectionEnhancedFeatures": "Utökade funktioner",
+    "showAnalysisButton": "Visa analysknapp",
+    "showAnalysisButtonDesc": "Visar en knapp bredvid märket för att se detaljerad kompatibilitetsanalys, inklusive rapporttrender och historikgraf",
+    "helpAnalysisTitle": "Kompatibilitetsanalys",
+    "helpAnalysisDesc": "Analysknappen (stapeldiagramikon) bredvid märket öppnar en detaljerad kompatibilitetsöversikt för varje spel. Data kommer från alla ProtonDB-rapporter som skickats in av gemenskapen.",
+    "helpAnalysisDetails": "Fliken Detaljer visar:",
+    "helpAnalysisWorking": "Funktionsstatus — om spelet fungerar på Linux och hur säker den bedömningen är",
+    "helpAnalysisConfidence": "Tillförlitlighetspoäng — hur mycket rapportdata som finns tillgängligt för att bedöma spelet (0-100)",
+    "helpAnalysisTrend": "Trend — om kompatibiliteten förbättras, är stabil eller försämras",
+    "helpAnalysisFreshness": "Aktualitet — när den senaste rapporten skickades in",
+    "helpAnalysisWarnings": "Varningar om Proton-versionsskillnader, GPU-problem eller fuskskydd",
+    "helpAnalysisChart": "Fliken Rapporthistorik visar en graf över bra (gröna) och dåliga (röda) rapporter per månad de senaste 2 åren.",
+    "helpAnalysisToggle": "Du kan aktivera eller inaktivera analysknappen i Inställningar under Utökade funktioner.",
+    "clearCacheSuccess": "Cache rensad"
 }

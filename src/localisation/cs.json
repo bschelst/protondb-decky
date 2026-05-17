@@ -87,5 +87,19 @@
     "helpSubmitDesc": "Pomozte komunitě sdílením vašeho herního zážitku! Hlášení pomáhají ostatním vědět, co očekávat.",
     "helpSubmitStep1": "Hrajte hru alespoň 15-30 minut",
     "helpSubmitStep2": "Klikněte na tlačítko Odeslat na odznaku ProtonDB",
-    "helpSubmitStep3": "Vyplňte formulář hlášení na webu ProtonDB"
+    "helpSubmitStep3": "Vyplňte formulář hlášení na webu ProtonDB",
+    "sectionEnhancedFeatures": "Rozšířené funkce",
+    "showAnalysisButton": "Zobrazit tlačítko analýzy",
+    "showAnalysisButtonDesc": "Zobrazí tlačítko vedle odznaku pro zobrazení podrobné analýzy kompatibility, včetně trendů hlášení a grafu historie",
+    "helpAnalysisTitle": "Analýza kompatibility",
+    "helpAnalysisDesc": "Tlačítko analýzy (ikona sloupcového grafu) vedle odznaku otevře podrobný přehled kompatibility pro každou hru. Data pochází ze všech hlášení na ProtonDB od komunity.",
+    "helpAnalysisDetails": "Záložka Podrobnosti zobrazuje:",
+    "helpAnalysisWorking": "Stav funkčnosti — zda hra aktuálně funguje na Linuxu a jak jisté je toto hodnocení",
+    "helpAnalysisConfidence": "Skóre důvěry — kolik dat z hlášení je k dispozici pro hodnocení hry (0-100)",
+    "helpAnalysisTrend": "Trend — zda se kompatibilita zlepšuje, je stabilní nebo klesá na základě porovnání nedávných a starších hlášení",
+    "helpAnalysisFreshness": "Aktuálnost — kdy bylo odesláno poslední hlášení",
+    "helpAnalysisWarnings": "Varování o neshodách verzí Protonu, problémech s GPU nebo anti-cheatu",
+    "helpAnalysisChart": "Záložka Historie hlášení zobrazuje graf dobrých (zelených) a špatných (červených) hlášení po měsících za poslední 2 roky.",
+    "helpAnalysisToggle": "Tlačítko analýzy můžete zapnout nebo vypnout v Nastavení pod Rozšířené funkce.",
+    "clearCacheSuccess": "Mezipaměť byla úspěšně vymazána"
 }

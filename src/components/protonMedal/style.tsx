@@ -167,12 +167,13 @@ export default (
       background: rgb(166, 166, 166);
       border: none;
       border-radius: 8px;
-      padding: 6px 18px;
+      padding: 6px 10px;
       display: flex;
       align-items: center;
       justify-content: center;
-      font-family: Abel, "Motiva Sans", Arial, Helvetica, sans-serif;
       color: #000000;
+      width: max-content;
+      height: max-content;
     }
 
     .protondb-decky-submit-button.gpfocus, .protondb-decky-submit-button:hover {
@@ -192,61 +193,17 @@ export default (
       height: 28px;
     }
 
-    .protondb-decky-submit-button > span {
-      margin-left: 10px;
-      font-size: 24px;
-      white-space: nowrap;
-      line-height: 24px;
-    }
-
     .protondb-decky-submit-button.protondb-decky-indicator-small {
-      padding: 6px 12px;
+      padding: 6px 8px;
     }
 
     .protondb-decky-submit-button.protondb-decky-indicator-small > div {
       height: 20px;
     }
 
-    .protondb-decky-submit-button.protondb-decky-indicator-small > span {
-      font-size: 12px;
-      line-height: 12px;
-    }
-
     .protondb-decky-submit-button.protondb-decky-indicator-small > div > svg {
       width: 20px;
       height: 20px;
-    }
-
-    .protondb-decky-submit-button.protondb-decky-indicator-minimalist {
-      padding: 6px;
-    }
-
-    .protondb-decky-submit-button.protondb-decky-indicator-minimalist > div {
-      height: 20px;
-    }
-
-    .protondb-decky-submit-button.protondb-decky-indicator-minimalist > span {
-      display: none;
-    }
-
-    .protondb-decky-submit-button.protondb-decky-indicator-minimalist > div > svg {
-      width: 20px;
-      height: 20px;
-    }
-
-    .protondb-decky-submit-button.protondb-decky-indicator-label-on-hover-small:hover > span,
-    .protondb-decky-submit-button.protondb-decky-indicator-label-on-hover-small.gpfocus > span {
-      display: block;
-      font-size: 12px;
-      line-height: 12px;
-    }
-
-    .protondb-decky-submit-button.protondb-decky-indicator-label-on-hover-regular:hover > span,
-    .protondb-decky-submit-button.protondb-decky-indicator-label-on-hover-regular.gpfocus > span {
-      display: block;
-      margin-left: 10px;
-      font-size: 24px;
-      line-height: 24px;
     }
 
     .protondb-decky-submit-button.protondb-decky-not-logged-in {
@@ -257,6 +214,51 @@ export default (
     .protondb-decky-submit-button.protondb-decky-not-logged-in.gpfocus,
     .protondb-decky-submit-button.protondb-decky-not-logged-in:hover {
       background: #ff7a4a;
+    }
+
+    .protondb-decky-info-button {
+      background: rgb(166, 166, 166);
+      border: none;
+      border-radius: 8px;
+      padding: 6px 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: Abel, "Motiva Sans", Arial, Helvetica, sans-serif;
+      color: #000000;
+      width: max-content;
+      height: max-content;
+    }
+
+    .protondb-decky-info-button.gpfocus,
+    .protondb-decky-info-button:hover {
+      background: #8a8a8a;
+      outline: 2px solid black;
+    }
+
+    .protondb-decky-info-button > div {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 28px;
+    }
+
+    .protondb-decky-info-button > div > svg {
+      width: 28px;
+      height: 28px;
+    }
+
+    .protondb-decky-info-button.protondb-decky-indicator-small {
+      padding: 6px 8px;
+    }
+
+    .protondb-decky-info-button.protondb-decky-indicator-small > div {
+      height: 20px;
+    }
+
+    .protondb-decky-info-button.protondb-decky-indicator-small > div > svg {
+      width: 20px;
+      height: 20px;
     }
 
     /* Store page specific styles */
@@ -272,6 +274,106 @@ export default (
     .protondb-store-context .protondb-decky-indicator {
       /* Ensure badges flow naturally in store context */
       position: static;
+    }
+
+    /* Enhanced Info Badge - styled like other badges */
+    .protondb-decky-enhanced-info {
+      background: rgba(100, 149, 237, 0.3);
+      border: 1px solid rgba(100, 149, 237, 0.5);
+    }
+
+    .protondb-decky-enhanced-info:hover,
+    .protondb-decky-enhanced-info.gpfocus {
+      background: rgba(100, 149, 237, 0.5);
+      border: 1px solid #000;
+    }
+
+    /* Confidence Dots */
+    .protondb-confidence-dots {
+      display: flex;
+      gap: 3px;
+      align-items: center;
+    }
+
+    .protondb-confidence-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.3);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+    }
+
+    .protondb-confidence-dot.filled {
+      background: rgba(74, 222, 128, 0.8);
+      border-color: rgba(74, 222, 128, 0.4);
+      box-shadow: 0 0 4px rgba(74, 222, 128, 0.5);
+    }
+
+    .protondb-confidence-dot.empty {
+      background: rgba(148, 163, 184, 0.3);
+      border-color: rgba(148, 163, 184, 0.2);
+    }
+
+    /* Confidence Text */
+    .protondb-confidence-text {
+      font-size: 10px;
+      padding: 2px 6px;
+      border-radius: 4px;
+      background: rgba(0, 0, 0, 0.4);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    /* Trend Indicator */
+    .protondb-trend-indicator {
+      font-size: 16px;
+      font-weight: bold;
+      line-height: 1;
+      text-shadow: 0 0 4px currentColor;
+    }
+
+    /* Warnings */
+    .protondb-warnings-container {
+      position: relative;
+      display: flex;
+      align-items: center;
+    }
+
+    .protondb-warnings-icon {
+      font-size: 14px;
+      color: #fbbf24;
+      cursor: pointer;
+      text-shadow: 0 0 4px rgba(251, 191, 36, 0.5);
+    }
+
+    .protondb-warnings-overlay {
+      position: absolute;
+      top: 100%;
+      left: 0;
+      margin-top: 4px;
+      min-width: 200px;
+      max-width: 300px;
+      padding: 8px;
+      background: rgba(0, 0, 0, 0.9);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(251, 191, 36, 0.3);
+      border-radius: 6px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+      z-index: 1000;
+    }
+
+    .protondb-warning-item {
+      font-size: 12px;
+      padding: 4px 0;
+      color: #fbbf24;
+      line-height: 1.4;
+    }
+
+    .protondb-warning-item:not(:last-child) {
+      border-bottom: 1px solid rgba(251, 191, 36, 0.2);
     }
 `}</style>
 )

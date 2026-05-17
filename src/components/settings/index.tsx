@@ -10,13 +10,13 @@ import {
   showModal,
   ToggleField
 } from '@decky/ui'
+import { toaster } from '@decky/api'
 import React, { FC, ReactNode } from 'react'
 import { FaGithub, FaQuestionCircle } from 'react-icons/fa'
 import { clearCache } from '../../cache/protobDbCache'
+import { PLUGIN_VERSION } from '../../constants'
 import useTranslations from '../../hooks/useTranslations'
 import { useSettings } from '../../hooks/useSettings'
-import { useSystemInfo } from '../../hooks/useSystemInfo'
-import { PLUGIN_VERSION } from '../../constants'
 import Spinner from '../spinner'
 import HelpModal from '../helpModal'
 
@@ -41,10 +41,18 @@ type ExtendedButtonItemProps = ButtonItemProps & {
 const DeckButtonItem = ButtonItem as FC<ExtendedButtonItemProps>
 
 export default function Index() {
-  const { settings, setSize, setPosition, setLabelOnHover, setDisableSubmit, setEnableLibraryBadge, setEnableStoreBadge, loading } =
-    useSettings()
+  const {
+    settings,
+    setSize,
+    setPosition,
+    setLabelOnHover,
+    setDisableSubmit,
+    setEnableLibraryBadge,
+    setEnableStoreBadge,
+    setShowAnalysisButton,
+    loading
+  } = useSettings()
   const t = useTranslations()
-  const { systemInfo, getOsDisplay } = useSystemInfo()
 
   const sizeOptions = [
     { data: 0, label: t('sizeRegular'), value: 'regular' },
@@ -184,13 +192,32 @@ export default function Index() {
           />
         </DeckPanelSectionRow>
       </DeckPanelSection>
+      <DeckPanelSection title={t('sectionEnhancedFeatures')}>
+        <DeckPanelSectionRow>
+          <ToggleField
+            label={t('showAnalysisButton')}
+            description={t('showAnalysisButtonDesc')}
+            checked={settings.showAnalysisButton !== false}
+            onChange={(checked: boolean) => {
+              setShowAnalysisButton(checked)
+            }}
+          />
+        </DeckPanelSectionRow>
+      </DeckPanelSection>
       <DeckPanelSection title={t('caching')}>
         <DeckPanelSectionRow>
           <DeckButtonItem
             label={t('clearCacheLabel')}
             bottomSeparator="none"
             layout="below"
-            onClick={() => clearCache()}
+            onClick={() => {
+              clearCache()
+              toaster.toast({
+                title: 'ProtonDB Badges',
+                body: t('clearCacheSuccess'),
+                duration: 3000
+              })
+            }}
           >
             {t('clearCache')}
           </DeckButtonItem>
@@ -221,23 +248,9 @@ export default function Index() {
             </div>
           </DeckButtonItem>
         </DeckPanelSectionRow>
-      </DeckPanelSection>
-      <DeckPanelSection title="VERSION INFO">
         <DeckPanelSectionRow>
-          <Field label="Plugin" bottomSeparator="none">
+          <Field label={t('version')} bottomSeparator="none">
             {PLUGIN_VERSION}
-          </Field>
-        </DeckPanelSectionRow>
-        <DeckPanelSectionRow>
-          <Field label={systemInfo?.os_name?.toLowerCase().includes('steamos') ? 'SteamOS' : 'Linux'} bottomSeparator="none">
-            {systemInfo?.os_name?.toLowerCase().includes('steamos')
-              ? systemInfo?.os_version || 'Loading...'
-              : systemInfo?.os_name || 'Loading...'}
-          </Field>
-        </DeckPanelSectionRow>
-        <DeckPanelSectionRow>
-          <Field label="Decky" bottomSeparator="none">
-            {systemInfo?.decky_version || 'Loading...'}
           </Field>
         </DeckPanelSectionRow>
       </DeckPanelSection>

@@ -87,5 +87,19 @@
     "helpSubmitDesc": "Hjælp fællesskabet ved at dele din spiloplevelse! Rapporter hjælper andre med at vide, hvad de kan forvente.",
     "helpSubmitStep1": "Spil et spil i mindst 15-30 minutter",
     "helpSubmitStep2": "Klik på Indsend-knappen på ProtonDB-badgen",
-    "helpSubmitStep3": "Udfyld rapportformularen på ProtonDBs hjemmeside"
+    "helpSubmitStep3": "Udfyld rapportformularen på ProtonDBs hjemmeside",
+    "sectionEnhancedFeatures": "Udvidede funktioner",
+    "showAnalysisButton": "Vis analyseknap",
+    "showAnalysisButtonDesc": "Viser en knap ved siden af badget til at se detaljeret kompatibilitetsanalyse, herunder rapporttendenser og historikgraf",
+    "helpAnalysisTitle": "Kompatibilitetsanalyse",
+    "helpAnalysisDesc": "Analyseknappen (søjlediagramikon) ved siden af badget åbner en detaljeret kompatibilitetsoversigt for hvert spil. Dataene er indsamlet fra alle ProtonDB-rapporter indsendt af fællesskabet.",
+    "helpAnalysisDetails": "Fanen Detaljer viser:",
+    "helpAnalysisWorking": "Funktionsstatus — om spillet fungerer på Linux, og hvor sikker vurderingen er",
+    "helpAnalysisConfidence": "Tillidsscore — hvor mange rapportdata der er tilgængelige til at bedømme spillet (0-100)",
+    "helpAnalysisTrend": "Tendens — om kompatibiliteten forbedres, er stabil eller falder baseret på nyere og ældre rapporter",
+    "helpAnalysisFreshness": "Aktualitet — hvornår den seneste rapport blev indsendt",
+    "helpAnalysisWarnings": "Advarsler om Proton-versionsfejl, GPU-problemer eller anti-cheat",
+    "helpAnalysisChart": "Fanen Rapporthistorik viser en graf over gode (grønne) og dårlige (røde) rapporter pr. måned over de sidste 2 år.",
+    "helpAnalysisToggle": "Du kan aktivere eller deaktivere analyseknappen i Indstillinger under Udvidede funktioner.",
+    "clearCacheSuccess": "Cache ryddet"
 }

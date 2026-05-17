@@ -87,5 +87,19 @@
     "helpSubmitDesc": "Segíts a közösségnek a játékélményed megosztásával! A jelentések segítenek másoknak tudni, mire számíthatnak.",
     "helpSubmitStep1": "Játssz egy játékkal legalább 15-30 percig",
     "helpSubmitStep2": "Kattints a Beküldés gombra a ProtonDB jelvényen",
-    "helpSubmitStep3": "Töltsd ki a jelentés űrlapot a ProtonDB weboldalán"
+    "helpSubmitStep3": "Töltsd ki a jelentés űrlapot a ProtonDB weboldalán",
+    "sectionEnhancedFeatures": "Bővített funkciók",
+    "showAnalysisButton": "Elemzés gomb megjelenítése",
+    "showAnalysisButtonDesc": "Egy gombot jelenít meg a jelvény mellett a részletes kompatibilitási elemzés megtekintéséhez, beleértve a jelentési trendeket és az előzménygrafikont",
+    "helpAnalysisTitle": "Kompatibilitási elemzés",
+    "helpAnalysisDesc": "Az elemzés gomb (oszlopdiagram ikon) a jelvény mellett megnyit egy részletes kompatibilitási áttekintést minden játékhoz. Az adatok a közösség által beküldött ProtonDB jelentésekből származnak.",
+    "helpAnalysisDetails": "A Részletek fül megmutatja:",
+    "helpAnalysisWorking": "Működési állapot — hogy a játék jelenleg működik-e Linuxon és mennyire biztos ez az értékelés",
+    "helpAnalysisConfidence": "Megbízhatósági pontszám — mennyi jelentésadat áll rendelkezésre a játék értékeléséhez (0-100)",
+    "helpAnalysisTrend": "Trend — javul, stabil vagy romlik-e a kompatibilitás",
+    "helpAnalysisFreshness": "Frissesség — mikor küldték be az utolsó jelentést",
+    "helpAnalysisWarnings": "Figyelmeztetések Proton verzió eltérésekre, GPU problémákra vagy csalásvédelemre",
+    "helpAnalysisChart": "Az Előzmények fül egy grafikont mutat a jó (zöld) és rossz (piros) jelentésekről havonta az elmúlt 2 évben.",
+    "helpAnalysisToggle": "Az elemzés gombot a Beállítások alatt, a Bővített funkciók menüben kapcsolhatja be vagy ki.",
+    "clearCacheSuccess": "Gyorsítótár törölve"
 }

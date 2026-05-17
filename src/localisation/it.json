@@ -87,5 +87,19 @@
     "helpSubmitDesc": "Aiuta la community condividendo la tua esperienza di gioco! I rapporti aiutano gli altri a sapere cosa aspettarsi.",
     "helpSubmitStep1": "Gioca a un gioco per almeno 15-30 minuti",
     "helpSubmitStep2": "Clicca sul pulsante Invia sul badge ProtonDB",
-    "helpSubmitStep3": "Compila il modulo di rapporto sul sito web di ProtonDB"
+    "helpSubmitStep3": "Compila il modulo di rapporto sul sito web di ProtonDB",
+    "sectionEnhancedFeatures": "Funzionalità avanzate",
+    "showAnalysisButton": "Mostra pulsante analisi",
+    "showAnalysisButtonDesc": "Mostra un pulsante accanto al badge per visualizzare un'analisi dettagliata della compatibilità, incluse le tendenze dei report e il grafico storico",
+    "helpAnalysisTitle": "Analisi di compatibilità",
+    "helpAnalysisDesc": "Il pulsante di analisi (icona grafico a barre) accanto al badge apre una panoramica dettagliata della compatibilità per ogni gioco. I dati provengono da tutti i report ProtonDB inviati dalla comunità.",
+    "helpAnalysisDetails": "La scheda Dettagli mostra:",
+    "helpAnalysisWorking": "Stato di funzionamento — se il gioco funziona su Linux e quanto è affidabile questa valutazione",
+    "helpAnalysisConfidence": "Punteggio di affidabilità — quanti dati di report sono disponibili per valutare il gioco (0-100)",
+    "helpAnalysisTrend": "Tendenza — se la compatibilità sta migliorando, è stabile o in calo",
+    "helpAnalysisFreshness": "Attualità — quando è stato inviato l'ultimo report",
+    "helpAnalysisWarnings": "Avvisi su incompatibilità di versione Proton, problemi GPU o anti-cheat",
+    "helpAnalysisChart": "La scheda Cronologia report mostra un grafico dei report positivi (verdi) e negativi (rossi) per mese negli ultimi 2 anni.",
+    "helpAnalysisToggle": "Puoi attivare o disattivare il pulsante di analisi nelle Impostazioni sotto Funzionalità avanzate.",
+    "clearCacheSuccess": "Cache svuotata con successo"
 }

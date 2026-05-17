@@ -1,90 +1,92 @@
 import { useEffect, useState } from 'react'
 
 import ProtonDBTier from '../../types/ProtonDBTier'
+import { GatewayAnalysis } from '../../types/gateway'
 import { getLinuxInfo, getProtonDBInfo } from '../actions/protondb'
+import { getGameAnalysis } from '../actions/gateway'
 import { getCache, updateCache } from '../cache/protobDbCache'
 import { isOutdated } from '../lib/time'
 
 const useBadgeData = (appId: string | undefined) => {
   const [protonDBTier, setProtonDBTier] = useState<ProtonDBTier>()
   const [linuxSupport, setLinuxSupport] = useState<boolean>(false)
+  const [analysis, setAnalysis] = useState<GatewayAnalysis | undefined>()
 
   async function refresh() {
-    const tierPromise = getProtonDBInfo(appId as string)
-    const linuxPromise = getLinuxInfo(appId as string)
-    const [tier, linuxSupport] = await Promise.all([tierPromise, linuxPromise])
-    if (tier?.length && appId?.length) {
-      updateCache(appId, {
-        tier: tier,
-        linuxSupport,
-        lastUpdated: new Date().toISOString()
-      })
+    if (!appId?.length) return
+    const [tier, linux, anal] = await Promise.all([
+      getProtonDBInfo(appId),
+      getLinuxInfo(appId),
+      getGameAnalysis(appId)
+    ])
+    if (tier?.length) {
       setProtonDBTier(tier)
     }
-    setLinuxSupport(linuxSupport)
+    setLinuxSupport(linux)
+    setAnalysis(anal)
+    if (tier?.length) {
+      updateCache(appId, {
+        tier: tier,
+        linuxSupport: linux,
+        analysis: anal,
+        lastUpdated: new Date().toISOString()
+      })
+    }
   }
 
   useEffect(() => {
-    // Proton DB Data
+    if (!appId?.length) return
     let ignore = false
-    async function getData() {
+
+    async function loadData() {
       const cache = await getCache(appId as string)
+
       if (cache?.tier) {
         setProtonDBTier(cache.tier)
-        if (!isOutdated(cache?.lastUpdated)) return
       }
-      const tier = await getProtonDBInfo(appId as string)
-      if (ignore) {
-        return
-      }
-      if (!tier?.length) return
-      setProtonDBTier(tier)
-    }
-    if (appId?.length) {
-      getData()
-    }
-    return () => {
-      ignore = true
-    }
-  }, [appId])
-
-  useEffect(() => {
-    // Linux Data
-    let ignore = false
-    async function getData() {
-      const cache = await getCache(appId as string)
       if (typeof cache?.linuxSupport !== 'undefined') {
-        setLinuxSupport(cache?.linuxSupport)
-        if (!isOutdated(cache?.lastUpdated)) return
+        setLinuxSupport(cache.linuxSupport)
       }
-      const linuxSupport = await getLinuxInfo(appId as string)
-      if (ignore) {
+      if (cache?.analysis) {
+        setAnalysis(cache.analysis)
+      }
+
+      if (cache?.tier && cache?.analysis && !isOutdated(cache?.lastUpdated))
         return
+
+      const [tier, linux, anal] = await Promise.all([
+        getProtonDBInfo(appId as string),
+        getLinuxInfo(appId as string),
+        getGameAnalysis(appId as string)
+      ])
+      if (ignore) return
+
+      if (tier?.length) {
+        setProtonDBTier(tier)
       }
-      setLinuxSupport(linuxSupport)
+      setLinuxSupport(linux)
+      setAnalysis(anal)
+
+      if (tier?.length) {
+        updateCache(appId as string, {
+          tier: tier,
+          linuxSupport: linux,
+          analysis: anal,
+          lastUpdated: new Date().toISOString()
+        })
+      }
     }
 
-    if (appId?.length) {
-      getData()
-    }
+    loadData()
     return () => {
       ignore = true
     }
   }, [appId])
-
-  useEffect(() => {
-    if (protonDBTier) {
-      updateCache(appId as string, {
-        tier: protonDBTier,
-        linuxSupport,
-        lastUpdated: new Date().toISOString()
-      })
-    }
-  }, [protonDBTier, linuxSupport])
 
   return {
     protonDBTier,
     linuxSupport,
+    analysis,
     refresh
   }
 }
