@@ -91,6 +91,8 @@
     "sectionEnhancedFeatures": "Lisäominaisuudet",
     "showAnalysisButton": "Näytä analyysipainike",
     "showAnalysisButtonDesc": "Näyttää painikkeen merkin vieressä yksityiskohtaisen yhteensopivuusanalyysin katselua varten, sisältäen raporttitrendit ja historiakaavion",
+    "roundedCorners": "Pyöristetyt kulmat",
+    "roundedCornersDesc": "Käytä pyöristettyjä kulmia kaikissa merkkipainikkeissa",
     "helpAnalysisTitle": "Yhteensopivuusanalyysi",
     "helpAnalysisDesc": "Analyysipainike (pylväskaavion kuvake) merkin vieressä avaa yksityiskohtaisen yhteensopivuuskatsauksen jokaiselle pelille. Tiedot on kerätty kaikista yhteisön lähettämistä ProtonDB-raporteista.",
     "helpAnalysisDetails": "Tiedot-välilehti näyttää:",

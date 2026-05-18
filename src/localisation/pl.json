@@ -91,6 +91,8 @@
     "sectionEnhancedFeatures": "Funkcje zaawansowane",
     "showAnalysisButton": "Pokaż przycisk analizy",
     "showAnalysisButtonDesc": "Wyświetla przycisk obok odznaki do przeglądania szczegółowej analizy kompatybilności, w tym trendów raportów i wykresu historii",
+    "roundedCorners": "Zaokrąglone rogi",
+    "roundedCornersDesc": "Użyj zaokrąglonych rogów na wszystkich przyciskach odznaki",
     "helpAnalysisTitle": "Analiza kompatybilności",
     "helpAnalysisDesc": "Przycisk analizy (ikona wykresu słupkowego) obok odznaki otwiera szczegółowy przegląd kompatybilności dla każdej gry. Dane pochodzą ze wszystkich raportów ProtonDB przesłanych przez społeczność.",
     "helpAnalysisDetails": "Zakładka Szczegóły pokazuje:",

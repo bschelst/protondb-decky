@@ -91,6 +91,8 @@
     "sectionEnhancedFeatures": "Funzionalità avanzate",
     "showAnalysisButton": "Mostra pulsante analisi",
     "showAnalysisButtonDesc": "Mostra un pulsante accanto al badge per visualizzare un'analisi dettagliata della compatibilità, incluse le tendenze dei report e il grafico storico",
+    "roundedCorners": "Angoli arrotondati",
+    "roundedCornersDesc": "Usa angoli arrotondati su tutti i pulsanti del badge",
     "helpAnalysisTitle": "Analisi di compatibilità",
     "helpAnalysisDesc": "Il pulsante di analisi (icona grafico a barre) accanto al badge apre una panoramica dettagliata della compatibilità per ogni gioco. I dati provengono da tutti i report ProtonDB inviati dalla comunità.",
     "helpAnalysisDetails": "La scheda Dettagli mostra:",

@@ -91,6 +91,8 @@
     "sectionEnhancedFeatures": "Gelişmiş özellikler",
     "showAnalysisButton": "Analiz düğmesini göster",
     "showAnalysisButtonDesc": "Rozet yanında ayrıntılı uyumluluk analizi, rapor eğilimleri ve geçmiş grafiği görüntülemek için bir düğme gösterir",
+    "roundedCorners": "Yuvarlak köşeler",
+    "roundedCornersDesc": "Tüm rozet düğmelerinde yuvarlak köşeler kullan",
     "helpAnalysisTitle": "Uyumluluk analizi",
     "helpAnalysisDesc": "Rozet yanındaki analiz düğmesi (çubuk grafik simgesi), her oyun için ayrıntılı bir uyumluluk dökümü açar. Bu veriler topluluk tarafından gönderilen tüm ProtonDB raporlarından toplanmıştır.",
     "helpAnalysisDetails": "Ayrıntılar sekmesi şunları gösterir:",

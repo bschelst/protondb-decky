@@ -91,6 +91,8 @@
     "sectionEnhancedFeatures": "Uitgebreide functies",
     "showAnalysisButton": "Analyseknop tonen",
     "showAnalysisButtonDesc": "Toont een knop naast de badge om een gedetailleerde compatibiliteitsanalyse te bekijken, inclusief rapporttrends en een geschiedenisgrafiek",
+    "roundedCorners": "Afgeronde hoeken",
+    "roundedCornersDesc": "Gebruik afgeronde hoeken op alle badge-knoppen",
     "helpAnalysisTitle": "Compatibiliteitsanalyse",
     "helpAnalysisDesc": "De analyseknop (staafdiagram-icoon) naast de badge opent een gedetailleerd compatibiliteitsoverzicht voor elk spel. Deze gegevens komen uit alle ProtonDB-rapporten die door de community zijn ingediend.",
     "helpAnalysisDetails": "Het tabblad Details toont:",

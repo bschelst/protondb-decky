@@ -11,6 +11,7 @@ export type Settings = {
   enableStoreBadge: boolean
   storeBadgePosition: 'bc' | 'bl' | 'br' | 'tm'
   showAnalysisButton?: boolean
+  roundedCorners?: boolean
 }
 
 const DEFAULT_SETTINGS: Settings = {
@@ -21,7 +22,8 @@ const DEFAULT_SETTINGS: Settings = {
   enableLibraryBadge: true,
   enableStoreBadge: true,
   storeBadgePosition: 'bc',
-  showAnalysisButton: true
+  showAnalysisButton: true,
+  roundedCorners: false
 }
 
 // Not using the React context here as this approach is simpler.
@@ -103,6 +105,10 @@ export const useSettings = () => {
     updateSettings('showAnalysisButton', value)
   }
 
+  function setRoundedCorners(value: Settings['roundedCorners']) {
+    updateSettings('roundedCorners', value)
+  }
+
   return {
     settings,
     setSize,
@@ -113,6 +119,7 @@ export const useSettings = () => {
     setEnableStoreBadge,
     setStoreBadgePosition,
     setShowAnalysisButton,
+    setRoundedCorners,
     loading
   }
 }

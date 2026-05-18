@@ -91,6 +91,8 @@
     "sectionEnhancedFeatures": "Rozšířené funkce",
     "showAnalysisButton": "Zobrazit tlačítko analýzy",
     "showAnalysisButtonDesc": "Zobrazí tlačítko vedle odznaku pro zobrazení podrobné analýzy kompatibility, včetně trendů hlášení a grafu historie",
+    "roundedCorners": "Zaoblené rohy",
+    "roundedCornersDesc": "Použít zaoblené rohy na všech tlačítkách odznaku",
     "helpAnalysisTitle": "Analýza kompatibility",
     "helpAnalysisDesc": "Tlačítko analýzy (ikona sloupcového grafu) vedle odznaku otevře podrobný přehled kompatibility pro každou hru. Data pochází ze všech hlášení na ProtonDB od komunity.",
     "helpAnalysisDetails": "Záložka Podrobnosti zobrazuje:",

@@ -91,6 +91,8 @@
     "sectionEnhancedFeatures": "Utökade funktioner",
     "showAnalysisButton": "Visa analysknapp",
     "showAnalysisButtonDesc": "Visar en knapp bredvid märket för att se detaljerad kompatibilitetsanalys, inklusive rapporttrender och historikgraf",
+    "roundedCorners": "Rundade hörn",
+    "roundedCornersDesc": "Använd rundade hörn på alla märkesknappar",
     "helpAnalysisTitle": "Kompatibilitetsanalys",
     "helpAnalysisDesc": "Analysknappen (stapeldiagramikon) bredvid märket öppnar en detaljerad kompatibilitetsöversikt för varje spel. Data kommer från alla ProtonDB-rapporter som skickats in av gemenskapen.",
     "helpAnalysisDetails": "Fliken Detaljer visar:",

@@ -53,9 +53,9 @@ export default (
     }
 
     .protondb-decky-indicator-borked {
-      background: red;
+      background: rgb(200, 30, 30);
       color: #000000;
-      outline-color: red;
+      outline-color: rgb(200, 30, 30);
     }
 
     .protondb-decky-indicator-pending {
@@ -166,7 +166,7 @@ export default (
     .protondb-decky-submit-button {
       background: rgb(166, 166, 166);
       border: none;
-      border-radius: 8px;
+      border-radius: 0;
       padding: 6px 10px;
       display: flex;
       align-items: center;
@@ -177,7 +177,7 @@ export default (
     }
 
     .protondb-decky-submit-button.gpfocus, .protondb-decky-submit-button:hover {
-      background: #8a8a8a;
+      filter: brightness(1.3);
       outline: 2px solid black;
     }
 
@@ -213,13 +213,13 @@ export default (
 
     .protondb-decky-submit-button.protondb-decky-not-logged-in.gpfocus,
     .protondb-decky-submit-button.protondb-decky-not-logged-in:hover {
-      background: #ff7a4a;
+      filter: brightness(1.3);
     }
 
     .protondb-decky-info-button {
       background: rgb(166, 166, 166);
       border: none;
-      border-radius: 8px;
+      border-radius: 0;
       padding: 6px 10px;
       display: flex;
       align-items: center;
@@ -232,7 +232,7 @@ export default (
 
     .protondb-decky-info-button.gpfocus,
     .protondb-decky-info-button:hover {
-      background: #8a8a8a;
+      filter: brightness(1.3);
       outline: 2px solid black;
     }
 
@@ -259,6 +259,24 @@ export default (
     .protondb-decky-info-button.protondb-decky-indicator-small > div > svg {
       width: 20px;
       height: 20px;
+    }
+
+    /* Analysis button status colors */
+    .protondb-decky-info-working {
+      background: rgb(74, 194, 100);
+      color: #000000;
+    }
+
+    .protondb-decky-info-not-working {
+      background: rgb(200, 30, 30);
+      color: #000000;
+    }
+
+    /* Rounded corners opt-in */
+    .protondb-decky-rounded .protondb-decky-indicator,
+    .protondb-decky-rounded .protondb-decky-submit-button,
+    .protondb-decky-rounded .protondb-decky-info-button {
+      border-radius: 8px;
     }
 
     /* Store page specific styles */

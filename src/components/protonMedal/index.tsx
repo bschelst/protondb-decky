@@ -229,10 +229,12 @@ export default function ProtonMedal({
           ...getPositionStyle(settings.position, heroHeight)
         }
 
+  const roundedClass = settings.roundedCorners ? 'protondb-decky-rounded' : ''
+
   const containerClassName =
     context === 'store'
-      ? 'protondb-decky-indicator-container protondb-store-context'
-      : 'protondb-decky-indicator-container'
+      ? `protondb-decky-indicator-container protondb-store-context ${roundedClass}`
+      : `protondb-decky-indicator-container ${roundedClass}`
 
   const compact = context === 'library' && settings.size === 'minimalist'
 
@@ -258,7 +260,12 @@ export default function ProtonMedal({
             style={{ display: 'flex', gap: '8px' }}
             flow-children="row"
           >
-            <div style={{ borderRadius: '4px', ...trendBorderStyle }}>
+            <div
+              style={{
+                borderRadius: settings.roundedCorners ? '8px' : '0',
+                ...trendBorderStyle
+              }}
+            >
               <DeckButton
                 className={`protondb-decky-indicator ${tierClass} ${nativeClass} ${sizeClass} ${labelTypeOnHoverClass}`}
                 type="button"
@@ -294,6 +301,25 @@ export default function ProtonMedal({
               </DeckButton>
             </div>
 
+            {analysis && settings.showAnalysisButton !== false && !compact && (
+              <DeckButton
+                className={`protondb-decky-info-button ${sizeClass} ${analysis.working_status?.status === 'working' ? 'protondb-decky-info-working' : analysis.working_status?.status === 'not_working' ? 'protondb-decky-info-not-working' : ''}`}
+                type="button"
+                onClick={() => {
+                  showModal(
+                    <AnalysisModal
+                      analysis={analysis}
+                      appId={appId as string}
+                    />
+                  )
+                }}
+              >
+                <div>
+                  <FaChartBar />
+                </div>
+              </DeckButton>
+            )}
+
             {!settings.disableSubmit && !hideSubmit && (
               <DeckButton
                 className={`protondb-decky-submit-button ${sizeClass} ${isLoggedIn === false ? 'protondb-decky-not-logged-in' : ''}`}
@@ -315,25 +341,6 @@ export default function ProtonMedal({
               >
                 <div>
                   <FaPaperPlane />
-                </div>
-              </DeckButton>
-            )}
-
-            {analysis && settings.showAnalysisButton !== false && !compact && (
-              <DeckButton
-                className={`protondb-decky-info-button ${sizeClass}`}
-                type="button"
-                onClick={() => {
-                  showModal(
-                    <AnalysisModal
-                      analysis={analysis}
-                      appId={appId as string}
-                    />
-                  )
-                }}
-              >
-                <div>
-                  <FaChartBar />
                 </div>
               </DeckButton>
             )}

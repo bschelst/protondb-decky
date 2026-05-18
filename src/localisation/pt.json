@@ -91,6 +91,8 @@
     "sectionEnhancedFeatures": "Funcionalidades avançadas",
     "showAnalysisButton": "Mostrar botão de análise",
     "showAnalysisButtonDesc": "Mostra um botão junto ao emblema para ver uma análise detalhada de compatibilidade, incluindo tendências de relatórios e gráfico de histórico",
+    "roundedCorners": "Cantos arredondados",
+    "roundedCornersDesc": "Usar cantos arredondados em todos os botões de emblema",
     "helpAnalysisTitle": "Análise de compatibilidade",
     "helpAnalysisDesc": "O botão de análise (ícone de gráfico de barras) junto ao emblema abre uma visão detalhada da compatibilidade para cada jogo. Os dados provêm de todos os relatórios ProtonDB enviados pela comunidade.",
     "helpAnalysisDetails": "O separador Detalhes mostra:",

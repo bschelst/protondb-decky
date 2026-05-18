@@ -91,6 +91,8 @@
     "sectionEnhancedFeatures": "Bővített funkciók",
     "showAnalysisButton": "Elemzés gomb megjelenítése",
     "showAnalysisButtonDesc": "Egy gombot jelenít meg a jelvény mellett a részletes kompatibilitási elemzés megtekintéséhez, beleértve a jelentési trendeket és az előzménygrafikont",
+    "roundedCorners": "Lekerekített sarkok",
+    "roundedCornersDesc": "Lekerekített sarkok használata az összes jelvénygombon",
     "helpAnalysisTitle": "Kompatibilitási elemzés",
     "helpAnalysisDesc": "Az elemzés gomb (oszlopdiagram ikon) a jelvény mellett megnyit egy részletes kompatibilitási áttekintést minden játékhoz. Az adatok a közösség által beküldött ProtonDB jelentésekből származnak.",
     "helpAnalysisDetails": "A Részletek fül megmutatja:",

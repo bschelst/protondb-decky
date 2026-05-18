@@ -91,6 +91,8 @@
     "sectionEnhancedFeatures": "Napredne funkcije",
     "showAnalysisButton": "Prikaži gumb za analizo",
     "showAnalysisButtonDesc": "Prikaže gumb poleg značke za ogled podrobne analize združljivosti, vključno s trendi poročil in grafom zgodovine",
+    "roundedCorners": "Zaobljeni robovi",
+    "roundedCornersDesc": "Uporabi zaobljene robove na vseh gumbih značke",
     "helpAnalysisTitle": "Analiza združljivosti",
     "helpAnalysisDesc": "Gumb za analizo (ikona stolpičnega grafikona) poleg značke odpre podroben pregled združljivosti za vsako igro. Podatki so zbrani iz vseh poročil ProtonDB, ki jih je poslala skupnost.",
     "helpAnalysisDetails": "Zavihek Podrobnosti prikazuje:",

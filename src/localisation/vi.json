@@ -91,6 +91,8 @@
     "sectionEnhancedFeatures": "Tính năng nâng cao",
     "showAnalysisButton": "Hiển thị nút phân tích",
     "showAnalysisButtonDesc": "Hiển thị nút bên cạnh huy hiệu để xem phân tích chi tiết về khả năng tương thích, bao gồm xu hướng báo cáo và biểu đồ lịch sử",
+    "roundedCorners": "Góc bo tròn",
+    "roundedCornersDesc": "Sử dụng góc bo tròn trên tất cả các nút huy hiệu",
     "helpAnalysisTitle": "Phân tích tương thích",
     "helpAnalysisDesc": "Nút phân tích (biểu tượng biểu đồ cột) bên cạnh huy hiệu mở tổng quan chi tiết về khả năng tương thích cho mỗi trò chơi. Dữ liệu được thu thập từ tất cả báo cáo ProtonDB do cộng đồng gửi.",
     "helpAnalysisDetails": "Tab Chi tiết hiển thị:",

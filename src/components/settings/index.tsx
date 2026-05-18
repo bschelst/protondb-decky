@@ -50,6 +50,7 @@ export default function Index() {
     setEnableLibraryBadge,
     setEnableStoreBadge,
     setShowAnalysisButton,
+    setRoundedCorners,
     loading
   } = useSettings()
   const t = useTranslations()
@@ -200,6 +201,16 @@ export default function Index() {
             checked={settings.showAnalysisButton !== false}
             onChange={(checked: boolean) => {
               setShowAnalysisButton(checked)
+            }}
+          />
+        </DeckPanelSectionRow>
+        <DeckPanelSectionRow>
+          <ToggleField
+            label={t('roundedCorners')}
+            description={t('roundedCornersDesc')}
+            checked={settings.roundedCorners === true}
+            onChange={(checked: boolean) => {
+              setRoundedCorners(checked)
             }}
           />
         </DeckPanelSectionRow>

@@ -91,6 +91,8 @@
     "sectionEnhancedFeatures": "進階功能",
     "showAnalysisButton": "顯示分析按鈕",
     "showAnalysisButtonDesc": "在徽章旁顯示按鈕，查看詳細的相容性分析，包括報告趨勢和歷史圖表",
+    "roundedCorners": "圓角",
+    "roundedCornersDesc": "為所有徽章按鈕使用圓角",
     "helpAnalysisTitle": "相容性分析",
     "helpAnalysisDesc": "徽章旁的分析按鈕（長條圖圖示）可開啟每款遊戲的詳細相容性分析。資料來自社群提交的所有 ProtonDB 報告。",
     "helpAnalysisDetails": "詳情分頁顯示：",

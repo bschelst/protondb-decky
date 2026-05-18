@@ -91,6 +91,8 @@
     "sectionEnhancedFeatures": "Udvidede funktioner",
     "showAnalysisButton": "Vis analyseknap",
     "showAnalysisButtonDesc": "Viser en knap ved siden af badget til at se detaljeret kompatibilitetsanalyse, herunder rapporttendenser og historikgraf",
+    "roundedCorners": "Afrundede hjørner",
+    "roundedCornersDesc": "Brug afrundede hjørner på alle badge-knapper",
     "helpAnalysisTitle": "Kompatibilitetsanalyse",
     "helpAnalysisDesc": "Analyseknappen (søjlediagramikon) ved siden af badget åbner en detaljeret kompatibilitetsoversigt for hvert spil. Dataene er indsamlet fra alle ProtonDB-rapporter indsendt af fællesskabet.",
     "helpAnalysisDetails": "Fanen Detaljer viser:",

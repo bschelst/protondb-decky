@@ -91,6 +91,8 @@
     "sectionEnhancedFeatures": "Erweiterte Funktionen",
     "showAnalysisButton": "Analyse-Button anzeigen",
     "showAnalysisButtonDesc": "Zeigt einen Button neben dem Badge für eine detaillierte Kompatibilitätsanalyse, einschließlich Berichtstrends und Verlaufsdiagramm",
+    "roundedCorners": "Abgerundete Ecken",
+    "roundedCornersDesc": "Abgerundete Ecken für alle Badge-Buttons verwenden",
     "helpAnalysisTitle": "Kompatibilitätsanalyse",
     "helpAnalysisDesc": "Der Analyse-Button (Balkendiagramm-Symbol) neben dem Badge öffnet eine detaillierte Kompatibilitätsübersicht für jedes Spiel. Die Daten stammen aus allen von der Community eingereichten ProtonDB-Berichten.",
     "helpAnalysisDetails": "Der Reiter Details zeigt:",

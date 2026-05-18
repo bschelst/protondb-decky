@@ -91,6 +91,8 @@
     "sectionEnhancedFeatures": "拡張機能",
     "showAnalysisButton": "分析ボタンを表示",
     "showAnalysisButtonDesc": "バッジの横にボタンを表示し、レポートの傾向や履歴グラフを含む詳細な互換性分析を確認できます",
+    "roundedCorners": "角丸",
+    "roundedCornersDesc": "すべてのバッジボタンに角丸を使用する",
     "helpAnalysisTitle": "互換性分析",
     "helpAnalysisDesc": "バッジの横にある分析ボタン（棒グラフアイコン）を押すと、各ゲームの詳細な互換性分析が表示されます。このデータはコミュニティが提出したすべてのProtonDBレポートから集められています。",
     "helpAnalysisDetails": "詳細タブの表示内容：",

@@ -101,6 +101,8 @@
     "sectionEnhancedFeatures": "Enhanced Features",
     "showAnalysisButton": "Show Analysis Button",
     "showAnalysisButtonDesc": "Display a button next to the badge to view detailed compatibility analysis, including report trends and a history chart",
+    "roundedCorners": "Rounded Corners",
+    "roundedCornersDesc": "Use rounded corners on all badge buttons",
     "clearCacheSuccess": "Cache cleared successfully",
     "version": "Version"
 }
