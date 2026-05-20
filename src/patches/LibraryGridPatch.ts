@@ -12,7 +12,7 @@ declare const appStore: any
 const FETCH_TIMEOUT_MS = 2000
 const BATCH_SIZE = 3
 const BATCH_DELAY_MS = 3000
-const SCAN_INTERVAL_MS = 10000
+const SCAN_INTERVAL_MS = 3000
 const GRID_CACHE_MAX_AGE_MS = 7 * 24 * 60 * 60 * 1000
 const DOT_CLASS = 'protondb-grid-dot'
 const COVER_SELECTOR = '._1pwP4eeP1zQD7PEgmsep0W'
@@ -332,6 +332,8 @@ async function scanTiles() {
     if (!bpDoc) return
 
     const covers = bpDoc.querySelectorAll(COVER_SELECTOR)
+    const needsDiskCheck: Array<{ rawId: string; cover: Element }> = []
+
     for (const cover of covers) {
       if (cover.querySelector(`.${DOT_CLASS}`)) continue
 
@@ -344,22 +346,23 @@ async function scanTiles() {
         continue
       }
 
-      let steamId: string | null = null
-      try {
-        steamId = await resolveToSteamAppId(rawId)
-      } catch {
-        continue
-      }
-      if (!steamId) continue
+      needsDiskCheck.push({ rawId, cover: cover as Element })
+    }
 
-      const diskCached = await getStatusFromCache(steamId)
-      if (diskCached) {
-        statusCache.set(rawId, diskCached.status)
-        injectDot(bpDoc, cover as Element, diskCached.status)
-        if (diskCached.stale && !pendingIds.has(rawId)) {
-          pendingIds.add(rawId)
+    for (const { rawId, cover } of needsDiskCheck) {
+      try {
+        const steamId = resolveCache.get(rawId) ?? rawId
+        const diskCached = await getStatusFromCache(steamId)
+        if (diskCached) {
+          statusCache.set(rawId, diskCached.status)
+          injectDot(bpDoc, cover, diskCached.status)
+          if (diskCached.stale && !pendingIds.has(rawId)) {
+            pendingIds.add(rawId)
+          }
+          continue
         }
-        continue
+      } catch {
+        /* ignore disk read failure */
       }
 
       if (!pendingIds.has(rawId)) {
@@ -407,10 +410,83 @@ function reinjectCached() {
   }
 }
 
+let prefetchAborted = false
+
+async function prefetchLibrary() {
+  try {
+    if (!SettingsContext.value.showLibraryIcons) return
+
+    const allApps: number[] = []
+    try {
+      const overview = appStore?.GetInstalledApps?.() ?? []
+      for (const app of overview) {
+        const id = app?.appid ?? app?.m_unAppID
+        if (id && isSteamGame(id)) allApps.push(id)
+      }
+    } catch {
+      /* appStore not available */
+    }
+
+    if (allApps.length === 0) {
+      try {
+        const sections = appStore?.m_mapApps
+        if (sections?.forEach) {
+          sections.forEach((_val: unknown, key: number) => {
+            if (isSteamGame(key)) allApps.push(key)
+          })
+        }
+      } catch {
+        /* fallback failed */
+      }
+    }
+
+    if (allApps.length === 0) return
+
+    const uncached: string[] = []
+    for (const id of allApps) {
+      const key = String(id)
+      if (statusCache.has(key)) continue
+      const disk = await getStatusFromCache(key)
+      if (disk && !disk.stale) {
+        statusCache.set(key, disk.status)
+        continue
+      }
+      uncached.push(key)
+    }
+
+    console.log(
+      `[ProtonDB Grid] Prefetch: ${allApps.length} games, ${uncached.length} need fetching`
+    )
+
+    for (let i = 0; i < uncached.length; i += BATCH_SIZE) {
+      if (prefetchAborted) return
+      const batch = uncached.slice(i, i + BATCH_SIZE)
+      for (const appId of batch) {
+        if (prefetchAborted) return
+        try {
+          const status = await fetchAndCacheStatus(appId)
+          statusCache.set(appId, status)
+        } catch {
+          /* skip */
+        }
+      }
+      if (i + BATCH_SIZE < uncached.length) {
+        await new Promise((r) => setTimeout(r, BATCH_DELAY_MS))
+      }
+    }
+
+    console.log('[ProtonDB Grid] Prefetch complete')
+  } catch {
+    /* don't crash Decky */
+  }
+}
+
 export function initLibraryGridPatch(): () => void {
   console.log('[ProtonDB Grid] Initializing library grid patch')
 
   reinjectInterval = setInterval(reinjectCached, 1000)
+
+  prefetchAborted = false
 
   getAllCachedStatuses()
     .then((cached) => {
@@ -418,11 +494,13 @@ export function initLibraryGridPatch(): () => void {
       console.log(
         `[ProtonDB Grid] Pre-loaded ${cached.size} statuses from cache`
       )
+      reinjectCached()
     })
     .catch(() => {})
     .finally(() => {
       scanInterval = setInterval(scanTiles, SCAN_INTERVAL_MS)
       setTimeout(scanTiles, 500)
+      setTimeout(prefetchLibrary, 5000)
     })
 
   return () => {
@@ -434,5 +512,6 @@ export function initLibraryGridPatch(): () => void {
       clearInterval(reinjectInterval)
       reinjectInterval = null
     }
+    prefetchAborted = true
   }
 }
