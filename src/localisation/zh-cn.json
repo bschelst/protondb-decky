@@ -93,6 +93,10 @@
     "showAnalysisButtonDesc": "在徽章旁显示按钮，查看详细的兼容性分析，包括报告趋势和历史图表",
     "roundedCorners": "圆角",
     "roundedCornersDesc": "为所有徽章按钮使用圆角",
+    "showLibraryIcons": "Library Status Icons",
+    "showLibraryIconsDesc": "Show compatibility status icons on game covers in the library grid",
+    "libraryIconPosition": "Icon Position",
+    "libraryIconPositionDesc": "Position of the status icon on game covers",
     "helpAnalysisTitle": "兼容性分析",
     "helpAnalysisDesc": "徽章旁的分析按钮（柱状图图标）可打开每款游戏的详细兼容性分析。数据来自社区提交的所有 ProtonDB 报告。",
     "helpAnalysisDetails": "详情标签页显示：",
@@ -102,6 +106,11 @@
     "helpAnalysisFreshness": "新鲜度 — 最新报告的提交时间",
     "helpAnalysisWarnings": "关于 Proton 版本不匹配、GPU 问题或反作弊的警告",
     "helpAnalysisChart": "报告历史标签页显示过去 2 年中每月好评（绿色）和差评（红色）报告的图表。",
+    "helpAnalysisColorsTitle": "分析按钮颜色",
+    "helpAnalysisColorsDesc": "分析按钮使用简单的红绿灯系统，而不是 ProtonDB 的等级颜色（Platinum、Gold 等）。这是有意为之的——等级反映游戏运行得多好，而分析按钮回答的是另一个问题：游戏现在能运行吗？",
+    "helpAnalysisColorGreen": "绿色 — 根据最近的报告，游戏可以运行",
+    "helpAnalysisColorRed": "红色 — 游戏无法运行或存在严重问题",
+    "helpAnalysisColorGray": "灰色 — 没有足够的数据来确定状态",
     "helpAnalysisToggle": "您可以在设置的增强功能中启用或禁用分析按钮。",
     "clearCacheSuccess": "缓存已清除"
 }

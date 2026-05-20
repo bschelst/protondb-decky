@@ -12,7 +12,7 @@ import {
 } from '@decky/ui'
 import { toaster } from '@decky/api'
 import React, { FC, ReactNode } from 'react'
-import { FaGithub, FaQuestionCircle } from 'react-icons/fa'
+import { FaChartBar, FaGithub, FaGlobe, FaQuestionCircle } from 'react-icons/fa'
 import { clearCache } from '../../cache/protobDbCache'
 import { PLUGIN_VERSION } from '../../constants'
 import useTranslations from '../../hooks/useTranslations'
@@ -51,6 +51,8 @@ export default function Index() {
     setEnableStoreBadge,
     setShowAnalysisButton,
     setRoundedCorners,
+    setShowLibraryIcons,
+    setLibraryIconPosition,
     loading
   } = useSettings()
   const t = useTranslations()
@@ -74,6 +76,12 @@ export default function Index() {
     { data: 0, label: t('expandOnHoverOff'), value: 'off' },
     { data: 1, label: t('sizeSmall'), value: 'small' },
     { data: 2, label: t('sizeRegular'), value: 'regular' }
+  ] as const
+
+  const libraryIconPositionOptions = [
+    { data: 0, label: t('positionBottomLeft'), value: 'bl' },
+    { data: 1, label: t('positionTopLeft'), value: 'tl' },
+    { data: 2, label: t('positionTopRight'), value: 'tr' }
   ] as const
 
   if (loading) {
@@ -180,6 +188,16 @@ export default function Index() {
             }}
           />
         </DeckPanelSectionRow>
+        <DeckPanelSectionRow>
+          <ToggleField
+            label={t('roundedCorners')}
+            description={t('roundedCornersDesc')}
+            checked={settings.roundedCorners === true}
+            onChange={(checked: boolean) => {
+              setRoundedCorners(checked)
+            }}
+          />
+        </DeckPanelSectionRow>
       </DeckPanelSection>
       <DeckPanelSection title={t('sectionStore')}>
         <DeckPanelSectionRow>
@@ -204,16 +222,44 @@ export default function Index() {
             }}
           />
         </DeckPanelSectionRow>
-        <DeckPanelSectionRow>
-          <ToggleField
-            label={t('roundedCorners')}
-            description={t('roundedCornersDesc')}
-            checked={settings.roundedCorners === true}
-            onChange={(checked: boolean) => {
-              setRoundedCorners(checked)
-            }}
-          />
-        </DeckPanelSectionRow>
+        {settings.showAnalysisButton !== false && (
+          <DeckPanelSectionRow>
+            <ToggleField
+              label={t('showLibraryIcons')}
+              description={t('showLibraryIconsDesc')}
+              checked={settings.showLibraryIcons === true}
+              onChange={(checked: boolean) => {
+                setShowLibraryIcons(checked)
+              }}
+            />
+          </DeckPanelSectionRow>
+        )}
+        {settings.showAnalysisButton !== false &&
+          settings.showLibraryIcons === true && (
+            <DeckPanelSectionRow>
+              <DropdownItem
+                label={t('libraryIconPosition')}
+                description={t('libraryIconPositionDesc')}
+                menuLabel={t('libraryIconPosition')}
+                rgOptions={libraryIconPositionOptions.map((o) => ({
+                  data: o.data,
+                  label: o.label
+                }))}
+                selectedOption={
+                  libraryIconPositionOptions.find(
+                    (o) => o.value === (settings.libraryIconPosition || 'bl')
+                  )?.data || 0
+                }
+                onChange={(newVal: { data: number; label: string }) => {
+                  const newPos =
+                    libraryIconPositionOptions.find(
+                      (o) => o.data === newVal.data
+                    )?.value || 'bl'
+                  setLibraryIconPosition(newPos)
+                }}
+              />
+            </DeckPanelSectionRow>
+          )}
       </DeckPanelSection>
       <DeckPanelSection title={t('caching')}>
         <DeckPanelSectionRow>
@@ -249,6 +295,36 @@ export default function Index() {
         </DeckPanelSectionRow>
         <DeckPanelSectionRow>
           <DeckButtonItem
+            bottomSeparator="standard"
+            layout="below"
+            onClick={() =>
+              Navigation.NavigateToExternalWeb('https://www.protondb.com')
+            }
+          >
+            <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+              <FaGlobe size={20} />
+              <span>ProtonDB</span>
+            </div>
+          </DeckButtonItem>
+        </DeckPanelSectionRow>
+        <DeckPanelSectionRow>
+          <DeckButtonItem
+            bottomSeparator="standard"
+            layout="below"
+            onClick={() =>
+              Navigation.NavigateToExternalWeb(
+                'https://protondb.schelstraete.org/status'
+              )
+            }
+          >
+            <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+              <FaChartBar size={20} />
+              <span>ProtonDB Analysis</span>
+            </div>
+          </DeckButtonItem>
+        </DeckPanelSectionRow>
+        <DeckPanelSectionRow>
+          <DeckButtonItem
             bottomSeparator="none"
             layout="below"
             onClick={() => Navigation.NavigateToExternalWeb(GITHUB_URL)}
@@ -258,6 +334,13 @@ export default function Index() {
               <span>GitHub</span>
             </div>
           </DeckButtonItem>
+        </DeckPanelSectionRow>
+      </DeckPanelSection>
+      <DeckPanelSection title={t('sectionAbout')}>
+        <DeckPanelSectionRow>
+          <Field label={t('name')} bottomSeparator="standard">
+            ProtonDB Badges
+          </Field>
         </DeckPanelSectionRow>
         <DeckPanelSectionRow>
           <Field label={t('version')} bottomSeparator="none">

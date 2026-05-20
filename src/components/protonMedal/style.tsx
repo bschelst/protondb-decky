@@ -206,6 +206,19 @@ export default (
       height: 20px;
     }
 
+    .protondb-decky-submit-button.protondb-decky-indicator-minimalist {
+      padding: 6px;
+    }
+
+    .protondb-decky-submit-button.protondb-decky-indicator-minimalist > div {
+      height: 20px;
+    }
+
+    .protondb-decky-submit-button.protondb-decky-indicator-minimalist > div > svg {
+      width: 20px;
+      height: 20px;
+    }
+
     .protondb-decky-submit-button.protondb-decky-not-logged-in {
       background: #ff6b35;
       border: 1px solid #e55a2e;
@@ -257,6 +270,19 @@ export default (
     }
 
     .protondb-decky-info-button.protondb-decky-indicator-small > div > svg {
+      width: 20px;
+      height: 20px;
+    }
+
+    .protondb-decky-info-button.protondb-decky-indicator-minimalist {
+      padding: 6px;
+    }
+
+    .protondb-decky-info-button.protondb-decky-indicator-minimalist > div {
+      height: 20px;
+    }
+
+    .protondb-decky-info-button.protondb-decky-indicator-minimalist > div > svg {
       width: 20px;
       height: 20px;
     }

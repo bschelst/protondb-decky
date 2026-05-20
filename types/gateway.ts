@@ -65,3 +65,17 @@ export interface RecentReportsResponse {
   app_id: number
   reports: RecentReport[]
 }
+
+export interface ProtonVersionStat {
+  version: string
+  total_reports: number
+  positive_reports: number
+  positive_ratio: number
+  latest_timestamp: number
+}
+
+export interface ProtonVersionsResponse {
+  app_id: number
+  total_reports: number
+  versions: ProtonVersionStat[]
+}

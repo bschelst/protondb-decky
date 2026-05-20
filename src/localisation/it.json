@@ -93,6 +93,10 @@
     "showAnalysisButtonDesc": "Mostra un pulsante accanto al badge per visualizzare un'analisi dettagliata della compatibilità, incluse le tendenze dei report e il grafico storico",
     "roundedCorners": "Angoli arrotondati",
     "roundedCornersDesc": "Usa angoli arrotondati su tutti i pulsanti del badge",
+    "showLibraryIcons": "Library Status Icons",
+    "showLibraryIconsDesc": "Show compatibility status icons on game covers in the library grid",
+    "libraryIconPosition": "Icon Position",
+    "libraryIconPositionDesc": "Position of the status icon on game covers",
     "helpAnalysisTitle": "Analisi di compatibilità",
     "helpAnalysisDesc": "Il pulsante di analisi (icona grafico a barre) accanto al badge apre una panoramica dettagliata della compatibilità per ogni gioco. I dati provengono da tutti i report ProtonDB inviati dalla comunità.",
     "helpAnalysisDetails": "La scheda Dettagli mostra:",
@@ -102,6 +106,11 @@
     "helpAnalysisFreshness": "Attualità — quando è stato inviato l'ultimo report",
     "helpAnalysisWarnings": "Avvisi su incompatibilità di versione Proton, problemi GPU o anti-cheat",
     "helpAnalysisChart": "La scheda Cronologia report mostra un grafico dei report positivi (verdi) e negativi (rossi) per mese negli ultimi 2 anni.",
+    "helpAnalysisColorsTitle": "Colori del pulsante di analisi",
+    "helpAnalysisColorsDesc": "Il pulsante di analisi utilizza un semplice sistema a semaforo invece dei colori dei livelli ProtonDB (Platinum, Gold, ecc.). Questo è intenzionale — i livelli riflettono quanto bene funziona un gioco, mentre il pulsante di analisi risponde a una domanda diversa: il gioco funziona in questo momento?",
+    "helpAnalysisColorGreen": "Verde — Il gioco funziona in base ai report recenti",
+    "helpAnalysisColorRed": "Rosso — Il gioco non funziona o ha problemi significativi",
+    "helpAnalysisColorGray": "Grigio — Dati insufficienti per determinare lo stato",
     "helpAnalysisToggle": "Puoi attivare o disattivare il pulsante di analisi nelle Impostazioni sotto Funzionalità avanzate.",
     "clearCacheSuccess": "Cache svuotata con successo"
 }

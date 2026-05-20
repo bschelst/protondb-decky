@@ -93,6 +93,10 @@
     "showAnalysisButtonDesc": "バッジの横にボタンを表示し、レポートの傾向や履歴グラフを含む詳細な互換性分析を確認できます",
     "roundedCorners": "角丸",
     "roundedCornersDesc": "すべてのバッジボタンに角丸を使用する",
+    "showLibraryIcons": "Library Status Icons",
+    "showLibraryIconsDesc": "Show compatibility status icons on game covers in the library grid",
+    "libraryIconPosition": "Icon Position",
+    "libraryIconPositionDesc": "Position of the status icon on game covers",
     "helpAnalysisTitle": "互換性分析",
     "helpAnalysisDesc": "バッジの横にある分析ボタン（棒グラフアイコン）を押すと、各ゲームの詳細な互換性分析が表示されます。このデータはコミュニティが提出したすべてのProtonDBレポートから集められています。",
     "helpAnalysisDetails": "詳細タブの表示内容：",
@@ -102,6 +106,11 @@
     "helpAnalysisFreshness": "鮮度 — 最新のレポートがいつ提出されたか",
     "helpAnalysisWarnings": "Protonバージョンの不一致、GPU問題、アンチチートに関する警告",
     "helpAnalysisChart": "レポート履歴タブには、過去2年間の月別の良い（緑）レポートと悪い（赤）レポートのグラフが表示されます。",
+    "helpAnalysisColorsTitle": "分析ボタンの色",
+    "helpAnalysisColorsDesc": "分析ボタンはProtonDBのティアカラー（Platinum、Goldなど）ではなく、シンプルな信号機システムを使用しています。これは意図的です。ティアはゲームがどれだけうまく動作するかを反映しますが、分析ボタンは別の質問に答えます：ゲームは今動作していますか？",
+    "helpAnalysisColorGreen": "緑 — 最近のレポートに基づきゲームは動作中",
+    "helpAnalysisColorRed": "赤 — ゲームが動作しないか重大な問題あり",
+    "helpAnalysisColorGray": "グレー — ステータスを判断するのに十分なデータがない",
     "helpAnalysisToggle": "分析ボタンは設定の拡張機能でオン・オフを切り替えられます。",
     "clearCacheSuccess": "キャッシュをクリアしました"
 }

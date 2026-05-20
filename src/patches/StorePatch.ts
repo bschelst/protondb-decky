@@ -69,6 +69,7 @@ interface StoreOverlayPayload {
   analysisData: string
   historyData: string
   recentReportsData: string
+  versionsData: string
 }
 
 // Find Steam's internal history object
@@ -101,8 +102,10 @@ function buildOverlayPreambleCode(payload: StoreOverlayPayload): string {
     const analysisData = ${payload.analysisData};
     const historyData = ${payload.historyData};
     const recentReportsData = ${payload.recentReportsData};
+    const versionsData = ${payload.versionsData};
     var historyMonths = historyData && historyData.months ? historyData.months : null;
     var recentReports = recentReportsData && recentReportsData.reports ? recentReportsData.reports : null;
+    var protonVersions = versionsData && versionsData.versions ? versionsData.versions : null;
 
     function esc(s) {
       if (!s) return '';
@@ -201,23 +204,85 @@ function buildOverlayAnalysisHelpersCode(appId: string): string {
       return svg;
     }
 
+    var reportsPageSize = 5;
+    var reportsVisible = reportsPageSize;
+
+    function buildSingleReportHtml(r) {
+      var d = new Date(r.timestamp * 1000);
+      var dateStr = d.toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' });
+      var isPositive = r.rating === 'Gold' || r.rating === 'Platinum' || r.rating === 'Silver';
+      var color = isPositive ? '#4ade80' : '#f87171';
+      var label = isPositive ? '👍 Works' : '👎 Issues';
+      var meta = [r.os ? 'OS: ' + esc(r.os) : null, r.proton_version ? 'Proton: ' + esc(r.proton_version) : null, r.is_steam_deck ? 'Steam Deck' : null].filter(Boolean).join(' · ') || '—';
+      var rawNotes = r.notes ? (r.notes.length > 200 ? r.notes.substring(0, 200) + '…' : r.notes) : '';
+      var notes = rawNotes ? esc(rawNotes) : 'No remarks shared';
+      var notesColor = rawNotes ? '#ccc' : '#666';
+      var h = '<div style="background:rgba(255,255,255,0.04);border-radius:6px;padding:10px 12px;margin-bottom:8px;border-left:3px solid ' + color + ';">';
+      h += '<div style="display:flex;justify-content:space-between;margin-bottom:4px;"><span style="font-weight:bold;color:' + color + ';font-size:13px;">' + label + '</span><span style="color:#888;font-size:11px;">' + dateStr + '</span></div>';
+      h += '<div style="font-size:11px;color:#aaa;margin-bottom:4px;text-align:right;">' + meta + '</div>';
+      h += '<div style="font-size:12px;color:' + notesColor + ';line-height:1.4;font-style:italic;">' + notes + '</div>';
+      h += '</div>';
+      return h;
+    }
+
+    function renderReportsPage(reports) {
+      var panel = document.getElementById('pdb-panel-reports');
+      if (!panel) return;
+      var html = '';
+      var count = Math.min(reportsVisible, reports.length);
+      for (var i = 0; i < count; i++) { html += buildSingleReportHtml(reports[i]); }
+      var remaining = reports.length - count;
+      if (remaining > 0) {
+        html += '<div id="pdb-reports-more" style="text-align:center;padding:10px 0;font-size:12px;color:#7ab3f0;cursor:pointer;background:rgba(122,179,240,0.08);border-radius:6px;margin-top:4px;">Show more (' + remaining + ' remaining)</div>';
+      }
+      panel.innerHTML = html;
+      var moreBtn = document.getElementById('pdb-reports-more');
+      if (moreBtn) {
+        moreBtn.onclick = function() {
+          reportsVisible += reportsPageSize;
+          renderReportsPage(reports);
+        };
+      }
+    }
+
     function buildReportsHtml(reports) {
       if (!reports || reports.length === 0) return '<p style="color:#888;text-align:center;padding:40px 0;">No recent reports available</p>';
+      reportsVisible = reportsPageSize;
       var html = '';
-      reports.forEach(function(r) {
-        var d = new Date(r.timestamp * 1000);
-        var dateStr = d.toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' });
-        var isPositive = r.rating === 'Gold' || r.rating === 'Platinum' || r.rating === 'Silver';
-        var color = isPositive ? '#4ade80' : '#f87171';
-        var label = isPositive ? '👍 Works' : '👎 Issues';
-        var meta = [r.os ? 'OS: ' + esc(r.os) : null, r.proton_version ? 'Proton: ' + esc(r.proton_version) : null, r.is_steam_deck ? 'Steam Deck' : null].filter(Boolean).join(' · ') || '—';
-        var rawNotes = r.notes ? (r.notes.length > 200 ? r.notes.substring(0, 200) + '…' : r.notes) : '';
-        var notes = rawNotes ? esc(rawNotes) : 'No remarks shared';
-        var notesColor = rawNotes ? '#ccc' : '#666';
-        html += '<div style="background:rgba(255,255,255,0.04);border-radius:6px;padding:10px 12px;margin-bottom:8px;border-left:3px solid ' + color + ';">';
-        html += '<div style="display:flex;justify-content:space-between;margin-bottom:4px;"><span style="font-weight:bold;color:' + color + ';font-size:13px;">' + label + '</span><span style="color:#888;font-size:11px;">' + dateStr + '</span></div>';
-        html += '<div style="font-size:11px;color:#aaa;margin-bottom:4px;text-align:right;">' + meta + '</div>';
-        html += '<div style="font-size:12px;color:' + notesColor + ';line-height:1.4;font-style:italic;">' + notes + '</div>';
+      var count = Math.min(reportsVisible, reports.length);
+      for (var i = 0; i < count; i++) { html += buildSingleReportHtml(reports[i]); }
+      var remaining = reports.length - count;
+      if (remaining > 0) {
+        html += '<div id="pdb-reports-more" style="text-align:center;padding:10px 0;font-size:12px;color:#7ab3f0;cursor:pointer;background:rgba(122,179,240,0.08);border-radius:6px;margin-top:4px;">Show more (' + remaining + ' remaining)</div>';
+      }
+      return html;
+    }
+
+    function buildVersionsHtml(versions, totalReports) {
+      if (!versions || versions.length === 0) return '<p style="color:#888;text-align:center;padding:40px 0;">No version data available</p>';
+      var html = '<div style="font-size:11px;color:#888;margin-bottom:8px;text-align:center;">' + (totalReports || 0) + ' reports across all versions</div>';
+      html += '<div style="display:flex;justify-content:space-between;font-size:10px;color:#666;padding:0 12px 4px;margin-bottom:2px;border-bottom:1px solid rgba(255,255,255,0.06);"><span>Version</span><span>% positive ratings</span></div>';
+      versions.forEach(function(v) {
+        var isCurrent = v.version === 'Proton Official' || v.version === 'Proton 10';
+        var ratio = typeof v.positive_ratio === 'number' ? v.positive_ratio : 0;
+        var pct = Math.round(ratio * 100);
+        var color = ratio >= 0.75 ? '#4ade80' : ratio >= 0.5 ? '#facc15' : '#f87171';
+        var borderColor = isCurrent ? '#7ab3f0' : color;
+        var bg = isCurrent ? 'rgba(122,179,240,0.10)' : 'rgba(255,255,255,0.04)';
+        var nameColor = isCurrent ? '#7ab3f0' : '#e0e0e0';
+        var ts = typeof v.latest_timestamp === 'number' ? v.latest_timestamp : 0;
+        var age = ts > 0 ? Math.round((Date.now() / 1000 - ts) / 86400) : -1;
+        var ageStr = age < 0 ? '—' : age === 0 ? 'today' : age + 'd ago';
+        html += '<div style="background:' + bg + ';border-radius:6px;padding:8px 12px;margin-bottom:6px;border-left:3px solid ' + borderColor + ';">';
+        html += '<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:4px;">';
+        html += '<span style="font-weight:bold;font-size:13px;color:' + nameColor + ';">' + esc(v.version);
+        if (isCurrent) html += '<span style="font-size:10px;color:#7ab3f0;margin-left:6px;font-weight:normal;">★ Steam Deck default</span>';
+        html += '</span>';
+        html += '<span style="color:#aaa;font-size:11px;">' + v.total_reports + ' report' + (v.total_reports !== 1 ? 's' : '') + '</span></div>';
+        html += '<div style="display:flex;align-items:center;gap:8px;">';
+        html += '<div style="flex:1;height:6px;background:rgba(255,255,255,0.08);border-radius:3px;overflow:hidden;"><div style="width:' + Math.min(100, Math.max(0, pct)) + '%;height:100%;background:' + color + ';border-radius:3px;"></div></div>';
+        html += '<span style="font-size:11px;color:' + color + ';min-width:32px;">' + pct + '%</span></div>';
+        html += '<div style="font-size:10px;color:#666;margin-top:2px;">Latest: ' + ageStr + '</div>';
         html += '</div>';
       });
       return html;
@@ -249,21 +314,29 @@ function buildOverlayUiCode(payload: StoreOverlayPayload): string {
         if (overlay) { overlay.remove(); return; }
         var ov = document.createElement('div');
         ov.id = 'protondb-store-analysis-overlay';
-        ov.style.cssText = 'position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); z-index: 9999999; background: #1a1d23; border-radius: 8px; padding: 20px; min-width: 380px; max-width: 90vw; max-height: 80vh; overflow-y: auto; box-shadow: 0 8px 32px rgba(0,0,0,0.6); color: #e0e0e0; outline: none;';
+        ov.style.cssText = 'position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); z-index: 9999999; background: #1a1d23; border-radius: 8px; padding: 20px; min-width: 520px; max-width: 90vw; width: 600px; max-height: 80vh; overflow-y: auto; box-shadow: 0 8px 32px rgba(0,0,0,0.6); color: #e0e0e0; outline: none;';
         var tabBtnStyle = 'flex:1;padding:8px 0;text-align:center;font-size:13px;font-weight:bold;cursor:pointer;border:none;border-radius:0;background:transparent;';
         var activeTabStyle = tabBtnStyle + 'color:#fff;border-bottom:2px solid #7ab3f0;background:rgba(255,255,255,0.1);';
         var inactiveTabStyle = tabBtnStyle + 'color:#888;border-bottom:2px solid transparent;';
         var header = '<div style="display:flex;align-items:baseline;justify-content:space-between;margin-bottom:12px;"><h3 style="margin:0;color:#fff;font-size:16px;font-weight:bold;">ProtonDB Analysis</h3><a href="https://protondb.schelstraete.org" target="_blank" style="color:#7ab3f0;font-size:11px;text-decoration:none;">protondb.schelstraete.org</a></div>';
-        var tabs = '<div style="display:flex;margin-bottom:8px;"><button id="pdb-tab-details" style="' + activeTabStyle + '">Details</button><button id="pdb-tab-chart" style="' + inactiveTabStyle + '">Report History</button><button id="pdb-tab-reports" style="' + inactiveTabStyle + '">Recent Reports</button></div>';
+        var tabs = '<div style="display:flex;margin-bottom:8px;"><button id="pdb-tab-details" style="' + activeTabStyle + '">Details</button><button id="pdb-tab-chart" style="' + inactiveTabStyle + '">Report History</button><button id="pdb-tab-reports" style="' + inactiveTabStyle + '">Recent Reports</button><button id="pdb-tab-versions" style="' + inactiveTabStyle + '">Proton Versions</button></div>';
         var detailsContent = '<div id="pdb-panel-details">' + buildAnalysisTable(analysisData) + '</div>';
-        var chartContent = '<div id="pdb-panel-chart" style="display:none;"><p style="color:#888;text-align:center;padding:40px 0;">Loading...</p></div>';
-        var reportsContent = '<div id="pdb-panel-reports" style="display:none;"><p style="color:#888;text-align:center;padding:40px 0;">Loading...</p></div>';
-        var closeBtn = '<div style="margin-top:14px;display:flex;justify-content:flex-end;"><button id="protondb-store-overlay-close" style="background:rgb(100,120,150);color:#fff;border:none;border-radius:6px;padding:6px 18px;cursor:pointer;font-size:14px;">Close</button></div>';
-        ov.innerHTML = header + tabs + detailsContent + chartContent + reportsContent + closeBtn;
+        var chartContent = '<div id="pdb-panel-chart" style="display:none;"></div>';
+        var reportsContent = '<div id="pdb-panel-reports" style="display:none;"></div>';
+        var versionsContent = '<div id="pdb-panel-versions" style="display:none;"></div>';
+        ov.innerHTML = header + tabs + detailsContent + chartContent + reportsContent + versionsContent;
+        var closeBtnDiv = document.createElement('div');
+        closeBtnDiv.style.cssText = 'margin-top:14px;display:flex;justify-content:flex-end;';
+        var closeBtnEl = document.createElement('button');
+        closeBtnEl.textContent = 'Close';
+        closeBtnEl.style.cssText = 'background:rgb(100,120,150);color:#fff;border:none;border-radius:6px;padding:10px 28px;cursor:pointer;font-size:16px;min-height:44px;';
+        closeBtnEl.addEventListener('click', function(evt) { evt.stopPropagation(); evt.preventDefault(); ov.remove(); }, true);
+        closeBtnDiv.appendChild(closeBtnEl);
+        ov.appendChild(closeBtnDiv);
         document.body.appendChild(ov);
-        document.getElementById('protondb-store-overlay-close').onclick = function() { ov.remove(); };
+        ov.addEventListener('click', function(evt) { evt.stopPropagation(); });
         function switchTab(active) {
-          var panels = ['details', 'chart', 'reports'];
+          var panels = ['details', 'chart', 'reports', 'versions'];
           panels.forEach(function(p) {
             document.getElementById('pdb-panel-' + p).style.display = p === active ? '' : 'none';
             document.getElementById('pdb-tab-' + p).style.cssText = p === active ? activeTabStyle : inactiveTabStyle;
@@ -273,23 +346,43 @@ function buildOverlayUiCode(payload: StoreOverlayPayload): string {
           var panel = document.getElementById('pdb-panel-chart');
           if (!panel) return;
           if (historyMonths === null) {
-            panel.innerHTML = '<p style="color:#888;text-align:center;padding:40px 0;">Failed to load data</p>';
+            panel.textContent = 'Failed to load data';
+            panel.style.cssText += 'color:#888;text-align:center;padding:40px 0;';
             return;
           }
-          panel.innerHTML = '<div style="font-size:12px;color:#888;margin-bottom:8px;text-align:center;">' + gameName + ' — Last 5 years</div>' + buildChartSvg(historyMonths);
+          panel.innerHTML = '<div style="font-size:12px;color:#888;margin-bottom:8px;text-align:center;">' + esc(gameName) + ' — Last 5 years</div>' + buildChartSvg(historyMonths);
         }
         function lazyLoadReports() {
           var panel = document.getElementById('pdb-panel-reports');
           if (!panel) return;
           if (recentReports === null) {
-            panel.innerHTML = '<p style="color:#888;text-align:center;padding:40px 0;">Failed to load data</p>';
+            panel.textContent = 'Failed to load data';
+            panel.style.cssText += 'color:#888;text-align:center;padding:40px 0;';
             return;
           }
           panel.innerHTML = buildReportsHtml(recentReports);
+          var moreBtn = document.getElementById('pdb-reports-more');
+          if (moreBtn) {
+            moreBtn.onclick = function() {
+              reportsVisible += reportsPageSize;
+              renderReportsPage(recentReports);
+            };
+          }
+        }
+        function lazyLoadVersions() {
+          var panel = document.getElementById('pdb-panel-versions');
+          if (!panel) return;
+          if (protonVersions === null) {
+            panel.textContent = 'No version data available';
+            panel.style.cssText += 'color:#888;text-align:center;padding:40px 0;';
+            return;
+          }
+          panel.innerHTML = buildVersionsHtml(protonVersions, versionsData ? versionsData.total_reports : 0);
         }
         document.getElementById('pdb-tab-details').onclick = function() { switchTab('details'); };
         document.getElementById('pdb-tab-chart').onclick = function() { switchTab('chart'); lazyLoadChart(); };
         document.getElementById('pdb-tab-reports').onclick = function() { switchTab('reports'); lazyLoadReports(); };
+        document.getElementById('pdb-tab-versions').onclick = function() { switchTab('versions'); lazyLoadVersions(); };
       };
       wrapper.appendChild(infoBtn);
     }
@@ -333,21 +426,29 @@ async function injectBadgeIntoStore(appId: string) {
   let tierLabel = 'NO REPORT'
   let trendBorderCss = ''
 
-  const [tierResult, analysisResult, historyResult, recentReportsResult] =
-    await Promise.allSettled([
-      fetchWithTimeout(
-        fetchNoCors(
-          `https://www.protondb.com/api/v1/reports/summaries/${appId}.json`
-        )
+  const [
+    tierResult,
+    analysisResult,
+    historyResult,
+    recentReportsResult,
+    versionsResult
+  ] = await Promise.allSettled([
+    fetchWithTimeout(
+      fetchNoCors(
+        `https://www.protondb.com/api/v1/reports/summaries/${appId}.json`
       )
-        .then((r) => (r.ok ? r.json() : null))
-        .catch(() => null),
-      fetchGatewayJson(
-        `${GATEWAY_BASE_URL}/api/v1/analysis/${appId}?user_gpu_vendor=amd&user_proton_version=10`
-      ),
-      fetchGatewayJson(`${GATEWAY_BASE_URL}/api/v1/reports/history/${appId}`),
-      fetchGatewayJson(`${GATEWAY_BASE_URL}/api/v1/reports/recent/${appId}`)
-    ])
+    )
+      .then((r) => (r.ok ? r.json() : null))
+      .catch(() => null),
+    fetchGatewayJson(
+      `${GATEWAY_BASE_URL}/api/v1/analysis/${appId}?user_gpu_vendor=amd&user_proton_version=10`
+    ),
+    fetchGatewayJson(`${GATEWAY_BASE_URL}/api/v1/reports/history/${appId}`),
+    fetchGatewayJson(
+      `${GATEWAY_BASE_URL}/api/v1/reports/recent/${appId}?limit=20`
+    ),
+    fetchGatewayJson(`${GATEWAY_BASE_URL}/api/v1/reports/versions/${appId}`)
+  ])
 
   if (tierResult.status === 'fulfilled' && tierResult.value?.tier) {
     tier = tierResult.value.tier
@@ -380,6 +481,9 @@ async function injectBadgeIntoStore(appId: string) {
       ? recentReportsResult.value
       : null
   )
+  const versionsData = serializeForScript(
+    versionsResult.status === 'fulfilled' ? versionsResult.value : null
+  )
 
   const injectScript = buildStoreOverlayScript({
     appId,
@@ -388,7 +492,8 @@ async function injectBadgeIntoStore(appId: string) {
     trendBorderCss,
     analysisData,
     historyData,
-    recentReportsData
+    recentReportsData,
+    versionsData
   })
 
   storeWebSocket.send(

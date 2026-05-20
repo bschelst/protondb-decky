@@ -3,10 +3,19 @@ import { GATEWAY_BASE_URL, GATEWAY_API_KEY } from '../constants'
 import {
   GatewayAnalysis,
   ReportHistory,
-  RecentReportsResponse
+  RecentReportsResponse,
+  ProtonVersionsResponse
 } from '../../types/gateway'
 
 const FETCH_TIMEOUT_MS = 2000
+
+async function safeJson<T>(res: Response): Promise<T | undefined> {
+  try {
+    return await res.json()
+  } catch {
+    return undefined
+  }
+}
 
 // Helper function to add timeout to fetch requests
 async function fetchWithTimeout(
@@ -39,7 +48,7 @@ export async function getGameAnalysis(
     )
 
     if (res.status === 200) {
-      return await res.json()
+      return await safeJson(res)
     }
   } catch (error) {
     // silently fail analysis fetch failed:', error)
@@ -63,10 +72,33 @@ export async function getReportHistory(
     )
 
     if (res.status === 200) {
-      return await res.json()
+      return await safeJson(res)
     }
   } catch (error) {
     // silently fail report history fetch failed:', error)
+    return undefined
+  }
+  return undefined
+}
+
+export async function getProtonVersions(
+  appId: string
+): Promise<ProtonVersionsResponse | undefined> {
+  try {
+    const res = await fetchWithTimeout(
+      fetchNoCors(`${GATEWAY_BASE_URL}/api/v1/reports/versions/${appId}`, {
+        method: 'GET',
+        headers: {
+          'X-API-Key': GATEWAY_API_KEY
+        }
+      }),
+      5000
+    )
+
+    if (res.status === 200) {
+      return await safeJson(res)
+    }
+  } catch {
     return undefined
   }
   return undefined
@@ -77,17 +109,20 @@ export async function getRecentReports(
 ): Promise<RecentReportsResponse | undefined> {
   try {
     const res = await fetchWithTimeout(
-      fetchNoCors(`${GATEWAY_BASE_URL}/api/v1/reports/recent/${appId}`, {
-        method: 'GET',
-        headers: {
-          'X-API-Key': GATEWAY_API_KEY
+      fetchNoCors(
+        `${GATEWAY_BASE_URL}/api/v1/reports/recent/${appId}?limit=20`,
+        {
+          method: 'GET',
+          headers: {
+            'X-API-Key': GATEWAY_API_KEY
+          }
         }
-      }),
+      ),
       5000
     )
 
     if (res.status === 200) {
-      return await res.json()
+      return await safeJson(res)
     }
   } catch (error) {
     // silently fail recent reports fetch failed:', error)

@@ -93,6 +93,10 @@
     "showAnalysisButtonDesc": "Показва бутон до значката за преглед на подробен анализ на съвместимостта, включително тенденции на доклади и графика на историята",
     "roundedCorners": "Заоблени ъгли",
     "roundedCornersDesc": "Използвайте заоблени ъгли за всички бутони на значката",
+    "showLibraryIcons": "Library Status Icons",
+    "showLibraryIconsDesc": "Show compatibility status icons on game covers in the library grid",
+    "libraryIconPosition": "Icon Position",
+    "libraryIconPositionDesc": "Position of the status icon on game covers",
     "helpAnalysisTitle": "Анализ на съвместимостта",
     "helpAnalysisDesc": "Бутонът за анализ (икона стълбовидна диаграма) до значката отваря подробен преглед на съвместимостта за всяка игра. Тези данни са събрани от всички доклади в ProtonDB, подадени от общността.",
     "helpAnalysisDetails": "Разделът Подробности показва:",
@@ -102,6 +106,11 @@
     "helpAnalysisFreshness": "Актуалност — кога е подаден последният доклад",
     "helpAnalysisWarnings": "Предупреждения за несъответствия на версия на Proton, проблеми с GPU или анти-чит",
     "helpAnalysisChart": "Разделът История на докладите показва графика на добри (зелени) срещу лоши (червени) доклади по месеци за последните 2 години, за да видите как се е променяла съвместимостта.",
+    "helpAnalysisColorsTitle": "Цветове на бутона за анализ",
+    "helpAnalysisColorsDesc": "Бутонът за анализ използва проста система от три цвята вместо цветовете на нивата на ProtonDB (Platinum, Gold и т.н.). Това е умишлено — нивата отразяват колко добре работи играта, докато бутонът за анализ отговаря на друг въпрос: работи ли играта изобщо в момента?",
+    "helpAnalysisColorGreen": "Зелено — Играта работи според последните доклади",
+    "helpAnalysisColorRed": "Червено — Играта не работи или има сериозни проблеми",
+    "helpAnalysisColorGray": "Сиво — Няма достатъчно данни за определяне на статуса",
     "helpAnalysisToggle": "Можете да включите или изключите бутона за анализ в Настройки под Разширени функции.",
     "clearCacheSuccess": "Кешът е изчистен успешно"
 }

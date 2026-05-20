@@ -93,6 +93,10 @@
     "showAnalysisButtonDesc": "Affiche un bouton à côté du badge pour consulter une analyse détaillée de compatibilité, incluant les tendances des rapports et un graphique historique",
     "roundedCorners": "Coins arrondis",
     "roundedCornersDesc": "Utiliser des coins arrondis sur tous les boutons de badge",
+    "showLibraryIcons": "Icônes de statut bibliothèque",
+    "showLibraryIconsDesc": "Afficher les icônes de statut de compatibilité sur les jaquettes dans la bibliothèque",
+    "libraryIconPosition": "Position de l'icône",
+    "libraryIconPositionDesc": "Position de l'icône de statut sur les jaquettes",
     "helpAnalysisTitle": "Analyse de compatibilité",
     "helpAnalysisDesc": "Le bouton d'analyse (icône graphique) à côté du badge ouvre un aperçu détaillé de la compatibilité pour chaque jeu. Ces données proviennent de tous les rapports ProtonDB soumis par la communauté.",
     "helpAnalysisDetails": "L'onglet Détails affiche :",
@@ -102,6 +106,11 @@
     "helpAnalysisFreshness": "Fraîcheur — date du dernier rapport soumis",
     "helpAnalysisWarnings": "Avertissements concernant les incompatibilités de version Proton, les problèmes GPU ou l'anti-triche",
     "helpAnalysisChart": "L'onglet Historique des rapports affiche un graphique des bons (verts) et mauvais (rouges) rapports par mois sur les 2 dernières années.",
+    "helpAnalysisColorsTitle": "Couleurs du bouton d'analyse",
+    "helpAnalysisColorsDesc": "Le bouton d'analyse utilise un système de feu tricolore simple au lieu des couleurs de niveau ProtonDB (Platinum, Gold, etc.). C'est intentionnel — les niveaux reflètent à quel point un jeu fonctionne bien, tandis que le bouton d'analyse répond à une question différente : le jeu fonctionne-t-il tout court en ce moment ?",
+    "helpAnalysisColorGreen": "Vert — Le jeu fonctionne selon les rapports récents",
+    "helpAnalysisColorRed": "Rouge — Le jeu ne fonctionne pas ou a des problèmes importants",
+    "helpAnalysisColorGray": "Gris — Pas assez de données pour déterminer le statut",
     "helpAnalysisToggle": "Vous pouvez activer ou désactiver le bouton d'analyse dans les Paramètres, sous Fonctionnalités avancées.",
     "clearCacheSuccess": "Cache vidé avec succès"
 }

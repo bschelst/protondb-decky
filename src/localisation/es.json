@@ -93,6 +93,10 @@
     "showAnalysisButtonDesc": "Muestra un botón junto a la insignia para ver un análisis detallado de compatibilidad, incluyendo tendencias de informes y gráfico de historial",
     "roundedCorners": "Esquinas redondeadas",
     "roundedCornersDesc": "Usar esquinas redondeadas en todos los botones de insignia",
+    "showLibraryIcons": "Library Status Icons",
+    "showLibraryIconsDesc": "Show compatibility status icons on game covers in the library grid",
+    "libraryIconPosition": "Icon Position",
+    "libraryIconPositionDesc": "Position of the status icon on game covers",
     "helpAnalysisTitle": "Análisis de compatibilidad",
     "helpAnalysisDesc": "El botón de análisis (icono de gráfico de barras) junto a la insignia abre un desglose detallado de compatibilidad para cada juego. Estos datos provienen de todos los informes de ProtonDB enviados por la comunidad.",
     "helpAnalysisDetails": "La pestaña Detalles muestra:",
@@ -102,6 +106,11 @@
     "helpAnalysisFreshness": "Actualidad — cuándo se envió el último informe",
     "helpAnalysisWarnings": "Advertencias sobre incompatibilidades de versión de Proton, problemas de GPU o anti-trampas",
     "helpAnalysisChart": "La pestaña Historial de informes muestra un gráfico de informes buenos (verdes) y malos (rojos) por mes durante los últimos 2 años.",
+    "helpAnalysisColorsTitle": "Colores del botón de análisis",
+    "helpAnalysisColorsDesc": "El botón de análisis usa un sistema simple de semáforo en lugar de los colores de nivel de ProtonDB (Platinum, Gold, etc.). Esto es intencional — los niveles reflejan qué tan bien funciona un juego, mientras que el botón de análisis responde una pregunta diferente: ¿funciona el juego en absoluto ahora mismo?",
+    "helpAnalysisColorGreen": "Verde — El juego funciona según informes recientes",
+    "helpAnalysisColorRed": "Rojo — El juego no funciona o tiene problemas significativos",
+    "helpAnalysisColorGray": "Gris — No hay suficientes datos para determinar el estado",
     "helpAnalysisToggle": "Puedes activar o desactivar el botón de análisis en Ajustes, en Funciones avanzadas.",
     "clearCacheSuccess": "Caché borrada correctamente"
 }

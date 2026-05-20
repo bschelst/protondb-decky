@@ -93,6 +93,10 @@
     "showAnalysisButtonDesc": "Egy gombot jelenít meg a jelvény mellett a részletes kompatibilitási elemzés megtekintéséhez, beleértve a jelentési trendeket és az előzménygrafikont",
     "roundedCorners": "Lekerekített sarkok",
     "roundedCornersDesc": "Lekerekített sarkok használata az összes jelvénygombon",
+    "showLibraryIcons": "Library Status Icons",
+    "showLibraryIconsDesc": "Show compatibility status icons on game covers in the library grid",
+    "libraryIconPosition": "Icon Position",
+    "libraryIconPositionDesc": "Position of the status icon on game covers",
     "helpAnalysisTitle": "Kompatibilitási elemzés",
     "helpAnalysisDesc": "Az elemzés gomb (oszlopdiagram ikon) a jelvény mellett megnyit egy részletes kompatibilitási áttekintést minden játékhoz. Az adatok a közösség által beküldött ProtonDB jelentésekből származnak.",
     "helpAnalysisDetails": "A Részletek fül megmutatja:",
@@ -102,6 +106,11 @@
     "helpAnalysisFreshness": "Frissesség — mikor küldték be az utolsó jelentést",
     "helpAnalysisWarnings": "Figyelmeztetések Proton verzió eltérésekre, GPU problémákra vagy csalásvédelemre",
     "helpAnalysisChart": "Az Előzmények fül egy grafikont mutat a jó (zöld) és rossz (piros) jelentésekről havonta az elmúlt 2 évben.",
+    "helpAnalysisColorsTitle": "Elemzés gomb színei",
+    "helpAnalysisColorsDesc": "Az elemzés gomb egyszerű jelzőlámpa-rendszert használ a ProtonDB szintszínek (Platinum, Gold stb.) helyett. Ez szándékos — a szintek azt tükrözik, mennyire jól fut egy játék, míg az elemzés gomb más kérdésre válaszol: egyáltalán működik-e a játék most?",
+    "helpAnalysisColorGreen": "Zöld — A játék működik a legutóbbi jelentések alapján",
+    "helpAnalysisColorRed": "Piros — A játék nem működik vagy jelentős problémái vannak",
+    "helpAnalysisColorGray": "Szürke — Nincs elég adat az állapot megállapításához",
     "helpAnalysisToggle": "Az elemzés gombot a Beállítások alatt, a Bővített funkciók menüben kapcsolhatja be vagy ki.",
     "clearCacheSuccess": "Gyorsítótár törölve"
 }

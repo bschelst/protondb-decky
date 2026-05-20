@@ -93,6 +93,10 @@
     "showAnalysisButtonDesc": "Toont een knop naast de badge om een gedetailleerde compatibiliteitsanalyse te bekijken, inclusief rapporttrends en een geschiedenisgrafiek",
     "roundedCorners": "Afgeronde hoeken",
     "roundedCornersDesc": "Gebruik afgeronde hoeken op alle badge-knoppen",
+    "showLibraryIcons": "Bibliotheek statusiconen",
+    "showLibraryIconsDesc": "Toon compatibiliteitsstatus iconen op game covers in de bibliotheek",
+    "libraryIconPosition": "Icoonpositie",
+    "libraryIconPositionDesc": "Positie van het statusicoon op game covers",
     "helpAnalysisTitle": "Compatibiliteitsanalyse",
     "helpAnalysisDesc": "De analyseknop (staafdiagram-icoon) naast de badge opent een gedetailleerd compatibiliteitsoverzicht voor elk spel. Deze gegevens komen uit alle ProtonDB-rapporten die door de community zijn ingediend.",
     "helpAnalysisDetails": "Het tabblad Details toont:",
@@ -102,6 +106,11 @@
     "helpAnalysisFreshness": "Actualiteit — wanneer het laatste rapport is ingediend",
     "helpAnalysisWarnings": "Waarschuwingen over Proton-versieverschillen, GPU-problemen of anti-cheat",
     "helpAnalysisChart": "Het tabblad Rapportgeschiedenis toont een grafiek van goede (groene) en slechte (rode) rapporten per maand over de afgelopen 2 jaar.",
+    "helpAnalysisColorsTitle": "Kleuren van de analyseknop",
+    "helpAnalysisColorsDesc": "De analyseknop gebruikt een eenvoudig stoplichtsysteem in plaats van de ProtonDB-niveaukleuren (Platinum, Gold, enz.). Dit is bewust — de niveaus weerspiegelen hoe goed een game draait, terwijl de analyseknop een andere vraag beantwoordt: werkt de game überhaupt op dit moment?",
+    "helpAnalysisColorGreen": "Groen — Game werkt op basis van recente rapporten",
+    "helpAnalysisColorRed": "Rood — Game werkt niet of heeft aanzienlijke problemen",
+    "helpAnalysisColorGray": "Grijs — Niet genoeg gegevens om de status te bepalen",
     "helpAnalysisToggle": "Je kunt de analyseknop in- of uitschakelen bij Instellingen onder Uitgebreide functies.",
     "clearCacheSuccess": "Cache gewist"
 }

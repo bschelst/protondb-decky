@@ -1,0 +1,438 @@
+import { fetchNoCors } from '@decky/api'
+import { SettingsContext } from '../hooks/useSettings'
+import { GATEWAY_BASE_URL, GATEWAY_API_KEY, appTypes } from '../constants'
+import {
+  getCache,
+  updateCache,
+  getAllCachedStatuses
+} from '../cache/protobDbCache'
+
+declare const appStore: any
+
+const FETCH_TIMEOUT_MS = 2000
+const BATCH_SIZE = 3
+const BATCH_DELAY_MS = 3000
+const SCAN_INTERVAL_MS = 10000
+const GRID_CACHE_MAX_AGE_MS = 7 * 24 * 60 * 60 * 1000
+const DOT_CLASS = 'protondb-grid-dot'
+const COVER_SELECTOR = '._1pwP4eeP1zQD7PEgmsep0W'
+const APP_ID_FROM_SRC = /\/(?:assets|customimages)\/(\d+)/
+
+const STATUS_COLORS: Record<string, string> = {
+  working: 'rgb(74, 194, 100)',
+  not_working: 'rgb(200, 30, 30)',
+  unknown: 'rgb(166, 166, 166)'
+}
+
+declare const SteamUIStore: any
+
+const statusCache = new Map<string, string>()
+const resolveCache = new Map<string, string | null>()
+const pendingIds = new Set<string>()
+let isFetching = false
+let scanInterval: ReturnType<typeof setInterval> | null = null
+let lastPosition: string = ''
+
+function cleanString(str: string) {
+  return str
+    .replace(/['"@&™®]/g, '')
+    .toLowerCase()
+    .trim()
+}
+
+function isSteamGame(gameId: number): boolean {
+  try {
+    const overview = appStore?.GetAppOverviewByGameID(gameId)
+    return Boolean(appTypes[overview?.app_type as keyof typeof appTypes])
+  } catch {
+    return false
+  }
+}
+
+async function resolveToSteamAppId(rawId: string): Promise<string | null> {
+  if (resolveCache.has(rawId)) {
+    return resolveCache.get(rawId) ?? null
+  }
+
+  const num = parseInt(rawId)
+  if (!isNaN(num) && isSteamGame(num)) {
+    resolveCache.set(rawId, rawId)
+    return rawId
+  }
+
+  try {
+    const overview = appStore?.GetAppOverviewByGameID(num)
+    const gameName = overview?.display_name
+    if (!gameName) {
+      resolveCache.set(rawId, null)
+      return null
+    }
+
+    const res = await fetchWithTimeout(
+      fetchNoCors(`https://steamcommunity.com/actions/SearchApps/${gameName}`)
+    )
+
+    if (res.status === 200) {
+      const options = await res.json()
+      if (!Array.isArray(options)) {
+        resolveCache.set(rawId, null)
+        return null
+      }
+      const cleaned = cleanString(gameName)
+      const match = options.find(
+        (o: any) => o?.name && cleanString(o.name) === cleaned
+      )
+      const steamId = match?.appid ?? null
+      resolveCache.set(rawId, steamId)
+      return steamId
+    }
+  } catch {
+    // silently fail
+  }
+
+  resolveCache.set(rawId, null)
+  return null
+}
+
+function getBigPictureDocument(): Document | null {
+  try {
+    return (
+      SteamUIStore?.WindowStore?.GamepadUIMainWindowInstance?.m_BrowserWindow
+        ?.document ?? null
+    )
+  } catch {
+    return null
+  }
+}
+
+async function fetchWithTimeout(
+  promise: Promise<Response>,
+  ms: number = FETCH_TIMEOUT_MS
+): Promise<Response> {
+  return Promise.race([
+    promise,
+    new Promise<never>((_, reject) =>
+      setTimeout(() => reject(new Error('timeout')), ms)
+    )
+  ])
+}
+
+async function getStatusFromCache(
+  appId: string
+): Promise<{ status: string; stale: boolean } | null> {
+  try {
+    const cached = await getCache(appId)
+    if (cached?.analysis?.working_status?.status) {
+      const age = cached.lastUpdated
+        ? Date.now() - new Date(cached.lastUpdated).getTime()
+        : Infinity
+      return {
+        status: cached.analysis.working_status.status,
+        stale: age > GRID_CACHE_MAX_AGE_MS
+      }
+    }
+  } catch {
+    // localforage read failed
+  }
+  return null
+}
+
+async function hasProtonDBReports(appId: string): Promise<boolean> {
+  try {
+    const res = await fetchWithTimeout(
+      fetchNoCors(
+        `https://www.protondb.com/api/v1/reports/summaries/${appId}.json`
+      )
+    )
+    if (res.status === 200) {
+      const data = await res.json()
+      return !!data?.tier
+    }
+  } catch {
+    // silently fail
+  }
+  return false
+}
+
+async function fetchAndCacheStatus(appId: string): Promise<string> {
+  // Check if the game has ProtonDB reports before calling gateway
+  const hasReports = await hasProtonDBReports(appId)
+  if (!hasReports) {
+    await cacheUnknown(appId)
+    return 'unknown'
+  }
+
+  try {
+    const url = `${GATEWAY_BASE_URL}/api/v1/analysis/${appId}?user_gpu_vendor=amd&user_proton_version=10`
+    const res = await fetchWithTimeout(
+      fetchNoCors(url, {
+        method: 'GET',
+        headers: { 'X-API-Key': GATEWAY_API_KEY }
+      })
+    )
+    if (res.status === 200) {
+      const data = await res.json()
+      if (!data || typeof data !== 'object' || !data.working_status) {
+        await cacheUnknown(appId)
+        return 'unknown'
+      }
+      const status = data.working_status.status || 'unknown'
+      const existing = await getCache(appId)
+      await updateCache(appId, {
+        tier: existing?.tier || ('pending' as any),
+        linuxSupport: existing?.linuxSupport || false,
+        analysis: data,
+        lastUpdated: new Date().toISOString()
+      })
+      return status
+    }
+  } catch {
+    // silently fail
+  }
+  await cacheUnknown(appId)
+  return 'unknown'
+}
+
+async function cacheUnknown(appId: string) {
+  try {
+    const existing = await getCache(appId)
+    if (!existing?.analysis) {
+      await updateCache(appId, {
+        tier: existing?.tier || ('pending' as any),
+        linuxSupport: existing?.linuxSupport || false,
+        analysis: { working_status: { status: 'unknown' } } as any,
+        lastUpdated: new Date().toISOString()
+      })
+    }
+  } catch {
+    // localforage write failed
+  }
+}
+
+function injectDot(bpDoc: Document, coverDiv: Element, status: string) {
+  try {
+    const existing = coverDiv.querySelector(`.${DOT_CLASS}`)
+    if (existing) {
+      existing.remove()
+    }
+
+    const container =
+      (coverDiv.firstElementChild as HTMLElement) || (coverDiv as HTMLElement)
+    container.style.position = 'relative'
+    const color = STATUS_COLORS[status] || STATUS_COLORS.unknown
+    const pos = SettingsContext.value.libraryIconPosition || 'bl'
+    const posStyles: Record<string, string> = {
+      bl: 'bottom:4px;left:4px;',
+      tl: 'top:4px;left:4px;',
+      tr: 'top:4px;right:4px;'
+    }
+    const wrapper = bpDoc.createElement('div')
+    wrapper.className = DOT_CLASS
+    wrapper.style.cssText = `position:absolute;${posStyles[pos] || posStyles.bl}width:20px;height:20px;z-index:9999;pointer-events:none;background:rgba(0,0,0,0.7);border-radius:20px;padding:2px;display:flex;align-items:center;justify-content:center;`
+
+    const ns = 'http://www.w3.org/2000/svg'
+    const svg = bpDoc.createElementNS(ns, 'svg')
+    svg.setAttribute('viewBox', '0 0 512 512')
+    svg.setAttribute('width', '16')
+    svg.setAttribute('height', '16')
+
+    const circle = bpDoc.createElementNS(ns, 'circle')
+    circle.setAttribute('cx', '256')
+    circle.setAttribute('cy', '256')
+    circle.setAttribute('r', '36')
+    circle.setAttribute('fill', color)
+    svg.appendChild(circle)
+
+    const rotations = ['0', '60', '120']
+    for (const rot of rotations) {
+      const ellipse = bpDoc.createElementNS(ns, 'ellipse')
+      ellipse.setAttribute('cx', '256')
+      ellipse.setAttribute('cy', '256')
+      ellipse.setAttribute('rx', '220')
+      ellipse.setAttribute('ry', '88')
+      ellipse.setAttribute('fill', 'none')
+      ellipse.setAttribute('stroke', color)
+      ellipse.setAttribute('stroke-width', '28')
+      if (rot !== '0') {
+        ellipse.setAttribute('transform', `rotate(${rot} 256 256)`)
+      }
+      svg.appendChild(ellipse)
+    }
+
+    wrapper.appendChild(svg)
+    container.appendChild(wrapper)
+  } catch {
+    // silently fail - don't crash Decky
+  }
+}
+
+async function processBatch(bpDoc: Document) {
+  if (isFetching || pendingIds.size === 0) return
+  isFetching = true
+
+  const batch = Array.from(pendingIds).slice(0, BATCH_SIZE)
+  batch.forEach((id) => pendingIds.delete(id))
+
+  for (const rawId of batch) {
+    try {
+      const steamId = resolveCache.get(rawId) ?? rawId
+      if (!steamId) continue
+
+      const status = await fetchAndCacheStatus(steamId)
+      statusCache.set(rawId, status)
+
+      const cover =
+        bpDoc.querySelector(`[data-id="${rawId}"] ${COVER_SELECTOR}`) ||
+        bpDoc
+          .querySelector(`img[src*="/assets/${rawId}/"]`)
+          ?.closest(COVER_SELECTOR) ||
+        bpDoc
+          .querySelector(`img[src*="/customimages/${rawId}"]`)
+          ?.closest(COVER_SELECTOR)
+      if (cover) injectDot(bpDoc, cover, status)
+    } catch {
+      // skip failed fetch
+    }
+  }
+
+  isFetching = false
+
+  if (pendingIds.size > 0) {
+    setTimeout(() => processBatch(bpDoc), BATCH_DELAY_MS)
+  }
+}
+
+function getAppIdFromCover(cover: Element): string | null {
+  const tile = cover.closest('[data-id]')
+  if (tile) {
+    const id = tile.getAttribute('data-id')
+    const num = parseInt(id || '')
+    if (!isNaN(num) && num > 0) {
+      return id
+    }
+  }
+
+  const img = cover.querySelector('img')
+  if (img?.src) {
+    const match = img.src.match(APP_ID_FROM_SRC)
+    if (match) {
+      const num = parseInt(match[1])
+      if (!isNaN(num)) return match[1]
+    }
+  }
+
+  return null
+}
+
+async function scanTiles() {
+  try {
+    if (SettingsContext.value.showLibraryIcons !== true) return
+
+    const bpDoc = getBigPictureDocument()
+    if (!bpDoc) return
+
+    const covers = bpDoc.querySelectorAll(COVER_SELECTOR)
+    for (const cover of covers) {
+      if (cover.querySelector(`.${DOT_CLASS}`)) continue
+
+      const rawId = getAppIdFromCover(cover)
+      if (!rawId) continue
+
+      const memCached = statusCache.get(rawId)
+      if (memCached) {
+        injectDot(bpDoc, cover as Element, memCached)
+        continue
+      }
+
+      let steamId: string | null = null
+      try {
+        steamId = await resolveToSteamAppId(rawId)
+      } catch {
+        continue
+      }
+      if (!steamId) continue
+
+      const diskCached = await getStatusFromCache(steamId)
+      if (diskCached) {
+        statusCache.set(rawId, diskCached.status)
+        injectDot(bpDoc, cover as Element, diskCached.status)
+        if (diskCached.stale && !pendingIds.has(rawId)) {
+          pendingIds.add(rawId)
+        }
+        continue
+      }
+
+      if (!pendingIds.has(rawId)) {
+        pendingIds.add(rawId)
+      }
+    }
+
+    if (pendingIds.size > 0) {
+      processBatch(bpDoc)
+    }
+  } catch {
+    // silently fail - don't crash Decky
+  }
+}
+
+let reinjectInterval: ReturnType<typeof setInterval> | null = null
+
+function reinjectCached() {
+  try {
+    if (SettingsContext.value.showLibraryIcons !== true) return
+    if (statusCache.size === 0) return
+
+    const bpDoc = getBigPictureDocument()
+    if (!bpDoc) return
+
+    const currentPos = SettingsContext.value.libraryIconPosition || 'bl'
+    if (currentPos !== lastPosition) {
+      lastPosition = currentPos
+      const oldDots = bpDoc.querySelectorAll(`.${DOT_CLASS}`)
+      for (const dot of oldDots) dot.remove()
+    }
+
+    const covers = bpDoc.querySelectorAll(COVER_SELECTOR)
+    for (const cover of covers) {
+      if (cover.querySelector(`.${DOT_CLASS}`)) continue
+      const appId = getAppIdFromCover(cover)
+      if (!appId) continue
+      const cached = statusCache.get(appId)
+      if (cached) {
+        injectDot(bpDoc, cover as Element, cached)
+      }
+    }
+  } catch {
+    // silently fail - don't crash Decky
+  }
+}
+
+export function initLibraryGridPatch(): () => void {
+  console.log('[ProtonDB Grid] Initializing library grid patch')
+
+  reinjectInterval = setInterval(reinjectCached, 1000)
+
+  getAllCachedStatuses()
+    .then((cached) => {
+      cached.forEach((status, appId) => statusCache.set(appId, status))
+      console.log(
+        `[ProtonDB Grid] Pre-loaded ${cached.size} statuses from cache`
+      )
+    })
+    .catch(() => {})
+    .finally(() => {
+      scanInterval = setInterval(scanTiles, SCAN_INTERVAL_MS)
+      setTimeout(scanTiles, 500)
+    })
+
+  return () => {
+    if (scanInterval) {
+      clearInterval(scanInterval)
+      scanInterval = null
+    }
+    if (reinjectInterval) {
+      clearInterval(reinjectInterval)
+      reinjectInterval = null
+    }
+  }
+}

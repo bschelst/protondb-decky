@@ -313,6 +313,72 @@ const HelpModal: FC<HelpModalProps> = ({ closeModal }) => {
               <p style={{ lineHeight: '1.6', marginBottom: '12px' }}>
                 {t('helpAnalysisChart')}
               </p>
+
+              <div style={{ marginBottom: '12px' }}>
+                <strong>{t('helpAnalysisColorsTitle')}</strong>
+                <p
+                  style={{
+                    marginTop: '6px',
+                    marginBottom: '10px',
+                    lineHeight: '1.6',
+                    fontSize: '13px',
+                    color: '#bbb'
+                  }}
+                >
+                  {t('helpAnalysisColorsDesc')}
+                </p>
+                <ul
+                  style={{
+                    marginTop: '8px',
+                    paddingLeft: '20px',
+                    lineHeight: '1.8'
+                  }}
+                >
+                  <li>
+                    <span
+                      style={{
+                        display: 'inline-block',
+                        width: '12px',
+                        height: '12px',
+                        borderRadius: '3px',
+                        background: 'rgb(74, 194, 100)',
+                        marginRight: '8px',
+                        verticalAlign: 'middle'
+                      }}
+                    />
+                    {t('helpAnalysisColorGreen')}
+                  </li>
+                  <li>
+                    <span
+                      style={{
+                        display: 'inline-block',
+                        width: '12px',
+                        height: '12px',
+                        borderRadius: '3px',
+                        background: 'rgb(200, 30, 30)',
+                        marginRight: '8px',
+                        verticalAlign: 'middle'
+                      }}
+                    />
+                    {t('helpAnalysisColorRed')}
+                  </li>
+                  <li>
+                    <span
+                      style={{
+                        display: 'inline-block',
+                        width: '12px',
+                        height: '12px',
+                        borderRadius: '3px',
+                        background: 'rgb(166, 166, 166)',
+                        marginRight: '8px',
+                        verticalAlign: 'middle'
+                      }}
+                    />
+                    {t('helpAnalysisColorGray')}
+                  </li>
+                </ul>
+              </div>
+
               <div
                 style={{
                   padding: '12px',

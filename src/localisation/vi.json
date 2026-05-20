@@ -93,6 +93,10 @@
     "showAnalysisButtonDesc": "Hiển thị nút bên cạnh huy hiệu để xem phân tích chi tiết về khả năng tương thích, bao gồm xu hướng báo cáo và biểu đồ lịch sử",
     "roundedCorners": "Góc bo tròn",
     "roundedCornersDesc": "Sử dụng góc bo tròn trên tất cả các nút huy hiệu",
+    "showLibraryIcons": "Library Status Icons",
+    "showLibraryIconsDesc": "Show compatibility status icons on game covers in the library grid",
+    "libraryIconPosition": "Icon Position",
+    "libraryIconPositionDesc": "Position of the status icon on game covers",
     "helpAnalysisTitle": "Phân tích tương thích",
     "helpAnalysisDesc": "Nút phân tích (biểu tượng biểu đồ cột) bên cạnh huy hiệu mở tổng quan chi tiết về khả năng tương thích cho mỗi trò chơi. Dữ liệu được thu thập từ tất cả báo cáo ProtonDB do cộng đồng gửi.",
     "helpAnalysisDetails": "Tab Chi tiết hiển thị:",
@@ -102,6 +106,11 @@
     "helpAnalysisFreshness": "Độ mới — báo cáo gần nhất được gửi khi nào",
     "helpAnalysisWarnings": "Cảnh báo về phiên bản Proton không khớp, vấn đề GPU hoặc chống gian lận",
     "helpAnalysisChart": "Tab Lịch sử báo cáo hiển thị biểu đồ báo cáo tốt (xanh) và xấu (đỏ) theo tháng trong 2 năm qua.",
+    "helpAnalysisColorsTitle": "Màu nút phân tích",
+    "helpAnalysisColorsDesc": "Nút phân tích sử dụng hệ thống đèn giao thông đơn giản thay vì màu cấp bậc ProtonDB (Platinum, Gold, v.v.). Điều này là có chủ đích — các cấp bậc phản ánh trò chơi chạy tốt đến mức nào, trong khi nút phân tích trả lời một câu hỏi khác: trò chơi có hoạt động được không vào lúc này?",
+    "helpAnalysisColorGreen": "Xanh lá — Trò chơi hoạt động dựa trên báo cáo gần đây",
+    "helpAnalysisColorRed": "Đỏ — Trò chơi không hoạt động hoặc có vấn đề nghiêm trọng",
+    "helpAnalysisColorGray": "Xám — Không đủ dữ liệu để xác định trạng thái",
     "helpAnalysisToggle": "Bạn có thể bật hoặc tắt nút phân tích trong Cài đặt mục Tính năng nâng cao.",
     "clearCacheSuccess": "Đã xóa bộ nhớ đệm"
 }

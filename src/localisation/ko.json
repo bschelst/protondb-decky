@@ -93,6 +93,10 @@
     "showAnalysisButtonDesc": "배지 옆에 버튼을 표시하여 보고서 추세와 기록 그래프를 포함한 상세 호환성 분석을 확인합니다",
     "roundedCorners": "둥근 모서리",
     "roundedCornersDesc": "모든 배지 버튼에 둥근 모서리 사용",
+    "showLibraryIcons": "Library Status Icons",
+    "showLibraryIconsDesc": "Show compatibility status icons on game covers in the library grid",
+    "libraryIconPosition": "Icon Position",
+    "libraryIconPositionDesc": "Position of the status icon on game covers",
     "helpAnalysisTitle": "호환성 분석",
     "helpAnalysisDesc": "배지 옆의 분석 버튼(막대 그래프 아이콘)을 누르면 각 게임의 상세 호환성 분석을 볼 수 있습니다. 이 데이터는 커뮤니티가 제출한 모든 ProtonDB 보고서에서 수집됩니다.",
     "helpAnalysisDetails": "상세 탭 표시 내용:",
@@ -102,6 +106,11 @@
     "helpAnalysisFreshness": "최신성 — 마지막 보고서가 제출된 시기",
     "helpAnalysisWarnings": "Proton 버전 불일치, GPU 문제 또는 안티치트 관련 경고",
     "helpAnalysisChart": "보고서 기록 탭은 지난 2년간 월별 좋은(녹색) 보고서와 나쁜(빨간) 보고서 그래프를 보여줍니다.",
+    "helpAnalysisColorsTitle": "분석 버튼 색상",
+    "helpAnalysisColorsDesc": "분석 버튼은 ProtonDB의 등급 색상(Platinum, Gold 등) 대신 간단한 신호등 시스템을 사용합니다. 이는 의도적입니다 — 등급은 게임이 얼마나 잘 실행되는지를 반영하고, 분석 버튼은 다른 질문에 답합니다: 게임이 지금 작동하나요?",
+    "helpAnalysisColorGreen": "초록 — 최근 보고서 기반으로 게임이 작동 중",
+    "helpAnalysisColorRed": "빨강 — 게임이 작동하지 않거나 심각한 문제 있음",
+    "helpAnalysisColorGray": "회색 — 상태를 판단할 충분한 데이터 없음",
     "helpAnalysisToggle": "설정의 고급 기능에서 분석 버튼을 켜거나 끌 수 있습니다.",
     "clearCacheSuccess": "캐시가 지워졌습니다"
 }

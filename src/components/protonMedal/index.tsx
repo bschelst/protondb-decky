@@ -17,6 +17,7 @@ import React, {
 import { FaReact, FaPaperPlane, FaChartBar } from 'react-icons/fa'
 import { IoLogoTux } from 'react-icons/io'
 import AnalysisModal from './AnalysisModal'
+import AnalysisErrorBoundary from './AnalysisErrorBoundary'
 
 import useAppId from '../../hooks/useAppId'
 import useBadgeData from '../../hooks/useBadgeData'
@@ -27,6 +28,7 @@ import { Button, ButtonProps } from '../button'
 
 import style from './style'
 import { useSettings } from '../../hooks/useSettings'
+import { isValidAnalysis } from './analysisGuard'
 
 type ExtendedButtonProps = ButtonProps & {
   children: ReactNode
@@ -301,24 +303,27 @@ export default function ProtonMedal({
               </DeckButton>
             </div>
 
-            {analysis && settings.showAnalysisButton !== false && !compact && (
-              <DeckButton
-                className={`protondb-decky-info-button ${sizeClass} ${analysis.working_status?.status === 'working' ? 'protondb-decky-info-working' : analysis.working_status?.status === 'not_working' ? 'protondb-decky-info-not-working' : ''}`}
-                type="button"
-                onClick={() => {
-                  showModal(
-                    <AnalysisModal
-                      analysis={analysis}
-                      appId={appId as string}
-                    />
-                  )
-                }}
-              >
-                <div>
-                  <FaChartBar />
-                </div>
-              </DeckButton>
-            )}
+            {isValidAnalysis(analysis) &&
+              settings.showAnalysisButton !== false && (
+                <DeckButton
+                  className={`protondb-decky-info-button ${sizeClass} ${analysis.working_status?.status === 'working' ? 'protondb-decky-info-working' : analysis.working_status?.status === 'not_working' ? 'protondb-decky-info-not-working' : ''}`}
+                  type="button"
+                  onClick={() => {
+                    showModal(
+                      <AnalysisErrorBoundary>
+                        <AnalysisModal
+                          analysis={analysis}
+                          appId={appId as string}
+                        />
+                      </AnalysisErrorBoundary>
+                    )
+                  }}
+                >
+                  <div>
+                    <FaChartBar />
+                  </div>
+                </DeckButton>
+              )}
 
             {!settings.disableSubmit && !hideSubmit && (
               <DeckButton

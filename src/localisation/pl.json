@@ -93,6 +93,10 @@
     "showAnalysisButtonDesc": "Wyświetla przycisk obok odznaki do przeglądania szczegółowej analizy kompatybilności, w tym trendów raportów i wykresu historii",
     "roundedCorners": "Zaokrąglone rogi",
     "roundedCornersDesc": "Użyj zaokrąglonych rogów na wszystkich przyciskach odznaki",
+    "showLibraryIcons": "Library Status Icons",
+    "showLibraryIconsDesc": "Show compatibility status icons on game covers in the library grid",
+    "libraryIconPosition": "Icon Position",
+    "libraryIconPositionDesc": "Position of the status icon on game covers",
     "helpAnalysisTitle": "Analiza kompatybilności",
     "helpAnalysisDesc": "Przycisk analizy (ikona wykresu słupkowego) obok odznaki otwiera szczegółowy przegląd kompatybilności dla każdej gry. Dane pochodzą ze wszystkich raportów ProtonDB przesłanych przez społeczność.",
     "helpAnalysisDetails": "Zakładka Szczegóły pokazuje:",
@@ -102,6 +106,11 @@
     "helpAnalysisFreshness": "Aktualność — kiedy przesłano ostatni raport",
     "helpAnalysisWarnings": "Ostrzeżenia o niezgodnościach wersji Proton, problemach z GPU lub systemach antycheat",
     "helpAnalysisChart": "Zakładka Historia raportów pokazuje wykres dobrych (zielonych) i złych (czerwonych) raportów miesięcznie z ostatnich 2 lat.",
+    "helpAnalysisColorsTitle": "Kolory przycisku analizy",
+    "helpAnalysisColorsDesc": "Przycisk analizy używa prostego systemu sygnalizacji świetlnej zamiast kolorów poziomów ProtonDB (Platinum, Gold itp.). Jest to celowe — poziomy odzwierciedlają jak dobrze gra działa, podczas gdy przycisk analizy odpowiada na inne pytanie: czy gra w ogóle działa teraz?",
+    "helpAnalysisColorGreen": "Zielony — Gra działa na podstawie ostatnich raportów",
+    "helpAnalysisColorRed": "Czerwony — Gra nie działa lub ma poważne problemy",
+    "helpAnalysisColorGray": "Szary — Za mało danych do określenia statusu",
     "helpAnalysisToggle": "Możesz włączyć lub wyłączyć przycisk analizy w Ustawieniach w sekcji Funkcje zaawansowane.",
     "clearCacheSuccess": "Pamięć podręczna wyczyszczona"
 }

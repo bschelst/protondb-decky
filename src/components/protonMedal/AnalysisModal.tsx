@@ -5,15 +5,36 @@ import {
   ScrollPanelGroup,
   ScrollPanel
 } from '@decky/ui'
-import React, { CSSProperties, FC, ReactNode, useEffect, useState } from 'react'
+import React, {
+  CSSProperties,
+  FC,
+  ReactNode,
+  useEffect,
+  useMemo,
+  useState
+} from 'react'
 import {
   GatewayAnalysis,
   ReportHistory,
   RecentReport,
-  RecentReportsResponse
+  RecentReportsResponse,
+  ProtonVersionsResponse,
+  ProtonVersionStat as GwVersionStat
 } from '../../../types/gateway'
-import { getReportHistory, getRecentReports } from '../../actions/gateway'
+import {
+  getReportHistory,
+  getRecentReports,
+  getProtonVersions
+} from '../../actions/gateway'
+import {
+  getCachedReports,
+  setCachedReports,
+  getCachedVersions,
+  setCachedVersions
+} from '../../cache/protobDbCache'
 import ReportChart from './ReportChart'
+
+const CURRENT_PROTON_MAJOR = '10'
 
 interface AnalysisModalProps {
   analysis: GatewayAnalysis
@@ -170,22 +191,163 @@ const ReportCard: FC<{ report: RecentReport }> = ({ report }) => {
   )
 }
 
+function ratioColor(ratio: number): string {
+  if (ratio >= 0.75) return '#4ade80'
+  if (ratio >= 0.5) return '#facc15'
+  return '#f87171'
+}
+
+function isCurrent(version: string): boolean {
+  return (
+    version === `Proton ${CURRENT_PROTON_MAJOR}` ||
+    version === 'Proton Official'
+  )
+}
+
+const VersionRow: FC<{ stat: GwVersionStat }> = ({ stat }) => {
+  if (!stat?.version) return null
+  const current = isCurrent(stat.version)
+  const ratio = Number.isFinite(stat.positive_ratio) ? stat.positive_ratio : 0
+  const color = ratioColor(ratio)
+  const pct = Math.round(ratio * 100)
+  const barWidth = `${Math.min(100, Math.max(0, pct))}%`
+  const ts =
+    typeof stat.latest_timestamp === 'number' ? stat.latest_timestamp : 0
+  const age = ts > 0 ? Math.round((Date.now() / 1000 - ts) / 86400) : -1
+
+  return (
+    <div
+      style={{
+        background: current
+          ? 'rgba(122,179,240,0.10)'
+          : 'rgba(255,255,255,0.04)',
+        borderRadius: '6px',
+        padding: '8px 12px',
+        marginBottom: '6px',
+        borderLeft: `3px solid ${current ? '#7ab3f0' : color}`
+      }}
+    >
+      <div
+        style={{
+          display: 'flex',
+          justifyContent: 'space-between',
+          alignItems: 'center',
+          marginBottom: '4px'
+        }}
+      >
+        <span
+          style={{
+            fontWeight: 'bold',
+            fontSize: '13px',
+            color: current ? '#7ab3f0' : '#e0e0e0'
+          }}
+        >
+          {stat.version}
+          {current && (
+            <span
+              style={{
+                fontSize: '10px',
+                color: '#7ab3f0',
+                marginLeft: '6px',
+                fontWeight: 'normal'
+              }}
+            >
+              ★ Steam Deck default
+            </span>
+          )}
+        </span>
+        <span style={{ color: '#aaa', fontSize: '11px' }}>
+          {stat.total_reports} report{stat.total_reports !== 1 ? 's' : ''}
+        </span>
+      </div>
+
+      <div
+        style={{
+          display: 'flex',
+          alignItems: 'center',
+          gap: '8px'
+        }}
+      >
+        <div
+          style={{
+            flex: 1,
+            height: '6px',
+            background: 'rgba(255,255,255,0.08)',
+            borderRadius: '3px',
+            overflow: 'hidden'
+          }}
+        >
+          <div
+            style={{
+              width: barWidth,
+              height: '100%',
+              background: color,
+              borderRadius: '3px',
+              transition: 'width 0.3s ease'
+            }}
+          />
+        </div>
+        <span style={{ fontSize: '11px', color, minWidth: '32px' }}>
+          {pct}%
+        </span>
+      </div>
+
+      <div
+        style={{
+          fontSize: '10px',
+          color: '#666',
+          marginTop: '2px'
+        }}
+      >
+        Latest: {age < 0 ? '—' : age === 0 ? 'today' : `${age}d ago`}
+      </div>
+    </div>
+  )
+}
+
 export default function AnalysisModal({
   analysis,
   appId,
   closeModal
 }: AnalysisModalProps) {
-  const { confidence, freshness, trend, stats, working_status } = analysis
+  const confidence = {
+    score: analysis.confidence?.score ?? 0,
+    level: analysis.confidence?.level ?? 'none',
+    factors: Array.isArray(analysis.confidence?.factors)
+      ? analysis.confidence.factors
+      : []
+  }
+  const freshness = {
+    latest_report_age: analysis.freshness?.latest_report_age ?? 0,
+    label: analysis.freshness?.label ?? 'unknown',
+    is_stale: analysis.freshness?.is_stale ?? true
+  }
+  const trend = {
+    direction: analysis.trend?.direction ?? 'unknown',
+    recent_positive_ratio: analysis.trend?.recent_positive_ratio,
+    older_positive_ratio: analysis.trend?.older_positive_ratio
+  }
+  const stats = {
+    total_reports: analysis.stats?.total_reports ?? 0,
+    recent_reports: analysis.stats?.recent_reports ?? 0
+  }
+  const working_status = analysis.working_status
   const [gameName, setGameName] = useState<string>('—')
-  const [activeTab, setActiveTab] = useState<'details' | 'chart' | 'reports'>(
-    'details'
-  )
+  const [activeTab, setActiveTab] = useState<
+    'details' | 'chart' | 'reports' | 'versions'
+  >('details')
   const [history, setHistory] = useState<ReportHistory | undefined>()
   const [historyLoading, setHistoryLoading] = useState(false)
   const [recentReports, setRecentReports] = useState<
     RecentReportsResponse | undefined
   >()
   const [reportsLoading, setReportsLoading] = useState(false)
+  const [versionsData, setVersionsData] = useState<
+    ProtonVersionsResponse | undefined
+  >()
+  const [versionsLoading, setVersionsLoading] = useState(false)
+  const REPORTS_PAGE_SIZE = 5
+  const [visibleReports, setVisibleReports] = useState(REPORTS_PAGE_SIZE)
 
   useEffect(() => {
     try {
@@ -201,17 +363,60 @@ export default function AnalysisModal({
   useEffect(() => {
     if (activeTab === 'chart' && !history && !historyLoading) {
       setHistoryLoading(true)
-      getReportHistory(appId).then((data) => {
-        setHistory(data)
-        setHistoryLoading(false)
-      })
+      getReportHistory(appId)
+        .then((data) => {
+          setHistory(data)
+          setHistoryLoading(false)
+        })
+        .catch(() => {
+          setHistoryLoading(false)
+        })
     }
     if (activeTab === 'reports' && !recentReports && !reportsLoading) {
       setReportsLoading(true)
-      getRecentReports(appId).then((data) => {
-        setRecentReports(data)
-        setReportsLoading(false)
-      })
+      getCachedReports(appId)
+        .then((cached) => {
+          if (cached?.reports?.length) {
+            setRecentReports(cached)
+            setReportsLoading(false)
+            return null
+          }
+          return getRecentReports(appId)
+        })
+        .then((fresh) => {
+          if (fresh === null) return
+          if (fresh?.reports?.length) {
+            setCachedReports(appId, fresh)
+          }
+          setRecentReports(fresh ?? undefined)
+          setReportsLoading(false)
+        })
+        .catch(() => {
+          setReportsLoading(false)
+        })
+    }
+    if (activeTab === 'versions' && !versionsData && !versionsLoading) {
+      setVersionsLoading(true)
+      getCachedVersions(appId)
+        .then((cached) => {
+          if (cached?.versions?.length) {
+            setVersionsData(cached)
+            setVersionsLoading(false)
+            return null
+          }
+          return getProtonVersions(appId)
+        })
+        .then((fresh) => {
+          if (fresh === null) return
+          if (fresh?.versions?.length) {
+            setCachedVersions(appId, fresh)
+          }
+          setVersionsData(fresh ?? undefined)
+          setVersionsLoading(false)
+        })
+        .catch(() => {
+          setVersionsLoading(false)
+        })
     }
   }, [activeTab])
 
@@ -225,8 +430,8 @@ export default function AnalysisModal({
     { label: 'Game App ID', value: appId },
     {
       label: 'Working status',
-      value: working_status
-        ? `${workingIcon} ${working_status.status.replace('_', ' ')} (${working_status.confidence} certainty)`
+      value: working_status?.status
+        ? `${workingIcon} ${working_status.status.replace('_', ' ')} (${working_status.confidence ?? 'unknown'} certainty)`
         : '❓ Unknown'
     },
     {
@@ -361,6 +566,13 @@ export default function AnalysisModal({
         >
           Recent Reports
         </Focusable>
+        <Focusable
+          style={tabStyle(activeTab === 'versions')}
+          onClick={() => setActiveTab('versions')}
+          onActivate={() => setActiveTab('versions')}
+        >
+          Proton Versions
+        </Focusable>
       </Focusable>
 
       {activeTab === 'details' && (
@@ -452,19 +664,54 @@ export default function AnalysisModal({
                   //@ts-ignore
                   flow-children="column"
                 >
-                  {recentReports.reports.map((report, i) => (
+                  {recentReports.reports
+                    .slice(0, visibleReports)
+                    .map((report, i) => (
+                      <Focusable
+                        key={i}
+                        onFocus={(e: React.FocusEvent) =>
+                          (e.target as HTMLElement).scrollIntoView({
+                            behavior: 'smooth',
+                            block: 'nearest'
+                          })
+                        }
+                      >
+                        <ReportCard report={report} />
+                      </Focusable>
+                    ))}
+                  {visibleReports < recentReports.reports.length && (
                     <Focusable
-                      key={i}
-                      onFocus={(e: React.FocusEvent) =>
-                        (e.target as HTMLElement).scrollIntoView({
-                          behavior: 'smooth',
-                          block: 'nearest'
-                        })
+                      style={{
+                        textAlign: 'center',
+                        padding: '10px 0',
+                        fontSize: '12px',
+                        color: '#7ab3f0',
+                        cursor: 'pointer',
+                        background: 'rgba(122,179,240,0.08)',
+                        borderRadius: '6px',
+                        marginTop: '4px'
+                      }}
+                      onClick={() =>
+                        setVisibleReports((p) =>
+                          Math.min(
+                            p + REPORTS_PAGE_SIZE,
+                            recentReports.reports.length
+                          )
+                        )
+                      }
+                      onActivate={() =>
+                        setVisibleReports((p) =>
+                          Math.min(
+                            p + REPORTS_PAGE_SIZE,
+                            recentReports.reports.length
+                          )
+                        )
                       }
                     >
-                      <ReportCard report={report} />
+                      Show more ({recentReports.reports.length - visibleReports}{' '}
+                      remaining)
                     </Focusable>
-                  ))}
+                  )}
                 </Focusable>
               </ScrollPanel>
             </ScrollPanelGroup>
@@ -477,6 +724,94 @@ export default function AnalysisModal({
               }}
             >
               No recent reports available
+            </div>
+          )}
+        </div>
+      )}
+
+      {activeTab === 'versions' && (
+        <div style={{ padding: '4px' }}>
+          {versionsLoading ? (
+            <div
+              style={{
+                color: '#888',
+                textAlign: 'center',
+                padding: '40px 0'
+              }}
+            >
+              Loading...
+            </div>
+          ) : versionsData?.versions?.length ? (
+            <ScrollPanelGroup>
+              <ScrollPanel>
+                <Focusable
+                  style={{ padding: '4px' }}
+                  //@ts-ignore
+                  flow-children="column"
+                >
+                  <div
+                    style={{
+                      fontSize: '11px',
+                      color: '#888',
+                      marginBottom: '8px',
+                      textAlign: 'center'
+                    }}
+                  >
+                    {versionsData.total_reports} reports across all versions
+                  </div>
+                  <div
+                    style={{
+                      display: 'flex',
+                      justifyContent: 'space-between',
+                      fontSize: '10px',
+                      color: '#666',
+                      padding: '0 12px 4px',
+                      marginBottom: '2px',
+                      borderBottom: '1px solid rgba(255,255,255,0.06)'
+                    }}
+                  >
+                    <span>Version</span>
+                    <span>% positive ratings</span>
+                  </div>
+                  {versionsData.versions.map((stat) => (
+                    <Focusable
+                      key={stat.version}
+                      onFocus={(e: React.FocusEvent) =>
+                        (e.target as HTMLElement).scrollIntoView({
+                          behavior: 'smooth',
+                          block: 'nearest'
+                        })
+                      }
+                    >
+                      <VersionRow stat={stat} />
+                    </Focusable>
+                  ))}
+                  {!versionsData.versions.some((s) => isCurrent(s.version)) && (
+                    <div
+                      style={{
+                        fontSize: '11px',
+                        color: '#facc15',
+                        textAlign: 'center',
+                        padding: '8px 0',
+                        marginTop: '4px'
+                      }}
+                    >
+                      No reports found for Proton {CURRENT_PROTON_MAJOR} (Steam
+                      Deck default)
+                    </div>
+                  )}
+                </Focusable>
+              </ScrollPanel>
+            </ScrollPanelGroup>
+          ) : (
+            <div
+              style={{
+                color: '#888',
+                textAlign: 'center',
+                padding: '40px 0'
+              }}
+            >
+              No report data available
             </div>
           )}
         </div>

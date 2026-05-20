@@ -7,14 +7,15 @@ import Settings from './components/settings'
 import StoreOverlay from './components/storeOverlay'
 import patchLibraryApp from './lib/patchLibraryApp'
 import { initStorePatch } from './patches/StorePatch'
+import { initLibraryGridPatch } from './patches/LibraryGridPatch'
 import { loadSettings } from './hooks/useSettings'
 
 export default definePlugin(() => {
   loadSettings()
   const libraryPatch = patchLibraryApp()
   const stopStorePatch = initStorePatch()
+  const stopGridPatch = initLibraryGridPatch()
 
-  // Register store overlay as global component (renders on all routes)
   routerHook.addGlobalComponent('ProtonDBStoreOverlay', StoreOverlay)
 
   return {
@@ -25,6 +26,7 @@ export default definePlugin(() => {
       routerHook.removePatch('/library/app/:appid', libraryPatch)
       routerHook.removeGlobalComponent('ProtonDBStoreOverlay')
       stopStorePatch()
+      stopGridPatch()
     }
   }
 })

@@ -93,6 +93,10 @@
     "showAnalysisButtonDesc": "Zeigt einen Button neben dem Badge für eine detaillierte Kompatibilitätsanalyse, einschließlich Berichtstrends und Verlaufsdiagramm",
     "roundedCorners": "Abgerundete Ecken",
     "roundedCornersDesc": "Abgerundete Ecken für alle Badge-Buttons verwenden",
+    "showLibraryIcons": "Bibliothek-Statusicons",
+    "showLibraryIconsDesc": "Kompatibilitätsstatus-Icons auf Spiel-Covern in der Bibliothek anzeigen",
+    "libraryIconPosition": "Icon-Position",
+    "libraryIconPositionDesc": "Position des Statusicons auf Spiel-Covern",
     "helpAnalysisTitle": "Kompatibilitätsanalyse",
     "helpAnalysisDesc": "Der Analyse-Button (Balkendiagramm-Symbol) neben dem Badge öffnet eine detaillierte Kompatibilitätsübersicht für jedes Spiel. Die Daten stammen aus allen von der Community eingereichten ProtonDB-Berichten.",
     "helpAnalysisDetails": "Der Reiter Details zeigt:",
@@ -102,6 +106,11 @@
     "helpAnalysisFreshness": "Aktualität — wann der letzte Bericht eingereicht wurde",
     "helpAnalysisWarnings": "Warnungen zu Proton-Versionsunterschieden, GPU-Problemen oder Anti-Cheat",
     "helpAnalysisChart": "Der Reiter Berichtsverlauf zeigt ein Diagramm guter (grüner) und schlechter (roter) Berichte pro Monat der letzten 2 Jahre.",
+    "helpAnalysisColorsTitle": "Farben der Analyse-Schaltfläche",
+    "helpAnalysisColorsDesc": "Die Analyse-Schaltfläche verwendet ein einfaches Ampelsystem anstelle der ProtonDB-Stufenfarben (Platinum, Gold usw.). Das ist beabsichtigt — die Stufen zeigen, wie gut ein Spiel läuft, während die Analyse-Schaltfläche eine andere Frage beantwortet: funktioniert das Spiel gerade überhaupt?",
+    "helpAnalysisColorGreen": "Grün — Spiel funktioniert laut aktuellen Berichten",
+    "helpAnalysisColorRed": "Rot — Spiel funktioniert nicht oder hat erhebliche Probleme",
+    "helpAnalysisColorGray": "Grau — Nicht genügend Daten zur Statusbestimmung",
     "helpAnalysisToggle": "Sie können den Analyse-Button in den Einstellungen unter Erweiterte Funktionen ein- oder ausschalten.",
     "clearCacheSuccess": "Cache erfolgreich geleert"
 }

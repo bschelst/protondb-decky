@@ -93,6 +93,10 @@
     "showAnalysisButtonDesc": "Відображає кнопку поруч зі значком для перегляду детального аналізу сумісності, включаючи тенденції звітів та графік історії",
     "roundedCorners": "Заокруглені кути",
     "roundedCornersDesc": "Використовувати заокруглені кути на всіх кнопках значка",
+    "showLibraryIcons": "Library Status Icons",
+    "showLibraryIconsDesc": "Show compatibility status icons on game covers in the library grid",
+    "libraryIconPosition": "Icon Position",
+    "libraryIconPositionDesc": "Position of the status icon on game covers",
     "helpAnalysisTitle": "Аналіз сумісності",
     "helpAnalysisDesc": "Кнопка аналізу (значок стовпчастої діаграми) поруч зі значком відкриває детальний огляд сумісності для кожної гри. Дані зібрані з усіх звітів ProtonDB, надісланих спільнотою.",
     "helpAnalysisDetails": "Вкладка Деталі показує:",
@@ -102,6 +106,11 @@
     "helpAnalysisFreshness": "Актуальність — коли був надісланий останній звіт",
     "helpAnalysisWarnings": "Попередження про невідповідності версії Proton, проблеми з GPU або античіти",
     "helpAnalysisChart": "Вкладка Історія звітів показує графік хороших (зелених) та поганих (червоних) звітів за місяцями за останні 2 роки.",
+    "helpAnalysisColorsTitle": "Кольори кнопки аналізу",
+    "helpAnalysisColorsDesc": "Кнопка аналізу використовує просту систему світлофора замість кольорів рівнів ProtonDB (Platinum, Gold тощо). Це зроблено навмисно — рівні відображають, наскільки добре працює гра, а кнопка аналізу відповідає на інше питання: чи працює гра взагалі зараз?",
+    "helpAnalysisColorGreen": "Зелений — Гра працює за даними останніх звітів",
+    "helpAnalysisColorRed": "Червоний — Гра не працює або має серйозні проблеми",
+    "helpAnalysisColorGray": "Сірий — Недостатньо даних для визначення статусу",
     "helpAnalysisToggle": "Ви можете увімкнути або вимкнути кнопку аналізу в Налаштуваннях у розділі Розширені функції.",
     "clearCacheSuccess": "Кеш очищено"
 }

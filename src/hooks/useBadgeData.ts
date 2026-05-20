@@ -6,6 +6,7 @@ import { getLinuxInfo, getProtonDBInfo } from '../actions/protondb'
 import { getGameAnalysis } from '../actions/gateway'
 import { getCache, updateCache } from '../cache/protobDbCache'
 import { isOutdated } from '../lib/time'
+import { isValidAnalysis } from '../components/protonMedal/analysisGuard'
 
 const useBadgeData = (appId: string | undefined) => {
   const [protonDBTier, setProtonDBTier] = useState<ProtonDBTier>()
@@ -23,12 +24,13 @@ const useBadgeData = (appId: string | undefined) => {
       setProtonDBTier(tier)
     }
     setLinuxSupport(linux)
-    setAnalysis(anal)
+    const validAnal = isValidAnalysis(anal) ? anal : undefined
+    setAnalysis(validAnal)
     if (tier?.length) {
       updateCache(appId, {
         tier: tier,
         linuxSupport: linux,
-        analysis: anal,
+        analysis: validAnal,
         lastUpdated: new Date().toISOString()
       })
     }
@@ -47,7 +49,7 @@ const useBadgeData = (appId: string | undefined) => {
       if (typeof cache?.linuxSupport !== 'undefined') {
         setLinuxSupport(cache.linuxSupport)
       }
-      if (cache?.analysis) {
+      if (isValidAnalysis(cache?.analysis)) {
         setAnalysis(cache.analysis)
       }
 
@@ -65,13 +67,14 @@ const useBadgeData = (appId: string | undefined) => {
         setProtonDBTier(tier)
       }
       setLinuxSupport(linux)
-      setAnalysis(anal)
+      const validAnal = isValidAnalysis(anal) ? anal : undefined
+      setAnalysis(validAnal)
 
       if (tier?.length) {
         updateCache(appId as string, {
           tier: tier,
           linuxSupport: linux,
-          analysis: anal,
+          analysis: validAnal,
           lastUpdated: new Date().toISOString()
         })
       }

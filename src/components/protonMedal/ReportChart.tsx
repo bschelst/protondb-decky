@@ -6,11 +6,21 @@ interface ReportChartProps {
 }
 
 const ReportChart: FC<ReportChartProps> = ({ months }) => {
+  if (!Array.isArray(months) || months.length === 0) {
+    return (
+      <div style={{ color: '#888', textAlign: 'center', padding: '40px 0' }}>
+        No report data available
+      </div>
+    )
+  }
+
   const now = new Date()
   const fiveYearsAgo = new Date(now.getFullYear() - 5, now.getMonth(), 1)
 
   const filtered = months.filter((m) => {
+    if (!m?.month || typeof m.month !== 'string') return false
     const [y, mo] = m.month.split('-').map(Number)
+    if (isNaN(y) || isNaN(mo)) return false
     return new Date(y, mo - 1, 1) >= fiveYearsAgo
   })
 
@@ -30,7 +40,7 @@ const ReportChart: FC<ReportChartProps> = ({ months }) => {
 
   let maxVal = 1
   filtered.forEach((m) => {
-    maxVal = Math.max(maxVal, m.positive, m.negative)
+    maxVal = Math.max(maxVal, m.positive || 0, m.negative || 0)
   })
 
   const x = (i: number) => pad + (i / (filtered.length - 1 || 1)) * chartW
@@ -62,8 +72,10 @@ const ReportChart: FC<ReportChartProps> = ({ months }) => {
     'Dec'
   ]
   function formatMonthLabel(m: string): string {
-    const [y, mo] = m.split('-')
-    return `${SHORT_MONTHS[parseInt(mo) - 1]} '${y.slice(2)}`
+    const parts = m?.split('-') ?? []
+    const y = parts[0] ?? '??'
+    const moIdx = parseInt(parts[1]) - 1
+    return `${SHORT_MONTHS[moIdx] ?? '???'} '${y.slice(2)}`
   }
 
   const step = Math.max(1, Math.floor(filtered.length / 6))

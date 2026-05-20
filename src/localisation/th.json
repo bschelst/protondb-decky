@@ -93,6 +93,10 @@
     "showAnalysisButtonDesc": "แสดงปุ่มข้างตราสัญลักษณ์เพื่อดูการวิเคราะห์ความเข้ากันได้โดยละเอียด รวมถึงแนวโน้มรายงานและกราฟประวัติ",
     "roundedCorners": "มุมโค้งมน",
     "roundedCornersDesc": "ใช้มุมโค้งมนบนปุ่มป้ายทั้งหมด",
+    "showLibraryIcons": "Library Status Icons",
+    "showLibraryIconsDesc": "Show compatibility status icons on game covers in the library grid",
+    "libraryIconPosition": "Icon Position",
+    "libraryIconPositionDesc": "Position of the status icon on game covers",
     "helpAnalysisTitle": "การวิเคราะห์ความเข้ากันได้",
     "helpAnalysisDesc": "ปุ่มวิเคราะห์ (ไอคอนกราฟแท่ง) ข้างตราสัญลักษณ์จะเปิดรายละเอียดความเข้ากันได้ของแต่ละเกม ข้อมูลเหล่านี้รวบรวมจากรายงาน ProtonDB ทั้งหมดที่ส่งโดยชุมชน",
     "helpAnalysisDetails": "แท็บรายละเอียดแสดง:",
@@ -102,6 +106,11 @@
     "helpAnalysisFreshness": "ความสด — รายงานล่าสุดถูกส่งเมื่อใด",
     "helpAnalysisWarnings": "คำเตือนเกี่ยวกับเวอร์ชัน Proton ไม่ตรงกัน ปัญหา GPU หรือแอนตี้ชีต",
     "helpAnalysisChart": "แท็บประวัติรายงานแสดงกราฟรายงานดี (เขียว) และไม่ดี (แดง) รายเดือนย้อนหลัง 2 ปี",
+    "helpAnalysisColorsTitle": "สีของปุ่มวิเคราะห์",
+    "helpAnalysisColorsDesc": "ปุ่มวิเคราะห์ใช้ระบบไฟจราจรอย่างง่ายแทนสีระดับของ ProtonDB (Platinum, Gold ฯลฯ) ซึ่งเป็นไปโดยเจตนา — ระดับสะท้อนว่าเกมทำงานได้ดีแค่ไหน ในขณะที่ปุ่มวิเคราะห์ตอบคำถามอื่น: เกมทำงานได้เลยหรือไม่ในตอนนี้?",
+    "helpAnalysisColorGreen": "เขียว — เกมทำงานได้ตามรายงานล่าสุด",
+    "helpAnalysisColorRed": "แดง — เกมไม่ทำงานหรือมีปัญหาสำคัญ",
+    "helpAnalysisColorGray": "เทา — ข้อมูลไม่เพียงพอที่จะระบุสถานะ",
     "helpAnalysisToggle": "คุณสามารถเปิดหรือปิดปุ่มวิเคราะห์ได้ในการตั้งค่าภายใต้ฟีเจอร์ขั้นสูง",
     "clearCacheSuccess": "ล้างแคชสำเร็จ"
 }

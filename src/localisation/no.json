@@ -93,6 +93,10 @@
     "showAnalysisButtonDesc": "Viser en knapp ved siden av merket for å se detaljert kompatibilitetsanalyse, inkludert rapporttrender og historikkgraf",
     "roundedCorners": "Avrundede hjørner",
     "roundedCornersDesc": "Bruk avrundede hjørner på alle merkeknapper",
+    "showLibraryIcons": "Library Status Icons",
+    "showLibraryIconsDesc": "Show compatibility status icons on game covers in the library grid",
+    "libraryIconPosition": "Icon Position",
+    "libraryIconPositionDesc": "Position of the status icon on game covers",
     "helpAnalysisTitle": "Kompatibilitetsanalyse",
     "helpAnalysisDesc": "Analyseknappen (stolpediagramikon) ved siden av merket åpner en detaljert kompatibilitetsoversikt for hvert spill. Dataene er samlet inn fra alle ProtonDB-rapporter sendt inn av fellesskapet.",
     "helpAnalysisDetails": "Fanen Detaljer viser:",
@@ -102,6 +106,11 @@
     "helpAnalysisFreshness": "Aktualitet — når den siste rapporten ble sendt inn",
     "helpAnalysisWarnings": "Advarsler om Proton-versjonsforskjeller, GPU-problemer eller anti-juksesystemer",
     "helpAnalysisChart": "Fanen Rapporthistorikk viser en graf over gode (grønne) og dårlige (røde) rapporter per måned de siste 2 årene.",
+    "helpAnalysisColorsTitle": "Farger på analyseknappen",
+    "helpAnalysisColorsDesc": "Analyseknappen bruker et enkelt trafikklyssystem i stedet for ProtonDBs nivåfarger (Platinum, Gold osv.). Dette er bevisst — nivåene gjenspeiler hvor godt et spill kjører, mens analyseknappen svarer på et annet spørsmål: fungerer spillet i det hele tatt akkurat nå?",
+    "helpAnalysisColorGreen": "Grønn — Spillet fungerer basert på nylige rapporter",
+    "helpAnalysisColorRed": "Rød — Spillet fungerer ikke eller har betydelige problemer",
+    "helpAnalysisColorGray": "Grå — Ikke nok data til å bestemme status",
     "helpAnalysisToggle": "Du kan aktivere eller deaktivere analyseknappen i Innstillinger under Utvidede funksjoner.",
     "clearCacheSuccess": "Hurtigbuffer tømt"
 }
