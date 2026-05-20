@@ -4,16 +4,22 @@
 [![License](https://img.shields.io/github/license/bschelst/protondb-decky)](LICENSE)
 [![Decky Loader](https://img.shields.io/badge/Decky-Loader-blue)](https://github.com/SteamDeckHomebrew/decky-loader)
 
-Display **tappable ProtonDB badges** directly on your Steam library game pages / Store pages.
+Display **tappable ProtonDB badges** on your Steam library and Store pages, with a **submit** button to report directly from Game Mode, a **compatibility analysis** modal (working status, report trends, Proton version breakdown, and recommended launch options), and **status icons** on library game covers. Badges and analysis are also available as an overlay on **Steam Store pages**.
 
+![Dead by Daylight - Badge](./assets/20260520220425_1.jpg)
 
- Library view:
-
-![ProtonDB Badges](./assets/screenshot.jpg)
-
- Store view:
-
-![ProtonDB Badges](./assets/screenshot_store.jpg)
+| | |
+|:---:|:---:|
+| ![Details](./assets/20260520220435_1.jpg) | ![Reports](./assets/20260520220451_1.jpg) |
+| Details tab | Reports tab |
+| ![Versions](./assets/20260520220504_1.jpg) | ![Settings](./assets/20260520220511_1.jpg) |
+| Versions tab | Settings tab |
+| ![Library Grid](./assets/20260520220606_1.jpg) | ![Store Page](./assets/20260520220626_1.jpg) |
+| Library status icons | Store page overlay |
+| ![Enter the Gungeon](./assets/20260520215728_1.jpg) | ![Gungeon Reports](./assets/20260520215735_1.jpg) |
+| Badge with analysis button | Reports chart + recent reports |
+| ![Gungeon Settings](./assets/20260520215746_1.jpg) | ![Gungeon Versions](./assets/20260520215750_1.jpg) |
+| Settings tips with Copy | Proton version breakdown |
 
 ---
 
