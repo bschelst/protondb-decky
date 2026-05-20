@@ -53,7 +53,11 @@ const useBadgeData = (appId: string | undefined) => {
         setAnalysis(cache.analysis)
       }
 
-      if (cache?.tier && cache?.analysis && !isOutdated(cache?.lastUpdated))
+      if (
+        cache?.tier &&
+        isValidAnalysis(cache?.analysis) &&
+        !isOutdated(cache?.lastUpdated)
+      )
         return
 
       const [tier, linux, anal] = await Promise.all([
