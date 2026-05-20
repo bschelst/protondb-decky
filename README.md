@@ -49,6 +49,46 @@ This plugin was created to:
 
 ---
 
+## 📊 Compatibility Analysis
+
+The analysis button (bar chart icon) next to the ProtonDB badge opens a detailed compatibility breakdown powered by community reports. The button color indicates the current working status:
+
+- **Green** — Game is working based on recent reports
+- **Red** — Game is not working or has significant issues
+- **Gray** — Not enough data to determine status
+
+> Note: These colors reflect whether the game works *right now*, which is different from the ProtonDB tier (Platinum/Gold/Silver/Bronze/Borked) that rates *how well* it runs.
+
+### Tabs
+
+| Tab | Description |
+|-----|-------------|
+| **Details** | Working status, confidence score, trend direction, freshness, and warnings |
+| **Reports** | Report history chart (last 5 years) showing good vs bad reports per month, followed by the 20 most recent individual reports |
+| **Versions** | Proton version breakdown — report counts and success rates per version. The current Steam Deck default is highlighted |
+| **Settings** | Launch options extracted from positive community reports. Tap **Copy** to copy an option to clipboard, then paste it into Steam > Game Properties > Launch Options before `%command%` |
+
+### Library Status Icons
+
+Small status icons appear on game covers in the library grid:
+
+- **Green atom** — Game should work on Linux
+- **Red atom** — Game is borked or not working
+- **Gray atom** — Unknown or insufficient data
+
+These icons are populated in the background after plugin startup. Games you haven't browsed yet may take a few minutes to appear as data is fetched in batches to avoid API overload.
+
+### Settings Tips
+
+The Settings tab shows environment variables that other users have successfully used when running the game. Only options from positive reports (Platinum/Gold/Silver) are included, and each option must appear in at least 2 reports.
+
+Example usage:
+```
+PROTON_ENABLE_NVAPI=1 %command%
+```
+
+---
+
 ## ⚠️ Limitations
 
 **ProtonDB device registration**  

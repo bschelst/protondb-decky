@@ -244,7 +244,7 @@ const SettingRow: FC<{ opt: LaunchOptionStat }> = ({ opt }) => {
         borderRadius: '6px',
         padding: '8px 12px',
         marginBottom: '6px',
-        borderLeft: '3px solid #7ab3f0'
+        borderLeft: '3px solid rgba(255,255,255,0.12)'
       }}
     >
       <div
@@ -259,7 +259,7 @@ const SettingRow: FC<{ opt: LaunchOptionStat }> = ({ opt }) => {
           style={{
             fontWeight: 'bold',
             fontSize: '12px',
-            color: '#7ab3f0',
+            color: '#e0e0e0',
             fontFamily: 'monospace',
             flex: 1
           }}
@@ -322,7 +322,9 @@ const VersionRow: FC<{ stat: GwVersionStat }> = ({ stat }) => {
         borderRadius: '6px',
         padding: '8px 12px',
         marginBottom: '6px',
-        borderLeft: `3px solid ${current ? '#7ab3f0' : color}`
+        borderLeft: current
+          ? '3px solid #7ab3f0'
+          : '3px solid rgba(255,255,255,0.12)'
       }}
     >
       <div
@@ -625,6 +627,20 @@ export default function AnalysisModal({
       onCancel={closeModal}
       bHideCloseIcon={false}
     >
+      <style>
+        {`
+          .DialogBody *:focus,
+          .DialogBody *:focus-visible,
+          .ModalPosition *:focus,
+          .ModalPosition *:focus-visible,
+          .ConfirmDialog *:focus,
+          .ConfirmDialog *:focus-visible {
+            outline: none !important;
+            box-shadow: none !important;
+            border-color: transparent !important;
+          }
+        `}
+      </style>
       <div
         style={{
           display: 'flex',
@@ -642,8 +658,10 @@ export default function AnalysisModal({
           style={{
             color: '#7ab3f0',
             fontSize: '11px',
-            textDecoration: 'none'
+            textDecoration: 'none',
+            outline: 'none'
           }}
+          tabIndex={-1}
           onClick={() =>
             Navigation.NavigateToExternalWeb(
               'https://protondb.schelstraete.org/status'

@@ -272,7 +272,7 @@ function buildOverlayAnalysisHelpersCode(appId: string): string {
         var ratio = typeof v.positive_ratio === 'number' ? v.positive_ratio : 0;
         var pct = Math.round(ratio * 100);
         var color = ratio >= 0.75 ? '#4ade80' : ratio >= 0.5 ? '#facc15' : '#f87171';
-        var borderColor = isCurrent ? '#7ab3f0' : color;
+        var borderColor = isCurrent ? '#7ab3f0' : 'rgba(255,255,255,0.12)';
         var bg = isCurrent ? 'rgba(122,179,240,0.10)' : 'rgba(255,255,255,0.04)';
         var nameColor = isCurrent ? '#7ab3f0' : '#e0e0e0';
         var ts = typeof v.latest_timestamp === 'number' ? v.latest_timestamp : 0;
@@ -322,9 +322,9 @@ function buildOverlayAnalysisHelpersCode(appId: string): string {
         var count = typeof opt.count === 'number' ? opt.count : 0;
         var total = typeof opt.total_with_options === 'number' ? opt.total_with_options : 0;
         var pct = total > 0 ? Math.round((count / total) * 100) : 0;
-        html += '<div style="background:rgba(255,255,255,0.04);border-radius:6px;padding:8px 12px;margin-bottom:6px;border-left:3px solid #7ab3f0;">';
+        html += '<div style="background:rgba(255,255,255,0.04);border-radius:6px;padding:8px 12px;margin-bottom:6px;border-left:3px solid rgba(255,255,255,0.12);">';
         html += '<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:2px;">';
-        html += '<span style="font-weight:bold;font-size:12px;color:#7ab3f0;font-family:monospace;flex:1;">' + text + '</span>';
+        html += '<span style="font-weight:bold;font-size:12px;color:#e0e0e0;font-family:monospace;flex:1;">' + text + '</span>';
         html += '<span id="pdb-copy-' + idx + '" style="padding:4px 10px;font-size:11px;color:#aaa;cursor:pointer;background:rgba(255,255,255,0.06);border-radius:4px;margin-left:8px;white-space:nowrap;">Copy</span>';
         html += '</div>';
         html += '<div style="font-size:10px;color:#666;">' + count + ' report' + (count !== 1 ? 's' : '') + ' (' + pct + '%)</div>';

@@ -391,11 +391,41 @@ async function scanTiles() {
 }
 
 let reinjectInterval: ReturnType<typeof setInterval> | null = null
+let refreshCounter = 0
+let refreshIntervalSecs = 60
+
+async function refreshUnknownStatuses() {
+  try {
+    const unknowns: string[] = []
+    statusCache.forEach((status, appId) => {
+      if (status === 'unknown') unknowns.push(appId)
+    })
+    if (unknowns.length === 0) {
+      refreshIntervalSecs = 300
+      return
+    }
+    for (const appId of unknowns) {
+      const disk = await getStatusFromCache(appId)
+      if (disk && disk.status !== 'unknown') {
+        statusCache.set(appId, disk.status)
+      }
+    }
+    refreshIntervalSecs = 300
+  } catch {
+    /* ignore */
+  }
+}
 
 function reinjectCached() {
   try {
     if (SettingsContext.value.showLibraryIcons !== true) return
     if (statusCache.size === 0) return
+
+    refreshCounter++
+    if (refreshCounter >= refreshIntervalSecs) {
+      refreshCounter = 0
+      refreshUnknownStatuses()
+    }
 
     const bpDoc = getBigPictureDocument()
     if (!bpDoc) return
@@ -461,9 +491,10 @@ async function prefetchLibrary() {
     const uncached: string[] = []
     for (const id of allApps) {
       const key = String(id)
-      if (statusCache.has(key)) continue
+      const memStatus = statusCache.get(key)
+      if (memStatus && memStatus !== 'unknown') continue
       const disk = await getStatusFromCache(key)
-      if (disk && !disk.stale) {
+      if (disk && !disk.stale && disk.status !== 'unknown') {
         statusCache.set(key, disk.status)
         continue
       }

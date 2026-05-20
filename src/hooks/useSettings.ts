@@ -26,7 +26,7 @@ const DEFAULT_SETTINGS: Settings = {
   storeBadgePosition: 'bc',
   showAnalysisButton: true,
   roundedCorners: false,
-  showLibraryIcons: false,
+  showLibraryIcons: true,
   libraryIconPosition: 'bl'
 }
 
