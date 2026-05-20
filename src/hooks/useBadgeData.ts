@@ -55,6 +55,7 @@ const useBadgeData = (appId: string | undefined) => {
 
       if (
         cache?.tier &&
+        cache.tier !== 'pending' &&
         isValidAnalysis(cache?.analysis) &&
         !isOutdated(cache?.lastUpdated)
       )
