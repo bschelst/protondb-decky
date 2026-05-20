@@ -16,10 +16,6 @@ Display **tappable ProtonDB badges** on your Steam library and Store pages, with
 | Versions tab | Settings tab |
 | ![Library Grid](./assets/20260520220606_1.jpg) | ![Store Page](./assets/20260520220626_1.jpg) |
 | Library status icons | Store page overlay |
-| ![Enter the Gungeon](./assets/20260520215728_1.jpg) | ![Gungeon Reports](./assets/20260520215735_1.jpg) |
-| Badge with analysis button | Reports chart + recent reports |
-| ![Gungeon Settings](./assets/20260520215746_1.jpg) | ![Gungeon Versions](./assets/20260520215750_1.jpg) |
-| Settings tips with Copy | Proton version breakdown |
 
 ---
 
