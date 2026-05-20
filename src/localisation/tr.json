@@ -113,4 +113,10 @@
     "helpAnalysisColorGray": "Gri — Durumu belirlemek için yeterli veri yok",
     "helpAnalysisToggle": "Analiz düğmesini Ayarlar'da Gelişmiş özellikler altından açıp kapatabilirsiniz.",
     "clearCacheSuccess": "Önbellek temizlendi"
+,    "settingsTabCount": "{total} raporun {with} tanesi başlatma seçenekleri içeriyor (yalnızca olumlu)",
+    "settingsTabHint": "Kopyala'ya dokunun ve Steam > Oyun Özellikleri > Başlatma Seçenekleri'ne %command% öncesine yapıştırın",
+    "settingsTabExample": "Örnek: PROTON_ENABLE_NVAPI=1 %command%",
+    "settingsTabEmpty": "Bu oyun için başlatma seçeneği bildirilmemiş",
+    "settingsTabCopy": "Kopyala",
+    "settingsTabCopied": "Kopyalandı!"
 }

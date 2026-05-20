@@ -113,4 +113,10 @@
     "helpAnalysisColorGray": "Šedá — Nedostatek dat pro určení stavu",
     "helpAnalysisToggle": "Tlačítko analýzy můžete zapnout nebo vypnout v Nastavení pod Rozšířené funkce.",
     "clearCacheSuccess": "Mezipaměť byla úspěšně vymazána"
+,    "settingsTabCount": "{with} z {total} hlášení obsahuje možnosti spuštění (pouze pozitivní)",
+    "settingsTabHint": "Klepněte na Kopírovat a vložte do Steam > Vlastnosti hry > Možnosti spuštění před %command%",
+    "settingsTabExample": "Příklad: PROTON_ENABLE_NVAPI=1 %command%",
+    "settingsTabEmpty": "Pro tuto hru nebyly hlášeny žádné možnosti spuštění",
+    "settingsTabCopy": "Kopírovat",
+    "settingsTabCopied": "Zkopírováno!"
 }

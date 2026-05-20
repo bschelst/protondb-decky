@@ -113,4 +113,10 @@
     "helpAnalysisColorGray": "เทา — ข้อมูลไม่เพียงพอที่จะระบุสถานะ",
     "helpAnalysisToggle": "คุณสามารถเปิดหรือปิดปุ่มวิเคราะห์ได้ในการตั้งค่าภายใต้ฟีเจอร์ขั้นสูง",
     "clearCacheSuccess": "ล้างแคชสำเร็จ"
+,    "settingsTabCount": "{with} จาก {total} รายงานมีตัวเลือกการเปิดเกม (เฉพาะรายงานเชิงบวก)",
+    "settingsTabHint": "แตะคัดลอกแล้ววางใน Steam > คุณสมบัติเกม > ตัวเลือกการเปิดเกม ก่อน %command%",
+    "settingsTabExample": "ตัวอย่าง: PROTON_ENABLE_NVAPI=1 %command%",
+    "settingsTabEmpty": "ไม่มีตัวเลือกการเปิดเกมที่รายงานสำหรับเกมนี้",
+    "settingsTabCopy": "คัดลอก",
+    "settingsTabCopied": "คัดลอกแล้ว!"
 }

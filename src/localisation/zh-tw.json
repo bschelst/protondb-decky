@@ -113,4 +113,10 @@
     "helpAnalysisColorGray": "灰色 — 沒有足夠的資料來確定狀態",
     "helpAnalysisToggle": "您可以在設定的進階功能中啟用或停用分析按鈕。",
     "clearCacheSuccess": "快取已清除"
+,    "settingsTabCount": "{total}份報告中有{with}份包含啟動選項（僅正面報告）",
+    "settingsTabHint": "點擊複製並貼上到 Steam > 遊戲屬性 > 啟動選項中 %command% 之前",
+    "settingsTabExample": "範例：PROTON_ENABLE_NVAPI=1 %command%",
+    "settingsTabEmpty": "此遊戲沒有報告的啟動選項",
+    "settingsTabCopy": "複製",
+    "settingsTabCopied": "已複製！"
 }

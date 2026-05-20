@@ -4,7 +4,8 @@ import {
   GatewayAnalysis,
   ReportHistory,
   RecentReportsResponse,
-  ProtonVersionsResponse
+  ProtonVersionsResponse,
+  SettingsTipsResponse
 } from '../../types/gateway'
 
 const FETCH_TIMEOUT_MS = 2000
@@ -76,6 +77,29 @@ export async function getReportHistory(
     }
   } catch (error) {
     // silently fail report history fetch failed:', error)
+    return undefined
+  }
+  return undefined
+}
+
+export async function getSettingsTips(
+  appId: string
+): Promise<SettingsTipsResponse | undefined> {
+  try {
+    const res = await fetchWithTimeout(
+      fetchNoCors(`${GATEWAY_BASE_URL}/api/v1/reports/settings/${appId}`, {
+        method: 'GET',
+        headers: {
+          'X-API-Key': GATEWAY_API_KEY
+        }
+      }),
+      5000
+    )
+
+    if (res.status === 200) {
+      return await safeJson(res)
+    }
+  } catch {
     return undefined
   }
   return undefined

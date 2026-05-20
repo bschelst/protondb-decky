@@ -113,4 +113,10 @@
     "helpAnalysisColorGray": "Gris — Pas assez de données pour déterminer le statut",
     "helpAnalysisToggle": "Vous pouvez activer ou désactiver le bouton d'analyse dans les Paramètres, sous Fonctionnalités avancées.",
     "clearCacheSuccess": "Cache vidé avec succès"
+,    "settingsTabCount": "{with} des {total} rapports incluent des options de lancement (positifs uniquement)",
+    "settingsTabHint": "Appuyez sur Copier et collez dans Steam > Propriétés du jeu > Options de lancement avant %command%",
+    "settingsTabExample": "Exemple : PROTON_ENABLE_NVAPI=1 %command%",
+    "settingsTabEmpty": "Aucune option de lancement signalée pour ce jeu",
+    "settingsTabCopy": "Copier",
+    "settingsTabCopied": "Copié !"
 }

@@ -113,4 +113,10 @@
     "helpAnalysisColorGray": "Grå — Ikke nok data til å bestemme status",
     "helpAnalysisToggle": "Du kan aktivere eller deaktivere analyseknappen i Innstillinger under Utvidede funksjoner.",
     "clearCacheSuccess": "Hurtigbuffer tømt"
+,    "settingsTabCount": "{with} av {total} rapporter inkluderer startalternativer (kun positive)",
+    "settingsTabHint": "Trykk på Kopier og lim inn i Steam > Spillegenskaper > Startalternativer før %command%",
+    "settingsTabExample": "Eksempel: PROTON_ENABLE_NVAPI=1 %command%",
+    "settingsTabEmpty": "Ingen startalternativer rapportert for dette spillet",
+    "settingsTabCopy": "Kopier",
+    "settingsTabCopied": "Kopiert!"
 }

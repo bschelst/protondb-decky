@@ -113,4 +113,10 @@
     "helpAnalysisColorGray": "Siva — Ni dovolj podatkov za določitev stanja",
     "helpAnalysisToggle": "Gumb za analizo lahko omogočite ali onemogočite v Nastavitvah pod Napredne funkcije.",
     "clearCacheSuccess": "Predpomnilnik izpraznjen"
+,    "settingsTabCount": "{with} od {total} poročil vključuje zagonske možnosti (samo pozitivna)",
+    "settingsTabHint": "Tapnite Kopiraj in prilepite v Steam > Lastnosti igre > Zagonske možnosti pred %command%",
+    "settingsTabExample": "Primer: PROTON_ENABLE_NVAPI=1 %command%",
+    "settingsTabEmpty": "Za to igro niso poročane nobene zagonske možnosti",
+    "settingsTabCopy": "Kopiraj",
+    "settingsTabCopied": "Kopirano!"
 }

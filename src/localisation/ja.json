@@ -113,4 +113,10 @@
     "helpAnalysisColorGray": "グレー — ステータスを判断するのに十分なデータがない",
     "helpAnalysisToggle": "分析ボタンは設定の拡張機能でオン・オフを切り替えられます。",
     "clearCacheSuccess": "キャッシュをクリアしました"
+,    "settingsTabCount": "{total}件中{with}件のレポートに起動オプションが含まれています（ポジティブのみ）",
+    "settingsTabHint": "コピーをタップして、Steam > ゲームのプロパティ > 起動オプションの%command%の前に貼り付けてください",
+    "settingsTabExample": "例: PROTON_ENABLE_NVAPI=1 %command%",
+    "settingsTabEmpty": "このゲームの起動オプションは報告されていません",
+    "settingsTabCopy": "コピー",
+    "settingsTabCopied": "コピー済み！"
 }

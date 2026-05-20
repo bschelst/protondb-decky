@@ -19,12 +19,15 @@ import {
   RecentReport,
   RecentReportsResponse,
   ProtonVersionsResponse,
-  ProtonVersionStat as GwVersionStat
+  ProtonVersionStat as GwVersionStat,
+  SettingsTipsResponse,
+  LaunchOptionStat
 } from '../../../types/gateway'
 import {
   getReportHistory,
   getRecentReports,
-  getProtonVersions
+  getProtonVersions,
+  getSettingsTips
 } from '../../actions/gateway'
 import {
   getCachedReports,
@@ -33,6 +36,7 @@ import {
   setCachedVersions
 } from '../../cache/protobDbCache'
 import ReportChart from './ReportChart'
+import useTranslations from '../../hooks/useTranslations'
 
 const CURRENT_PROTON_MAJOR = '10'
 
@@ -204,6 +208,100 @@ function isCurrent(version: string): boolean {
   )
 }
 
+function copyToClipboard(text: string): void {
+  try {
+    const input = document.createElement('input')
+    input.value = text
+    input.style.position = 'absolute'
+    input.style.left = '-9999px'
+    document.body.appendChild(input)
+    input.focus()
+    input.select()
+    document.execCommand('copy')
+    document.body.removeChild(input)
+  } catch {
+    try {
+      navigator.clipboard.writeText(text)
+    } catch {
+      /* clipboard unavailable */
+    }
+  }
+}
+
+const SettingRow: FC<{ opt: LaunchOptionStat }> = ({ opt }) => {
+  if (!opt?.option || typeof opt.value !== 'string') return null
+  const count = typeof opt.count === 'number' ? opt.count : 0
+  const total =
+    typeof opt.total_with_options === 'number' ? opt.total_with_options : 0
+  const pct = total > 0 ? Math.round((count / total) * 100) : 0
+  const text = `${opt.option}=${opt.value}`
+  const [copied, setCopied] = useState(false)
+
+  return (
+    <div
+      style={{
+        background: 'rgba(255,255,255,0.04)',
+        borderRadius: '6px',
+        padding: '8px 12px',
+        marginBottom: '6px',
+        borderLeft: '3px solid #7ab3f0'
+      }}
+    >
+      <div
+        style={{
+          display: 'flex',
+          justifyContent: 'space-between',
+          alignItems: 'center',
+          marginBottom: '2px'
+        }}
+      >
+        <span
+          style={{
+            fontWeight: 'bold',
+            fontSize: '12px',
+            color: '#7ab3f0',
+            fontFamily: 'monospace',
+            flex: 1
+          }}
+        >
+          {text}
+        </span>
+        <Focusable
+          style={{
+            padding: '4px 10px',
+            fontSize: '11px',
+            color: copied ? '#4ade80' : '#aaa',
+            cursor: 'pointer',
+            background: 'rgba(255,255,255,0.06)',
+            borderRadius: '4px',
+            marginLeft: '8px',
+            whiteSpace: 'nowrap',
+            outline: 'none',
+            border: 'none'
+          }}
+          onClick={() => {
+            copyToClipboard(text)
+            setCopied(true)
+            setTimeout(() => setCopied(false), 2000)
+          }}
+          onActivate={() => {
+            copyToClipboard(text)
+            setCopied(true)
+            setTimeout(() => setCopied(false), 2000)
+          }}
+          //@ts-ignore
+          focusClassName=""
+        >
+          {copied ? '✓' : 'Copy'}
+        </Focusable>
+      </div>
+      <div style={{ fontSize: '10px', color: '#666' }}>
+        {count} report{count !== 1 ? 's' : ''} ({pct}%)
+      </div>
+    </div>
+  )
+}
+
 const VersionRow: FC<{ stat: GwVersionStat }> = ({ stat }) => {
   if (!stat?.version) return null
   const current = isCurrent(stat.version)
@@ -310,6 +408,7 @@ export default function AnalysisModal({
   appId,
   closeModal
 }: AnalysisModalProps) {
+  const t = useTranslations()
   const confidence = {
     score: analysis.confidence?.score ?? 0,
     level: analysis.confidence?.level ?? 'none',
@@ -334,7 +433,7 @@ export default function AnalysisModal({
   const working_status = analysis.working_status
   const [gameName, setGameName] = useState<string>('—')
   const [activeTab, setActiveTab] = useState<
-    'details' | 'chart' | 'reports' | 'versions'
+    'details' | 'chart' | 'reports' | 'versions' | 'settings'
   >('details')
   const [history, setHistory] = useState<ReportHistory | undefined>()
   const [historyLoading, setHistoryLoading] = useState(false)
@@ -346,6 +445,10 @@ export default function AnalysisModal({
     ProtonVersionsResponse | undefined
   >()
   const [versionsLoading, setVersionsLoading] = useState(false)
+  const [settingsData, setSettingsData] = useState<
+    SettingsTipsResponse | undefined
+  >()
+  const [settingsLoading, setSettingsLoading] = useState(false)
   const REPORTS_PAGE_SIZE = 5
   const [visibleReports, setVisibleReports] = useState(REPORTS_PAGE_SIZE)
 
@@ -361,7 +464,7 @@ export default function AnalysisModal({
   }, [appId])
 
   useEffect(() => {
-    if (activeTab === 'chart' && !history && !historyLoading) {
+    if (activeTab === 'reports' && !history && !historyLoading) {
       setHistoryLoading(true)
       getReportHistory(appId)
         .then((data) => {
@@ -416,6 +519,17 @@ export default function AnalysisModal({
         })
         .catch(() => {
           setVersionsLoading(false)
+        })
+    }
+    if (activeTab === 'settings' && !settingsData && !settingsLoading) {
+      setSettingsLoading(true)
+      getSettingsTips(appId)
+        .then((data) => {
+          setSettingsData(data ?? undefined)
+          setSettingsLoading(false)
+        })
+        .catch(() => {
+          setSettingsLoading(false)
         })
     }
   }, [activeTab])
@@ -553,25 +667,25 @@ export default function AnalysisModal({
           Details
         </Focusable>
         <Focusable
-          style={tabStyle(activeTab === 'chart')}
-          onClick={() => setActiveTab('chart')}
-          onActivate={() => setActiveTab('chart')}
-        >
-          Report History
-        </Focusable>
-        <Focusable
           style={tabStyle(activeTab === 'reports')}
           onClick={() => setActiveTab('reports')}
           onActivate={() => setActiveTab('reports')}
         >
-          Recent Reports
+          Reports
         </Focusable>
         <Focusable
           style={tabStyle(activeTab === 'versions')}
           onClick={() => setActiveTab('versions')}
           onActivate={() => setActiveTab('versions')}
         >
-          Proton Versions
+          Versions
+        </Focusable>
+        <Focusable
+          style={tabStyle(activeTab === 'settings')}
+          onClick={() => setActiveTab('settings')}
+          onActivate={() => setActiveTab('settings')}
+        >
+          Settings
         </Focusable>
       </Focusable>
 
@@ -606,7 +720,7 @@ export default function AnalysisModal({
         </ScrollPanelGroup>
       )}
 
-      {activeTab === 'chart' && (
+      {activeTab === 'reports' && (
         <div style={{ padding: '4px' }}>
           <div
             style={{
@@ -623,29 +737,25 @@ export default function AnalysisModal({
               style={{
                 color: '#888',
                 textAlign: 'center',
-                padding: '40px 0'
+                padding: '20px 0'
               }}
             >
-              Loading...
+              Loading chart...
             </div>
           ) : history ? (
-            <ReportChart months={history.months} />
-          ) : (
-            <div
-              style={{
-                color: '#888',
-                textAlign: 'center',
-                padding: '40px 0'
-              }}
-            >
-              Failed to load report history
+            <div style={{ outline: 'none' }} tabIndex={-1}>
+              <ReportChart months={history.months} />
             </div>
-          )}
-        </div>
-      )}
+          ) : null}
 
-      {activeTab === 'reports' && (
-        <div style={{ padding: '4px' }}>
+          <div
+            style={{
+              borderTop: '1px solid rgba(255,255,255,0.08)',
+              marginTop: '12px',
+              paddingTop: '8px'
+            }}
+          />
+
           {reportsLoading ? (
             <div
               style={{
@@ -812,6 +922,96 @@ export default function AnalysisModal({
               }}
             >
               No report data available
+            </div>
+          )}
+        </div>
+      )}
+
+      {activeTab === 'settings' && (
+        <div style={{ padding: '4px' }}>
+          {settingsLoading ? (
+            <div
+              style={{
+                color: '#888',
+                textAlign: 'center',
+                padding: '40px 0'
+              }}
+            >
+              Loading...
+            </div>
+          ) : settingsData?.launch_options?.length ? (
+            <ScrollPanelGroup>
+              <ScrollPanel>
+                <Focusable
+                  style={{ padding: '4px' }}
+                  //@ts-ignore
+                  flow-children="column"
+                >
+                  <div
+                    style={{
+                      fontSize: '11px',
+                      color: '#888',
+                      marginBottom: '8px',
+                      textAlign: 'center'
+                    }}
+                  >
+                    {t('settingsTabCount')
+                      .replace(
+                        '{with}',
+                        String(settingsData.reports_with_settings ?? 0)
+                      )
+                      .replace(
+                        '{total}',
+                        String(settingsData.total_reports ?? 0)
+                      )}
+                  </div>
+                  <div
+                    style={{
+                      fontSize: '10px',
+                      color: '#666',
+                      marginBottom: '4px',
+                      textAlign: 'center',
+                      lineHeight: '1.4'
+                    }}
+                  >
+                    {t('settingsTabHint')}
+                  </div>
+                  <div
+                    style={{
+                      fontSize: '10px',
+                      color: '#555',
+                      marginBottom: '8px',
+                      textAlign: 'center',
+                      fontFamily: 'monospace'
+                    }}
+                  >
+                    {t('settingsTabExample')}
+                  </div>
+                  {settingsData.launch_options.map((opt, i) => (
+                    <Focusable
+                      key={`${opt.option}-${opt.value}-${i}`}
+                      onFocus={(e: React.FocusEvent) =>
+                        (e.target as HTMLElement).scrollIntoView({
+                          behavior: 'smooth',
+                          block: 'nearest'
+                        })
+                      }
+                    >
+                      <SettingRow opt={opt} />
+                    </Focusable>
+                  ))}
+                </Focusable>
+              </ScrollPanel>
+            </ScrollPanelGroup>
+          ) : (
+            <div
+              style={{
+                color: '#888',
+                textAlign: 'center',
+                padding: '40px 0'
+              }}
+            >
+              {t('settingsTabEmpty')}
             </div>
           )}
         </div>

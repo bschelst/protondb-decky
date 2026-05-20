@@ -79,3 +79,18 @@ export interface ProtonVersionsResponse {
   total_reports: number
   versions: ProtonVersionStat[]
 }
+
+export interface LaunchOptionStat {
+  option: string
+  value: string
+  count: number
+  total_with_options: number
+  example: string
+}
+
+export interface SettingsTipsResponse {
+  app_id: number
+  total_reports: number
+  reports_with_settings: number
+  launch_options: LaunchOptionStat[]
+}

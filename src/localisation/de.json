@@ -113,4 +113,10 @@
     "helpAnalysisColorGray": "Grau — Nicht genügend Daten zur Statusbestimmung",
     "helpAnalysisToggle": "Sie können den Analyse-Button in den Einstellungen unter Erweiterte Funktionen ein- oder ausschalten.",
     "clearCacheSuccess": "Cache erfolgreich geleert"
+,    "settingsTabCount": "{with} von {total} Berichten enthalten Startoptionen (nur positive)",
+    "settingsTabHint": "Tippe auf Kopieren und füge es in Steam > Spieleigenschaften > Startoptionen vor %command% ein",
+    "settingsTabExample": "Beispiel: PROTON_ENABLE_NVAPI=1 %command%",
+    "settingsTabEmpty": "Keine Startoptionen für dieses Spiel gemeldet",
+    "settingsTabCopy": "Kopieren",
+    "settingsTabCopied": "Kopiert!"
 }

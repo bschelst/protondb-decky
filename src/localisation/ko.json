@@ -113,4 +113,10 @@
     "helpAnalysisColorGray": "회색 — 상태를 판단할 충분한 데이터 없음",
     "helpAnalysisToggle": "설정의 고급 기능에서 분석 버튼을 켜거나 끌 수 있습니다.",
     "clearCacheSuccess": "캐시가 지워졌습니다"
+,    "settingsTabCount": "{total}개 보고서 중 {with}개에 실행 옵션이 포함되어 있습니다 (긍정적만)",
+    "settingsTabHint": "복사를 탭하고 Steam > 게임 속성 > 실행 옵션에서 %command% 앞에 붙여넣으세요",
+    "settingsTabExample": "예: PROTON_ENABLE_NVAPI=1 %command%",
+    "settingsTabEmpty": "이 게임에 대해 보고된 실행 옵션이 없습니다",
+    "settingsTabCopy": "복사",
+    "settingsTabCopied": "복사됨!"
 }

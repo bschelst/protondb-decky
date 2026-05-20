@@ -115,5 +115,11 @@
     "clearCacheSuccess": "Cache cleared successfully",
     "sectionAbout": "About",
     "name": "Name",
-    "version": "Version"
+    "version": "Version",
+    "settingsTabCount": "{with} of {total} reports include launch options (positive only)",
+    "settingsTabHint": "Tap Copy and paste it into Steam > Game Properties > Launch Options before %command%",
+    "settingsTabExample": "Example: PROTON_ENABLE_NVAPI=1 %command%",
+    "settingsTabEmpty": "No launch options reported for this game",
+    "settingsTabCopy": "Copy",
+    "settingsTabCopied": "Copied!"
 }

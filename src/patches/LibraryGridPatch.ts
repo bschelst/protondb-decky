@@ -49,6 +49,16 @@ function isSteamGame(gameId: number): boolean {
   }
 }
 
+function isSteamGameStrict(gameId: number): boolean {
+  try {
+    if (gameId >= 2000000000) return false
+    const overview = appStore?.GetAppOverviewByGameID(gameId)
+    return overview?.app_type === 1
+  } catch {
+    return false
+  }
+}
+
 async function resolveToSteamAppId(rawId: string): Promise<string | null> {
   if (resolveCache.has(rawId)) {
     return resolveCache.get(rawId) ?? null
@@ -228,6 +238,7 @@ function injectDot(bpDoc: Document, coverDiv: Element, status: string) {
     }
     const wrapper = bpDoc.createElement('div')
     wrapper.className = DOT_CLASS
+    wrapper.setAttribute('data-status', status)
     wrapper.style.cssText = `position:absolute;${posStyles[pos] || posStyles.bl}width:20px;height:20px;z-index:9999;pointer-events:none;background:rgba(0,0,0,0.7);border-radius:20px;padding:2px;display:flex;align-items:center;justify-content:center;`
 
     const ns = 'http://www.w3.org/2000/svg'
@@ -351,7 +362,8 @@ async function scanTiles() {
 
     for (const { rawId, cover } of needsDiskCheck) {
       try {
-        const steamId = resolveCache.get(rawId) ?? rawId
+        const steamId = await resolveToSteamAppId(rawId)
+        if (!steamId) continue
         const diskCached = await getStatusFromCache(steamId)
         if (diskCached) {
           statusCache.set(rawId, diskCached.status)
@@ -397,13 +409,17 @@ function reinjectCached() {
 
     const covers = bpDoc.querySelectorAll(COVER_SELECTOR)
     for (const cover of covers) {
-      if (cover.querySelector(`.${DOT_CLASS}`)) continue
       const appId = getAppIdFromCover(cover)
       if (!appId) continue
       const cached = statusCache.get(appId)
-      if (cached) {
-        injectDot(bpDoc, cover as Element, cached)
+      if (!cached) continue
+      const existing = cover.querySelector(`.${DOT_CLASS}`)
+      if (existing) {
+        const currentColor = STATUS_COLORS[cached] || STATUS_COLORS.unknown
+        if (existing.getAttribute('data-status') === cached) continue
+        existing.remove()
       }
+      injectDot(bpDoc, cover as Element, cached)
     }
   } catch {
     // silently fail - don't crash Decky
@@ -421,7 +437,7 @@ async function prefetchLibrary() {
       const overview = appStore?.GetInstalledApps?.() ?? []
       for (const app of overview) {
         const id = app?.appid ?? app?.m_unAppID
-        if (id && isSteamGame(id)) allApps.push(id)
+        if (id && isSteamGameStrict(id)) allApps.push(id)
       }
     } catch {
       /* appStore not available */
@@ -432,7 +448,7 @@ async function prefetchLibrary() {
         const sections = appStore?.m_mapApps
         if (sections?.forEach) {
           sections.forEach((_val: unknown, key: number) => {
-            if (isSteamGame(key)) allApps.push(key)
+            if (isSteamGameStrict(key)) allApps.push(key)
           })
         }
       } catch {

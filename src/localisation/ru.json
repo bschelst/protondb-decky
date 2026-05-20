@@ -113,4 +113,10 @@
     "helpAnalysisColorGray": "Серый — Недостаточно данных для определения статуса",
     "helpAnalysisToggle": "Вы можете включить или отключить кнопку анализа в Настройках в разделе Расширенные функции.",
     "clearCacheSuccess": "Кэш очищен"
+,    "settingsTabCount": "{with} из {total} отчётов содержат параметры запуска (только положительные)",
+    "settingsTabHint": "Нажмите Копировать и вставьте в Steam > Свойства игры > Параметры запуска перед %command%",
+    "settingsTabExample": "Пример: PROTON_ENABLE_NVAPI=1 %command%",
+    "settingsTabEmpty": "Для этой игры не указаны параметры запуска",
+    "settingsTabCopy": "Копировать",
+    "settingsTabCopied": "Скопировано!"
 }

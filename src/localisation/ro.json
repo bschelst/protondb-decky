@@ -113,4 +113,10 @@
     "helpAnalysisColorGray": "Gri — Date insuficiente pentru a determina starea",
     "helpAnalysisToggle": "Puteți activa sau dezactiva butonul de analiză în Setări, la Funcții avansate.",
     "clearCacheSuccess": "Cache-ul a fost șters"
+,    "settingsTabCount": "{with} din {total} rapoarte includ opțiuni de lansare (doar pozitive)",
+    "settingsTabHint": "Apasă Copiază și lipește în Steam > Proprietăți joc > Opțiuni de lansare înainte de %command%",
+    "settingsTabExample": "Exemplu: PROTON_ENABLE_NVAPI=1 %command%",
+    "settingsTabEmpty": "Nicio opțiune de lansare raportată pentru acest joc",
+    "settingsTabCopy": "Copiază",
+    "settingsTabCopied": "Copiat!"
 }

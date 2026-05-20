@@ -70,6 +70,7 @@ interface StoreOverlayPayload {
   historyData: string
   recentReportsData: string
   versionsData: string
+  settingsData: string
 }
 
 // Find Steam's internal history object
@@ -106,6 +107,8 @@ function buildOverlayPreambleCode(payload: StoreOverlayPayload): string {
     var historyMonths = historyData && historyData.months ? historyData.months : null;
     var recentReports = recentReportsData && recentReportsData.reports ? recentReportsData.reports : null;
     var protonVersions = versionsData && versionsData.versions ? versionsData.versions : null;
+    var settingsTips = ${payload.settingsData};
+    var settingsOptions = settingsTips && settingsTips.launch_options ? settingsTips.launch_options : null;
 
     function esc(s) {
       if (!s) return '';
@@ -208,8 +211,10 @@ function buildOverlayAnalysisHelpersCode(appId: string): string {
     var reportsVisible = reportsPageSize;
 
     function buildSingleReportHtml(r) {
-      var d = new Date(r.timestamp * 1000);
-      var dateStr = d.toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' });
+      if (!r || typeof r !== 'object') return '';
+      var ts = typeof r.timestamp === 'number' ? r.timestamp : 0;
+      var d = new Date(ts * 1000);
+      var dateStr = ts > 0 ? d.toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' }) : '—';
       var isPositive = r.rating === 'Gold' || r.rating === 'Platinum' || r.rating === 'Silver';
       var color = isPositive ? '#4ade80' : '#f87171';
       var label = isPositive ? '👍 Works' : '👎 Issues';
@@ -227,7 +232,7 @@ function buildOverlayAnalysisHelpersCode(appId: string): string {
 
     function renderReportsPage(reports) {
       var panel = document.getElementById('pdb-panel-reports');
-      if (!panel) return;
+      if (!panel || !reports || !Array.isArray(reports)) return;
       var html = '';
       var count = Math.min(reportsVisible, reports.length);
       for (var i = 0; i < count; i++) { html += buildSingleReportHtml(reports[i]); }
@@ -278,7 +283,8 @@ function buildOverlayAnalysisHelpersCode(appId: string): string {
         html += '<span style="font-weight:bold;font-size:13px;color:' + nameColor + ';">' + esc(v.version);
         if (isCurrent) html += '<span style="font-size:10px;color:#7ab3f0;margin-left:6px;font-weight:normal;">★ Steam Deck default</span>';
         html += '</span>';
-        html += '<span style="color:#aaa;font-size:11px;">' + v.total_reports + ' report' + (v.total_reports !== 1 ? 's' : '') + '</span></div>';
+        var vCount = typeof v.total_reports === 'number' ? v.total_reports : 0;
+        html += '<span style="color:#aaa;font-size:11px;">' + vCount + ' report' + (vCount !== 1 ? 's' : '') + '</span></div>';
         html += '<div style="display:flex;align-items:center;gap:8px;">';
         html += '<div style="flex:1;height:6px;background:rgba(255,255,255,0.08);border-radius:3px;overflow:hidden;"><div style="width:' + Math.min(100, Math.max(0, pct)) + '%;height:100%;background:' + color + ';border-radius:3px;"></div></div>';
         html += '<span style="font-size:11px;color:' + color + ';min-width:32px;">' + pct + '%</span></div>';
@@ -286,6 +292,61 @@ function buildOverlayAnalysisHelpersCode(appId: string): string {
         html += '</div>';
       });
       return html;
+    }
+
+    function storeCopyToClipboard(text) {
+      try {
+        var input = document.createElement('input');
+        input.value = text;
+        input.style.position = 'absolute';
+        input.style.left = '-9999px';
+        document.body.appendChild(input);
+        input.focus();
+        input.select();
+        document.execCommand('copy');
+        document.body.removeChild(input);
+      } catch(e) {
+        try { navigator.clipboard.writeText(text); } catch(e2) {}
+      }
+    }
+
+    function buildSettingsHtml(options, tips) {
+      if (!options || options.length === 0) return '<p style="color:#888;text-align:center;padding:40px 0;">No launch options reported for this game</p>';
+      var totalReports = tips ? (tips.total_reports || 0) : 0;
+      var withSettings = tips ? (tips.reports_with_settings || 0) : 0;
+      var html = '<div style="font-size:11px;color:#888;margin-bottom:8px;text-align:center;">Launch options used in ' + withSettings + ' of ' + totalReports + ' reports (positive only)</div>';
+      html += '<div style="font-size:10px;color:#666;margin-bottom:8px;text-align:center;line-height:1.4;">Add these to Steam &gt; Game Properties &gt; Launch Options</div>';
+      options.forEach(function(opt, idx) {
+        if (!opt || !opt.option) return;
+        var text = esc(opt.option) + '=' + esc(opt.value);
+        var count = typeof opt.count === 'number' ? opt.count : 0;
+        var total = typeof opt.total_with_options === 'number' ? opt.total_with_options : 0;
+        var pct = total > 0 ? Math.round((count / total) * 100) : 0;
+        html += '<div style="background:rgba(255,255,255,0.04);border-radius:6px;padding:8px 12px;margin-bottom:6px;border-left:3px solid #7ab3f0;">';
+        html += '<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:2px;">';
+        html += '<span style="font-weight:bold;font-size:12px;color:#7ab3f0;font-family:monospace;flex:1;">' + text + '</span>';
+        html += '<span id="pdb-copy-' + idx + '" style="padding:4px 10px;font-size:11px;color:#aaa;cursor:pointer;background:rgba(255,255,255,0.06);border-radius:4px;margin-left:8px;white-space:nowrap;">Copy</span>';
+        html += '</div>';
+        html += '<div style="font-size:10px;color:#666;">' + count + ' report' + (count !== 1 ? 's' : '') + ' (' + pct + '%)</div>';
+        html += '</div>';
+      });
+      return html;
+    }
+
+    function wireSettingsCopyButtons(options) {
+      if (!options || !Array.isArray(options)) return;
+      options.forEach(function(opt, idx) {
+        if (!opt || !opt.option) return;
+        var btn = document.getElementById('pdb-copy-' + idx);
+        if (!btn) return;
+        var copyText = String(opt.option) + '=' + String(opt.value || '');
+        btn.onclick = function() {
+          storeCopyToClipboard(copyText);
+          btn.textContent = 'Copied!';
+          btn.style.color = '#4ade80';
+          setTimeout(function() { btn.textContent = 'Copy'; btn.style.color = '#aaa'; }, 2000);
+        };
+      });
     }
   `
 }
@@ -319,12 +380,12 @@ function buildOverlayUiCode(payload: StoreOverlayPayload): string {
         var activeTabStyle = tabBtnStyle + 'color:#fff;border-bottom:2px solid #7ab3f0;background:rgba(255,255,255,0.1);';
         var inactiveTabStyle = tabBtnStyle + 'color:#888;border-bottom:2px solid transparent;';
         var header = '<div style="display:flex;align-items:baseline;justify-content:space-between;margin-bottom:12px;"><h3 style="margin:0;color:#fff;font-size:16px;font-weight:bold;">ProtonDB Analysis</h3><a href="https://protondb.schelstraete.org" target="_blank" style="color:#7ab3f0;font-size:11px;text-decoration:none;">protondb.schelstraete.org</a></div>';
-        var tabs = '<div style="display:flex;margin-bottom:8px;"><button id="pdb-tab-details" style="' + activeTabStyle + '">Details</button><button id="pdb-tab-chart" style="' + inactiveTabStyle + '">Report History</button><button id="pdb-tab-reports" style="' + inactiveTabStyle + '">Recent Reports</button><button id="pdb-tab-versions" style="' + inactiveTabStyle + '">Proton Versions</button></div>';
+        var tabs = '<div style="display:flex;margin-bottom:8px;"><button id="pdb-tab-details" style="' + activeTabStyle + '">Details</button><button id="pdb-tab-reports" style="' + inactiveTabStyle + '">Reports</button><button id="pdb-tab-versions" style="' + inactiveTabStyle + '">Versions</button><button id="pdb-tab-settings" style="' + inactiveTabStyle + '">Settings</button></div>';
         var detailsContent = '<div id="pdb-panel-details">' + buildAnalysisTable(analysisData) + '</div>';
-        var chartContent = '<div id="pdb-panel-chart" style="display:none;"></div>';
         var reportsContent = '<div id="pdb-panel-reports" style="display:none;"></div>';
         var versionsContent = '<div id="pdb-panel-versions" style="display:none;"></div>';
-        ov.innerHTML = header + tabs + detailsContent + chartContent + reportsContent + versionsContent;
+        var settingsContent = '<div id="pdb-panel-settings" style="display:none;"></div>';
+        ov.innerHTML = header + tabs + detailsContent + reportsContent + versionsContent + settingsContent;
         var closeBtnDiv = document.createElement('div');
         closeBtnDiv.style.cssText = 'margin-top:14px;display:flex;justify-content:flex-end;';
         var closeBtnEl = document.createElement('button');
@@ -336,31 +397,29 @@ function buildOverlayUiCode(payload: StoreOverlayPayload): string {
         document.body.appendChild(ov);
         ov.addEventListener('click', function(evt) { evt.stopPropagation(); });
         function switchTab(active) {
-          var panels = ['details', 'chart', 'reports', 'versions'];
+          var panels = ['details', 'reports', 'versions', 'settings'];
           panels.forEach(function(p) {
-            document.getElementById('pdb-panel-' + p).style.display = p === active ? '' : 'none';
-            document.getElementById('pdb-tab-' + p).style.cssText = p === active ? activeTabStyle : inactiveTabStyle;
+            var panel = document.getElementById('pdb-panel-' + p);
+            var tab = document.getElementById('pdb-tab-' + p);
+            if (panel) panel.style.display = p === active ? '' : 'none';
+            if (tab) tab.style.cssText = p === active ? activeTabStyle : inactiveTabStyle;
           });
-        }
-        function lazyLoadChart() {
-          var panel = document.getElementById('pdb-panel-chart');
-          if (!panel) return;
-          if (historyMonths === null) {
-            panel.textContent = 'Failed to load data';
-            panel.style.cssText += 'color:#888;text-align:center;padding:40px 0;';
-            return;
-          }
-          panel.innerHTML = '<div style="font-size:12px;color:#888;margin-bottom:8px;text-align:center;">' + esc(gameName) + ' — Last 5 years</div>' + buildChartSvg(historyMonths);
         }
         function lazyLoadReports() {
           var panel = document.getElementById('pdb-panel-reports');
           if (!panel) return;
-          if (recentReports === null) {
-            panel.textContent = 'Failed to load data';
-            panel.style.cssText += 'color:#888;text-align:center;padding:40px 0;';
-            return;
+          var html = '';
+          if (historyMonths) {
+            html += '<div style="font-size:12px;color:#888;margin-bottom:8px;text-align:center;">' + esc(gameName) + ' — Last 5 years</div>';
+            html += buildChartSvg(historyMonths);
+            html += '<div style="border-top:1px solid rgba(255,255,255,0.08);margin:12px 0 8px;"></div>';
           }
-          panel.innerHTML = buildReportsHtml(recentReports);
+          if (recentReports === null) {
+            html += '<p style="color:#888;text-align:center;padding:20px 0;">No recent reports available</p>';
+          } else {
+            html += buildReportsHtml(recentReports);
+          }
+          panel.innerHTML = html;
           var moreBtn = document.getElementById('pdb-reports-more');
           if (moreBtn) {
             moreBtn.onclick = function() {
@@ -379,10 +438,21 @@ function buildOverlayUiCode(payload: StoreOverlayPayload): string {
           }
           panel.innerHTML = buildVersionsHtml(protonVersions, versionsData ? versionsData.total_reports : 0);
         }
+        function lazyLoadSettings() {
+          var panel = document.getElementById('pdb-panel-settings');
+          if (!panel) return;
+          if (settingsOptions === null) {
+            panel.textContent = 'No launch options reported for this game';
+            panel.style.cssText += 'color:#888;text-align:center;padding:40px 0;';
+            return;
+          }
+          panel.innerHTML = buildSettingsHtml(settingsOptions, settingsTips);
+          wireSettingsCopyButtons(settingsOptions);
+        }
         document.getElementById('pdb-tab-details').onclick = function() { switchTab('details'); };
-        document.getElementById('pdb-tab-chart').onclick = function() { switchTab('chart'); lazyLoadChart(); };
         document.getElementById('pdb-tab-reports').onclick = function() { switchTab('reports'); lazyLoadReports(); };
         document.getElementById('pdb-tab-versions').onclick = function() { switchTab('versions'); lazyLoadVersions(); };
+        document.getElementById('pdb-tab-settings').onclick = function() { switchTab('settings'); lazyLoadSettings(); };
       };
       wrapper.appendChild(infoBtn);
     }
@@ -431,7 +501,8 @@ async function injectBadgeIntoStore(appId: string) {
     analysisResult,
     historyResult,
     recentReportsResult,
-    versionsResult
+    versionsResult,
+    settingsResult
   ] = await Promise.allSettled([
     fetchWithTimeout(
       fetchNoCors(
@@ -447,7 +518,8 @@ async function injectBadgeIntoStore(appId: string) {
     fetchGatewayJson(
       `${GATEWAY_BASE_URL}/api/v1/reports/recent/${appId}?limit=20`
     ),
-    fetchGatewayJson(`${GATEWAY_BASE_URL}/api/v1/reports/versions/${appId}`)
+    fetchGatewayJson(`${GATEWAY_BASE_URL}/api/v1/reports/versions/${appId}`),
+    fetchGatewayJson(`${GATEWAY_BASE_URL}/api/v1/reports/settings/${appId}`)
   ])
 
   if (tierResult.status === 'fulfilled' && tierResult.value?.tier) {
@@ -484,6 +556,9 @@ async function injectBadgeIntoStore(appId: string) {
   const versionsData = serializeForScript(
     versionsResult.status === 'fulfilled' ? versionsResult.value : null
   )
+  const settingsData = serializeForScript(
+    settingsResult.status === 'fulfilled' ? settingsResult.value : null
+  )
 
   const injectScript = buildStoreOverlayScript({
     appId,
@@ -493,7 +568,8 @@ async function injectBadgeIntoStore(appId: string) {
     analysisData,
     historyData,
     recentReportsData,
-    versionsData
+    versionsData,
+    settingsData
   })
 
   storeWebSocket.send(

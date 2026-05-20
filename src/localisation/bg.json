@@ -113,4 +113,10 @@
     "helpAnalysisColorGray": "Сиво — Няма достатъчно данни за определяне на статуса",
     "helpAnalysisToggle": "Можете да включите или изключите бутона за анализ в Настройки под Разширени функции.",
     "clearCacheSuccess": "Кешът е изчистен успешно"
+,    "settingsTabCount": "{with} от {total} доклада включват опции за стартиране (само положителни)",
+    "settingsTabHint": "Натиснете Копирай и поставете в Steam > Свойства на играта > Опции за стартиране преди %command%",
+    "settingsTabExample": "Пример: PROTON_ENABLE_NVAPI=1 %command%",
+    "settingsTabEmpty": "Няма докладвани опции за стартиране за тази игра",
+    "settingsTabCopy": "Копирай",
+    "settingsTabCopied": "Копирано!"
 }

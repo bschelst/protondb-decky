@@ -113,4 +113,10 @@
     "helpAnalysisColorGray": "Szary — Za mało danych do określenia statusu",
     "helpAnalysisToggle": "Możesz włączyć lub wyłączyć przycisk analizy w Ustawieniach w sekcji Funkcje zaawansowane.",
     "clearCacheSuccess": "Pamięć podręczna wyczyszczona"
+,    "settingsTabCount": "{with} z {total} raportów zawiera opcje uruchamiania (tylko pozytywne)",
+    "settingsTabHint": "Naciśnij Kopiuj i wklej w Steam > Właściwości gry > Opcje uruchamiania przed %command%",
+    "settingsTabExample": "Przykład: PROTON_ENABLE_NVAPI=1 %command%",
+    "settingsTabEmpty": "Brak zgłoszonych opcji uruchamiania dla tej gry",
+    "settingsTabCopy": "Kopiuj",
+    "settingsTabCopied": "Skopiowano!"
 }

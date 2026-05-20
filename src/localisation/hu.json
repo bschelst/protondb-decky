@@ -113,4 +113,10 @@
     "helpAnalysisColorGray": "Szürke — Nincs elég adat az állapot megállapításához",
     "helpAnalysisToggle": "Az elemzés gombot a Beállítások alatt, a Bővített funkciók menüben kapcsolhatja be vagy ki.",
     "clearCacheSuccess": "Gyorsítótár törölve"
+,    "settingsTabCount": "{with} / {total} jelentés tartalmaz indítási beállításokat (csak pozitívak)",
+    "settingsTabHint": "Nyomj a Másolás gombra, és illeszd be a Steam > Játék tulajdonságai > Indítási beállítások mezőbe a %command% elé",
+    "settingsTabExample": "Példa: PROTON_ENABLE_NVAPI=1 %command%",
+    "settingsTabEmpty": "Nincsenek jelentett indítási beállítások ehhez a játékhoz",
+    "settingsTabCopy": "Másolás",
+    "settingsTabCopied": "Másolva!"
 }
