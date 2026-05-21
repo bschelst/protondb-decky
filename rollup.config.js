@@ -1,3 +1,12 @@
 import deckyPlugin from '@decky/rollup';
 
-export default deckyPlugin();
+const config = deckyPlugin();
+
+config.output = {
+  ...config.output,
+  format: 'iife',
+  name: 'ProtonDBBadges',
+  exports: 'default',
+};
+
+export default config;
