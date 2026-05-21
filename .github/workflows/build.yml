@@ -30,18 +30,17 @@ jobs:
             - name: prepare release package
               run: |
                   rm -rf ./release
-                  mkdir -p ./release/protondb-decky/dist
-                  cp LICENSE ./release/protondb-decky/
-                  cp main.py ./release/protondb-decky/
-                  cp package.json ./release/protondb-decky/
-                  cp plugin.json ./release/protondb-decky/
-                  cp ./dist/index.js ./release/protondb-decky/dist/
+                  mkdir -p ./release/dist
+                  cp LICENSE ./release/
+                  cp main.py ./release/
+                  cp package.json ./release/
+                  cp plugin.json ./release/
+                  cp ./dist/index.js ./release/dist/
             - name: Upload package
               uses: actions/upload-artifact@v4
               with:
                   name: protondb-decky
-                  path: |
-                      ./release/*
+                  path: ./release/*
     release:
         needs: build
         if: startsWith(github.ref, 'refs/tags/v')
