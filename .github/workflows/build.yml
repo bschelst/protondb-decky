@@ -27,8 +27,12 @@ jobs:
             - name: build
               run: npm run build
 
+            - name: write runtime package.json
+              run: grep -v '"type": "module"' package.json > ./dist/package.json
+
             - name: copy files into build
               run: |
+                  cp package.json ./dist/
                   cp plugin.json ./dist/
                   mkdir ./dist/dist
                   mv ./dist/index.js ./dist/dist/
