@@ -19,6 +19,10 @@ logs
 results
 tmp
 
+
+# Le Editor
+.le
+
 # Local deliveries in syntax CL[datetime]
 CL*
 
