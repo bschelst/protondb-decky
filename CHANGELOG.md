@@ -1,6 +1,10 @@
 # Changelog
 All important changes to the ProtonDB Badges plugin are documented here.
 
+## [1.3.3] - 2026-05-21
+### Fixed
+- delivery fixes
+
 ## [1.3.0] - 2026-01-24
 ### Added
 - **Enhanced Badge System** - Integration with ProtonDB Gateway for advanced compatibility insights
@@ -87,4 +91,3 @@ Option to move the badges to the bottom of the hero image.
 - Changed the submit button background color.
 
 ### Fixed
-

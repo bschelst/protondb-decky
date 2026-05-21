@@ -27,21 +27,21 @@ jobs:
             - name: build
               run: npm run build
 
-            - name: write runtime package.json
-              run: grep -v '"type": "module"' package.json > ./dist/package.json
-
-            - name: copy files into build
+            - name: prepare release package
               run: |
-                  cp package.json ./dist/
-                  cp plugin.json ./dist/
-                  mkdir ./dist/dist
-                  mv ./dist/index.js ./dist/dist/
+                  rm -rf ./release
+                  mkdir -p ./release/protondb-decky/dist
+                  cp LICENSE ./release/protondb-decky/
+                  cp main.py ./release/protondb-decky/
+                  cp package.json ./release/protondb-decky/
+                  cp plugin.json ./release/protondb-decky/
+                  cp ./dist/index.js ./release/protondb-decky/dist/
             - name: Upload package
               uses: actions/upload-artifact@v2
               with:
                   name: protondb-decky
                   path: |
-                      ./dist/*
+                      ./release/*
     release:
         needs: build
         if: startsWith(github.ref, 'refs/tags/v')
