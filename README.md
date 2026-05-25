@@ -68,7 +68,7 @@ The analysis button (bar chart icon) next to the ProtonDB badge opens a detailed
 | **Details** | Working status, confidence score, trend direction, freshness, and warnings |
 | **Reports** | Report history chart (last 5 years) showing good vs bad reports per month, followed by the 20 most recent individual reports |
 | **Versions** | Proton version breakdown — report counts and success rates per version. The current Steam Deck default is highlighted |
-| **Settings** | Launch options extracted from positive community reports. Tap **Copy** to copy an option to clipboard, then paste it into Steam > Game Properties > Launch Options before `%command%` |
+| **Settings** | Launch options extracted from positive community reports. Tap **Copy** to copy an option to clipboard, or press Apply to apply them automatically |
 
 ### Library Status Icons
 
