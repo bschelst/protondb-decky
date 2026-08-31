@@ -52,6 +52,7 @@ export default function Index() {
     setShowAnalysisButton,
     setRoundedCorners,
     setShowLibraryIcons,
+    setLibraryIconsOnFocusOnly,
     setLibraryIconPosition,
     loading
   } = useSettings()
@@ -234,6 +235,19 @@ export default function Index() {
             />
           </DeckPanelSectionRow>
         )}
+        {settings.showAnalysisButton !== false &&
+          settings.showLibraryIcons === true && (
+            <DeckPanelSectionRow>
+              <ToggleField
+                label={t('libraryIconsOnFocusOnly')}
+                description={t('libraryIconsOnFocusOnlyDesc')}
+                checked={settings.libraryIconsOnFocusOnly === true}
+                onChange={(checked: boolean) => {
+                  setLibraryIconsOnFocusOnly(checked)
+                }}
+              />
+            </DeckPanelSectionRow>
+          )}
         {settings.showAnalysisButton !== false &&
           settings.showLibraryIcons === true && (
             <DeckPanelSectionRow>

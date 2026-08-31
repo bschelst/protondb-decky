@@ -110,6 +110,8 @@
     "roundedCornersDesc": "Use rounded corners on all badge buttons",
     "showLibraryIcons": "Library Status Icons",
     "showLibraryIconsDesc": "Show compatibility status icons on game covers in the library grid",
+    "libraryIconsOnFocusOnly": "Show icons only when game is focused",
+    "libraryIconsOnFocusOnlyDesc": "Show status icons only while a game has controller or keyboard focus, or mouse hover",
     "libraryIconPosition": "Icon Position",
     "libraryIconPositionDesc": "Position of the status icon on game covers",
     "clearCacheSuccess": "Cache cleared successfully",
