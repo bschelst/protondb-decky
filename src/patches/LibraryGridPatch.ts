@@ -16,6 +16,7 @@ const SCAN_INTERVAL_MS = 3000
 const GRID_CACHE_MAX_AGE_MS = 7 * 24 * 60 * 60 * 1000
 const DOT_CLASS = 'protondb-grid-dot'
 const COVER_SELECTOR = '._1pwP4eeP1zQD7PEgmsep0W'
+const FOCUS_ONLY_STYLE_ID = 'protondb-grid-focus-only'
 const APP_ID_FROM_SRC = /\/(?:assets|customimages)\/(\d+)/
 
 const STATUS_COLORS: Record<string, string> = {
@@ -113,6 +114,32 @@ function getBigPictureDocument(): Document | null {
   } catch {
     return null
   }
+}
+
+function syncFocusOnlyStyle(
+  bpDoc: Document | null = getBigPictureDocument()
+) {
+  if (!bpDoc) return
+
+  const existing = bpDoc.getElementById(FOCUS_ONLY_STYLE_ID)
+  if (
+    SettingsContext.value.showLibraryIcons !== true ||
+    SettingsContext.value.libraryIconsOnFocusOnly !== true
+  ) {
+    existing?.remove()
+    return
+  }
+  if (existing) return
+
+  const style = bpDoc.createElement('style')
+  style.id = FOCUS_ONLY_STYLE_ID
+  style.textContent = `
+${COVER_SELECTOR} .${DOT_CLASS} { opacity: 0; }
+${COVER_SELECTOR}.gpfocuswithin .${DOT_CLASS},
+${COVER_SELECTOR}:focus-within .${DOT_CLASS},
+${COVER_SELECTOR}:hover .${DOT_CLASS} { opacity: 1; }
+`
+  bpDoc.head.appendChild(style)
 }
 
 async function fetchWithTimeout(
@@ -341,6 +368,7 @@ async function scanTiles() {
 
     const bpDoc = getBigPictureDocument()
     if (!bpDoc) return
+    syncFocusOnlyStyle(bpDoc)
 
     const covers = bpDoc.querySelectorAll(COVER_SELECTOR)
     const needsDiskCheck: Array<{ rawId: string; cover: Element }> = []
@@ -531,6 +559,10 @@ async function prefetchLibrary() {
 export function initLibraryGridPatch(): () => void {
   console.log('[ProtonDB Grid] Initializing library grid patch')
 
+  const settingsSubscription = SettingsContext.subscribe(() =>
+    syncFocusOnlyStyle()
+  )
+
   reinjectInterval = setInterval(reinjectCached, 1000)
 
   prefetchAborted = false
@@ -551,6 +583,8 @@ export function initLibraryGridPatch(): () => void {
     })
 
   return () => {
+    settingsSubscription.unsubscribe()
+    getBigPictureDocument()?.getElementById(FOCUS_ONLY_STYLE_ID)?.remove()
     if (scanInterval) {
       clearInterval(scanInterval)
       scanInterval = null
