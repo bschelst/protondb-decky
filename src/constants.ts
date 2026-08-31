@@ -1,3 +1,5 @@
+import { version } from '../package.json'
+
 export const appTypes = {
   1: 'game',
   2: 'software',
@@ -7,7 +9,7 @@ export const appTypes = {
   65536: 'playtest'
 }
 
-export const PLUGIN_VERSION = '1.3.2'
+export const PLUGIN_VERSION = version
 
 // ProtonDB Gateway configuration
 export const GATEWAY_BASE_URL = 'https://protondb.schelstraete.org'
