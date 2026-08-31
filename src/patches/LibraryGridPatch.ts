@@ -122,10 +122,12 @@ function syncFocusOnlyStyle(
   if (!bpDoc) return
 
   const existing = bpDoc.getElementById(FOCUS_ONLY_STYLE_ID)
-  if (
-    SettingsContext.value.showLibraryIcons !== true ||
-    SettingsContext.value.libraryIconsOnFocusOnly !== true
-  ) {
+  if (SettingsContext.value.showLibraryIcons !== true) {
+    existing?.remove()
+    for (const dot of bpDoc.querySelectorAll(`.${DOT_CLASS}`)) dot.remove()
+    return
+  }
+  if (SettingsContext.value.libraryIconsOnFocusOnly !== true) {
     existing?.remove()
     return
   }
@@ -584,7 +586,9 @@ export function initLibraryGridPatch(): () => void {
 
   return () => {
     settingsSubscription.unsubscribe()
-    getBigPictureDocument()?.getElementById(FOCUS_ONLY_STYLE_ID)?.remove()
+    const bpDoc = getBigPictureDocument()
+    bpDoc?.getElementById(FOCUS_ONLY_STYLE_ID)?.remove()
+    for (const dot of bpDoc?.querySelectorAll(`.${DOT_CLASS}`) ?? []) dot.remove()
     if (scanInterval) {
       clearInterval(scanInterval)
       scanInterval = null
