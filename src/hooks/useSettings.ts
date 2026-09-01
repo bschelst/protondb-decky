@@ -13,6 +13,7 @@ export type Settings = {
   showAnalysisButton?: boolean
   roundedCorners?: boolean
   showLibraryIcons?: boolean
+  libraryIconsOnFocusOnly?: boolean
   libraryIconPosition?: 'bl' | 'tl' | 'tr'
 }
 
@@ -27,6 +28,7 @@ const DEFAULT_SETTINGS: Settings = {
   showAnalysisButton: true,
   roundedCorners: false,
   showLibraryIcons: true,
+  libraryIconsOnFocusOnly: false,
   libraryIconPosition: 'bl'
 }
 
@@ -117,6 +119,12 @@ export const useSettings = () => {
     updateSettings('showLibraryIcons', value)
   }
 
+  function setLibraryIconsOnFocusOnly(
+    value: Settings['libraryIconsOnFocusOnly']
+  ) {
+    updateSettings('libraryIconsOnFocusOnly', value)
+  }
+
   function setLibraryIconPosition(value: Settings['libraryIconPosition']) {
     updateSettings('libraryIconPosition', value)
   }
@@ -133,6 +141,7 @@ export const useSettings = () => {
     setShowAnalysisButton,
     setRoundedCorners,
     setShowLibraryIcons,
+    setLibraryIconsOnFocusOnly,
     setLibraryIconPosition,
     loading
   }
