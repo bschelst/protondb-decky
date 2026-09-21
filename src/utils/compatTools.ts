@@ -1,3 +1,5 @@
+import { findModuleExport } from '@decky/ui'
+
 export interface InstalledTool {
   toolName: string
   displayName: string
@@ -5,22 +7,147 @@ export interface InstalledTool {
 
 export let lastDebugInfo = ''
 
-export async function getInstalledCompatTools(): Promise<InstalledTool[]> {
+function getTransportStore(): any {
+  let require: any
+  ;(window as any).webpackChunksteamui?.push([
+    [Symbol('protondb-compat-transport')],
+    {},
+    (loader: any) => {
+      require = loader
+    }
+  ])
+  if (!require?.m) return null
+  const id = Object.keys(require.m).find((key: string) =>
+    require.m[key]
+      .toString()
+      .includes('Multiple attempts to set a default WebUI transport')
+  )
+  if (!id) return null
+  for (const value of Object.values(require(id))) {
+    if (typeof value !== 'function') continue
+    let candidate
+    try {
+      candidate = (value as any)()
+    } catch {
+      continue
+    }
+    if (typeof candidate?.GetDefaultTransport === 'function') return candidate
+  }
+  return null
+}
+
+async function getToolsViaTransport(appId?: number): Promise<InstalledTool[]> {
+  await (window as any).App?.WaitForServicesInitialized?.()
+  const store = getTransportStore()
+  const transport = store?.GetDefaultTransport?.()
+  const msgClass = findModuleExport(
+    (value: any) =>
+      typeof value?.Init === 'function' &&
+      typeof value?.InitFromObject === 'function' &&
+      typeof value?.prototype?.SetBodyFields === 'function'
+  )
+  if (!transport?.SendMsg || !msgClass) {
+    lastDebugInfo = 'Transport or message class not found'
+    return []
+  }
+
+  class CompatRequest {
+    appid?: number
+    serializeBinary(): Uint8Array {
+      if (this.appid === undefined) return new Uint8Array()
+      let value = this.appid >>> 0
+      const bytes = [8]
+      while (value > 127) {
+        bytes.push((value & 127) | 128)
+        value >>>= 7
+      }
+      bytes.push(value)
+      return new Uint8Array(bytes)
+    }
+  }
+
+  class CompatResponse {
+    tools: Array<{
+      name?: string
+      display_name?: string
+      is_incompatible?: boolean
+    }> = []
+    static deserializeBinaryFromReader(
+      message: CompatResponse,
+      reader: any
+    ): void {
+      while (reader.nextField()) {
+        if (reader.isEndGroup()) break
+        if (reader.getFieldNumber() !== 1) {
+          reader.skipField()
+          continue
+        }
+        const tool: CompatResponse['tools'][number] = {}
+        reader.readMessage(tool, (entry: typeof tool, fields: any) => {
+          while (fields.nextField()) {
+            if (fields.isEndGroup()) break
+            switch (fields.getFieldNumber()) {
+              case 1:
+                entry.name = fields.readString()
+                break
+              case 2:
+                entry.display_name = fields.readString()
+                break
+              case 6:
+                entry.is_incompatible = fields.readBool()
+                break
+              default:
+                fields.skipField()
+            }
+          }
+        })
+        message.tools.push(tool)
+      }
+    }
+  }
+
+  const request = msgClass.Init(CompatRequest)
+  request.Body().appid = appId
+  const response = await transport.SendMsg(
+    'CompatManager.GetCompatTools#1',
+    request,
+    CompatResponse,
+    { ePrivilege: 1, eClientExecutionSite: 2 }
+  )
+  if (!response.BSuccess()) {
+    lastDebugInfo = `CompatManager failed (${response.GetEResult()})`
+    return []
+  }
+  const body = response.Body()
+  const mapped = (body.tools || [])
+    .filter((t: any) => t?.name && !t?.is_incompatible)
+    .map((t: any) => ({
+      toolName: t.name,
+      displayName: t.display_name || t.name
+    }))
+  lastDebugInfo = `CompatManager: found ${mapped.length} tools`
+  return mapped
+}
+
+export async function getInstalledCompatTools(
+  appId?: number
+): Promise<InstalledTool[]> {
   try {
     const sc = (globalThis as any).SteamClient
     if (!sc) {
       lastDebugInfo = 'No SteamClient'
       return []
     }
-    if (!sc.Settings) {
-      lastDebugInfo = `No Settings. Keys: ${Object.keys(sc).slice(0, 15).join(',')}`
-      return []
+
+    let tools: any = null
+
+    if (sc.Settings?.GetGlobalCompatTools) {
+      tools = sc.Settings.GetGlobalCompatTools()
+    } else if (sc.Apps?.GetAvailableCompatTools && appId) {
+      tools = sc.Apps.GetAvailableCompatTools(appId)
+    } else {
+      return getToolsViaTransport(appId)
     }
-    if (!sc.Settings.GetGlobalCompatTools) {
-      lastDebugInfo = `No GetGlobalCompatTools. Settings keys: ${Object.keys(sc.Settings).slice(0, 15).join(',')}`
-      return []
-    }
-    let tools = sc.Settings.GetGlobalCompatTools()
 
     if (
       tools &&
