@@ -484,7 +484,7 @@ const VersionRow: FC<{ stat: GwVersionStat; appId: string }> = ({
     try {
       const numericId = parseInt(appId, 10)
       if (isNaN(numericId)) return
-      const tools = await getInstalledCompatTools()
+      const tools = await getInstalledCompatTools(numericId)
       const match = findMatchingTool(stat.version, tools)
       if (!match) {
         setApplyState('not_found')
