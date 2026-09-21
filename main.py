@@ -1,5 +1,4 @@
 import os
-import json
 import decky_plugin
 from settings import SettingsManager
 
