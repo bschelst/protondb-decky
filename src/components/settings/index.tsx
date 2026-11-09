@@ -98,6 +98,8 @@ export default function Index() {
     setDisableSubmit,
     setEnableLibraryBadge,
     setEnableStoreBadge,
+    setStoreBadgeSize,
+    setStoreBadgePosition,
     setShowAnalysisButton,
     setRoundedCorners,
     setShowLibraryIcons,
@@ -119,6 +121,16 @@ export default function Index() {
     { data: 2, label: t('positionTopRight'), value: 'tr' },
     { data: 3, label: t('positionBottomLeft'), value: 'bl' },
     { data: 4, label: t('positionBottomMiddle'), value: 'bm' },
+    { data: 5, label: t('positionBottomRight'), value: 'br' }
+  ] as const
+
+  // Same layout as the library list. The store uses 'bc' for bottom middle.
+  const storePositionOptions = [
+    { data: 0, label: t('positionTopLeft'), value: 'tl' },
+    { data: 1, label: t('positionTopMiddle'), value: 'tm' },
+    { data: 2, label: t('positionTopRight'), value: 'tr' },
+    { data: 3, label: t('positionBottomLeft'), value: 'bl' },
+    { data: 4, label: t('positionBottomMiddle'), value: 'bc' },
     { data: 5, label: t('positionBottomRight'), value: 'br' }
   ] as const
 
@@ -264,6 +276,54 @@ export default function Index() {
             }}
           />
         </DeckPanelSectionRow>
+        {settings.enableStoreBadge && (
+          <DeckPanelSectionRow>
+            <DropdownItem
+              label={t('storeBadgeSize')}
+              description={t('storeBadgeSizeDesc')}
+              menuLabel={t('storeBadgeSize')}
+              rgOptions={sizeOptions.map((o) => ({
+                data: o.data,
+                label: o.label
+              }))}
+              selectedOption={
+                sizeOptions.find(
+                  (o) => o.value === (settings.storeBadgeSize || 'regular')
+                )?.data || 0
+              }
+              onChange={(newVal: { data: number; label: string }) => {
+                const newSize =
+                  sizeOptions.find((o) => o.data === newVal.data)?.value ||
+                  'regular'
+                setStoreBadgeSize(newSize)
+              }}
+            />
+          </DeckPanelSectionRow>
+        )}
+        {settings.enableStoreBadge && (
+          <DeckPanelSectionRow>
+            <DropdownItem
+              label={t('storeBadgePosition')}
+              description={t('storeBadgePositionDesc')}
+              menuLabel={t('storeBadgePosition')}
+              rgOptions={storePositionOptions.map((o) => ({
+                data: o.data,
+                label: o.label
+              }))}
+              selectedOption={
+                storePositionOptions.find(
+                  (o) => o.value === settings.storeBadgePosition
+                )?.data ?? 4
+              }
+              onChange={(newVal: { data: number; label: string }) => {
+                const newPosition =
+                  storePositionOptions.find((o) => o.data === newVal.data)
+                    ?.value || 'bc'
+                setStoreBadgePosition(newPosition)
+              }}
+            />
+          </DeckPanelSectionRow>
+        )}
       </CollapsibleSection>
 
       <CollapsibleSection
