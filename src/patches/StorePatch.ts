@@ -692,6 +692,15 @@ async function injectBadgeIntoStore(appId: string) {
     settingsResult.status === 'fulfilled' ? settingsResult.value : null
   )
 
+  // The user may have moved to another page while the data was downloading
+  if (
+    storeAppId$.value !== appId ||
+    !storeWebSocket ||
+    storeWebSocket.readyState !== WebSocket.OPEN
+  ) {
+    return
+  }
+
   const injectScript = buildStoreOverlayScript({
     appId,
     tierLabel,
@@ -799,6 +808,7 @@ async function connectToStoreDebugger(
     // Connect to WebSocket debugger
     storeWebSocket = new WebSocket(storeTab.webSocketDebuggerUrl)
     let opened = false
+    let urlRequestId = 0
 
     storeWebSocket.onopen = (event) => {
       opened = true
@@ -812,11 +822,16 @@ async function connectToStoreDebugger(
       setTimeout(() => {
         if (visit !== storeVisit) return
         wsReady = true
-        // Inject badge for initial URL if we have an app ID
-        const currentAppId = storeAppId$.value
-        if (currentAppId) {
-          injectBadgeIntoStore(currentAppId)
-        }
+        // Steam may have moved the store to another page (e.g. its home page)
+        // before we started listening, so ask the page where it is now
+        urlRequestId = messageId++
+        ws.send(
+          JSON.stringify({
+            id: urlRequestId,
+            method: 'Runtime.evaluate',
+            params: { expression: 'location.href', returnByValue: true }
+          })
+        )
       }, 300)
     }
 
@@ -825,6 +840,19 @@ async function connectToStoreDebugger(
 
       try {
         const data = JSON.parse(event.data)
+        // The page's current URL, asked for once the connection was ready
+        const url = data.id === urlRequestId && data.result?.result?.value
+        if (typeof url === 'string') {
+          const appId = extractAppIdFromUrl(url)
+          if (appId && appId === storeAppId$.value) {
+            // Still on the page we connected to: draw its badge
+            injectBadgeIntoStore(appId)
+          } else {
+            // The page changed: draw or remove the badge to match
+            updateAppIdFromUrl(url)
+          }
+          return
+        }
         // Listen for frame navigation events
         if (data.method === 'Page.frameNavigated' && data.params?.frame?.url) {
           // Delay injection to let the page load
