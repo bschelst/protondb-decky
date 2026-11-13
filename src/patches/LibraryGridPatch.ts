@@ -116,13 +116,19 @@ function getBigPictureDocument(): Document | null {
   }
 }
 
+// The icons belong to the analysis button feature, so hiding that hides them too
+function libraryIconsEnabled(): boolean {
+  const { showAnalysisButton, showLibraryIcons } = SettingsContext.value
+  return showAnalysisButton !== false && showLibraryIcons === true
+}
+
 function syncFocusOnlyStyle(
   bpDoc: Document | null = getBigPictureDocument()
 ) {
   if (!bpDoc) return
 
   const existing = bpDoc.getElementById(FOCUS_ONLY_STYLE_ID)
-  if (SettingsContext.value.showLibraryIcons !== true) {
+  if (!libraryIconsEnabled()) {
     existing?.remove()
     for (const dot of bpDoc.querySelectorAll(`.${DOT_CLASS}`)) dot.remove()
     return
@@ -366,7 +372,7 @@ function getAppIdFromCover(cover: Element): string | null {
 
 async function scanTiles() {
   try {
-    if (SettingsContext.value.showLibraryIcons !== true) return
+    if (!libraryIconsEnabled()) return
 
     const bpDoc = getBigPictureDocument()
     if (!bpDoc) return
@@ -448,7 +454,7 @@ async function refreshUnknownStatuses() {
 
 function reinjectCached() {
   try {
-    if (SettingsContext.value.showLibraryIcons !== true) return
+    if (!libraryIconsEnabled()) return
     if (statusCache.size === 0) return
 
     refreshCounter++
@@ -490,7 +496,7 @@ let prefetchAborted = false
 
 async function prefetchLibrary() {
   try {
-    if (!SettingsContext.value.showLibraryIcons) return
+    if (!libraryIconsEnabled()) return
 
     const allApps: number[] = []
     try {

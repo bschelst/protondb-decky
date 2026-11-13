@@ -12,13 +12,13 @@ lib-cov
 *.git
 *.vscode*
 package.sh
-*loc*
 !pnpm-lock.yaml
 pids
 logs
 results
 tmp
-
+*.*aud*
+package-lock.json
 
 # Le Editor
 .le
@@ -60,5 +60,6 @@ deliverables/
 
 # Local release script
 release.sh
+install-staging.sh
 ISSUES.txt
 PUSH_TO_DECKY_PLUGIN.txt
