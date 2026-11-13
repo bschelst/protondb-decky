@@ -57,6 +57,8 @@ let messageId = 1
 // Changes every time the user leaves the store, so timers and sockets left
 // over from an earlier visit can tell they are outdated
 let storeVisit = 0
+// How many times we try to reach the debugger before giving up on a visit
+const STORE_CONNECT_RETRIES = 5
 
 interface Tab {
   id: string
@@ -772,10 +774,17 @@ function updateAppIdFromUrl(url: string) {
   }
 }
 
+// Wait longer after each failed attempt, so a debugger port that is slow to
+// come up still gets picked up instead of using every try in three seconds
+function storeRetryDelay(retriesLeft: number): number {
+  const attempt = STORE_CONNECT_RETRIES - retriesLeft
+  return Math.min(1000 * 2 ** attempt, 4000)
+}
+
 // Connect to Chrome WebSocket debugger to listen for store navigation
 async function connectToStoreDebugger(
   visit: number,
-  retries = 3
+  retries = STORE_CONNECT_RETRIES
 ): Promise<void> {
   if (retries <= 0 || visit !== storeVisit || !isStoreMounted) {
     return
@@ -798,7 +807,10 @@ async function connectToStoreDebugger(
 
     if (!storeTab) {
       // Store tab not found, retry after delay
-      setTimeout(() => connectToStoreDebugger(visit, retries - 1), 1000)
+      setTimeout(
+        () => connectToStoreDebugger(visit, retries - 1),
+        storeRetryDelay(retries - 1)
+      )
       return
     }
 
@@ -832,6 +844,17 @@ async function connectToStoreDebugger(
             params: { expression: 'location.href', returnByValue: true }
           })
         )
+
+        // The page does not always answer. Fall back to the URL the tab list
+        // gave us, so the badge still shows up.
+        setTimeout(() => {
+          if (visit !== storeVisit || urlRequestId === 0) return
+          urlRequestId = 0
+          const appId = storeAppId$.value
+          if (appId) {
+            injectBadgeIntoStore(appId)
+          }
+        }, 1000)
       }, 300)
     }
 
@@ -843,6 +866,8 @@ async function connectToStoreDebugger(
         // The page's current URL, asked for once the connection was ready
         const url = data.id === urlRequestId && data.result?.result?.value
         if (typeof url === 'string') {
+          // Answered, so the fallback timer has nothing left to do
+          urlRequestId = 0
           const appId = extractAppIdFromUrl(url)
           if (appId && appId === storeAppId$.value) {
             // Still on the page we connected to: draw its badge
@@ -874,14 +899,18 @@ async function connectToStoreDebugger(
       wsReady = false
       // Reconnect if still mounted. A connection that worked gets a fresh
       // set of retries; one that never opened uses one up.
+      const next = opened ? STORE_CONNECT_RETRIES : retries - 1
       setTimeout(
-        () => connectToStoreDebugger(visit, opened ? 3 : retries - 1),
-        1000
+        () => connectToStoreDebugger(visit, next),
+        storeRetryDelay(next)
       )
     }
   } catch (e) {
     if (isStoreMounted) {
-      setTimeout(() => connectToStoreDebugger(visit, retries - 1), 1000)
+      setTimeout(
+        () => connectToStoreDebugger(visit, retries - 1),
+        storeRetryDelay(retries - 1)
+      )
     }
   }
 }
