@@ -44,6 +44,8 @@
     "enableLibraryBadgeDesc": "Show ProtonDB badge on game pages in your library",
     "enableStoreBadge": "Enable Badge on Store Pages",
     "enableStoreBadgeDesc": "Show ProtonDB badge as overlay on store pages",
+    "storeBadgeSize": "Store Badge Size",
+    "storeBadgeSizeDesc": "Choose a different size for the badge on store pages",
     "storeBadgePosition": "Store Badge Position",
     "storeBadgePositionDesc": "Position the badge overlay on store pages",
     "storePositionBottomCenter": "Bottom Center",

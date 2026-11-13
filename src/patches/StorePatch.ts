@@ -1,7 +1,7 @@
 import { fetchNoCors } from '@decky/api'
 import { findModuleExport } from '@decky/ui'
 import { BehaviorSubject } from 'rxjs'
-import { SettingsContext } from '../hooks/useSettings'
+import { Settings, SettingsContext } from '../hooks/useSettings'
 import { GATEWAY_BASE_URL, GATEWAY_API_KEY } from '../constants'
 
 const FETCH_TIMEOUT_MS = 2000
@@ -78,6 +78,22 @@ interface StoreOverlayPayload {
   versionsData: string
   settingsData: string
 }
+
+type StoreBadgeSize = NonNullable<Settings['storeBadgeSize']>
+type StoreBadgePosition = Settings['storeBadgePosition']
+
+interface StoreBadgeStyle {
+  wrapperCss: string
+  badgeCss: string
+  badgeHtml: string
+  infoBtnCss: string
+  infoIconPx: number
+  showInfoButton: boolean
+}
+
+// Data fetched for the game currently shown, so a settings change can redraw
+// the badge without fetching again
+let lastStorePayload: StoreOverlayPayload | null = null
 
 // Find Steam's internal history object
 const HistoryModule = findModuleExport(
@@ -472,23 +488,97 @@ function buildOverlayAnalysisHelpersCode(appId: string): string {
   `
 }
 
-function buildOverlayUiCode(payload: StoreOverlayPayload): string {
+// Where the badge sits on the store page. 'bc' is bottom middle.
+const STORE_POSITION_CSS: Record<StoreBadgePosition, string> = {
+  tl: 'top: 20px; left: 20px;',
+  tm: 'top: 20px; left: 50%; transform: translateX(-50%);',
+  tr: 'top: 20px; right: 20px;',
+  bl: 'bottom: 20px; left: 20px;',
+  bc: 'bottom: 20px; left: 50%; transform: translateX(-50%);',
+  br: 'bottom: 20px; right: 20px;'
+}
+
+// Matches the regular, small and minimalist sizes of the library badge
+const STORE_SIZE_STYLES: Record<
+  StoreBadgeSize,
+  {
+    badgeCss: string
+    iconPx: number
+    labelCss: string | null
+    infoPadding: string
+    infoIconPx: number
+  }
+> = {
+  regular: {
+    badgeCss: 'flex-direction: row; padding: 6px 18px;',
+    iconPx: 28,
+    labelCss:
+      'margin-left: 10px; font-size: 24px; line-height: 24px; white-space: nowrap;',
+    infoPadding: '6px 10px',
+    infoIconPx: 28
+  },
+  small: {
+    badgeCss: 'flex-direction: column; padding: 6px 8px;',
+    iconPx: 20,
+    labelCss: 'font-size: 12px; line-height: 12px; white-space: nowrap;',
+    infoPadding: '6px 8px',
+    infoIconPx: 20
+  },
+  minimalist: {
+    badgeCss: 'flex-direction: row; padding: 6px;',
+    iconPx: 20,
+    labelCss: null,
+    infoPadding: '6px',
+    infoIconPx: 20
+  }
+}
+
+// Builds the badge look from the settings. Size, position, rounded corners and
+// the analysis button follow the same settings the library badge uses.
+function buildStoreBadgeStyle(
+  payload: StoreOverlayPayload,
+  settings: Settings
+): StoreBadgeStyle {
+  const size: StoreBadgeSize = settings.storeBadgeSize || 'regular'
+  const position: StoreBadgePosition = settings.storeBadgePosition || 'bc'
+  const sizeStyle = STORE_SIZE_STYLES[size] || STORE_SIZE_STYLES.regular
+  const positionCss = STORE_POSITION_CSS[position] || STORE_POSITION_CSS.bc
+  const radius = settings.roundedCorners === true ? '8px' : '0'
+  const icon = `<span style="font-size: ${sizeStyle.iconPx}px; line-height: ${sizeStyle.iconPx}px;">⚛️</span>`
+  const label = sizeStyle.labelCss
+    ? `<span style="${sizeStyle.labelCss}">${payload.tierLabel}</span>`
+    : ''
+  return {
+    wrapperCss: `position: fixed; ${positionCss} z-index: 999999; display: flex; align-items: center; gap: 8px;`,
+    badgeCss: `background: ${payload.tierColor.bg}; ${sizeStyle.badgeCss} border-radius: ${radius}; color: ${payload.tierColor.text}; cursor: pointer; display: flex; align-items: center; width: max-content; height: max-content; ${payload.trendBorderCss}`,
+    badgeHtml: icon + label,
+    infoBtnCss: `background: ${payload.infoBtnColor.bg}; padding: ${sizeStyle.infoPadding}; border-radius: ${radius}; color: ${payload.infoBtnColor.text}; cursor: pointer; display: flex; align-items: center; justify-content: center;`,
+    infoIconPx: sizeStyle.infoIconPx,
+    showInfoButton: settings.showAnalysisButton !== false
+  }
+}
+
+function buildOverlayUiCode(
+  payload: StoreOverlayPayload,
+  style: StoreBadgeStyle
+): string {
   return `
     const wrapper = document.createElement('div');
     wrapper.id = 'protondb-store-badge';
-    wrapper.style.cssText = 'position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%); z-index: 999999; display: flex; align-items: center; gap: 8px;';
+    wrapper.style.cssText = ${JSON.stringify(style.wrapperCss)};
 
     const badge = document.createElement('div');
-    badge.style.cssText = 'background: ${payload.tierColor.bg}; padding: 6px 18px; border-radius: 8px; color: ${payload.tierColor.text}; cursor: pointer; display: flex; align-items: center; width: max-content; height: max-content; ${payload.trendBorderCss}';
-    badge.innerHTML = '<span style="font-size: 28px; line-height: 28px;">⚛️</span><span style="margin-left: 10px; font-size: 24px; line-height: 24px; white-space: nowrap;">${payload.tierLabel}</span>';
+    badge.style.cssText = ${JSON.stringify(style.badgeCss)};
+    badge.innerHTML = ${JSON.stringify(style.badgeHtml)};
+    badge.title = ${JSON.stringify('ProtonDB: ' + payload.tierLabel)};
     badge.onclick = function() { window.open('https://www.protondb.com/app/${payload.appId}', '_blank'); };
     wrapper.appendChild(badge);
 
-    if (analysisData) {
+    if (analysisData && ${style.showInfoButton}) {
       const infoBtn = document.createElement('div');
       infoBtn.id = 'protondb-store-info-btn';
-      infoBtn.style.cssText = 'background: ${payload.infoBtnColor.bg}; padding: 6px 10px; border-radius: 8px; color: ${payload.infoBtnColor.text}; cursor: pointer; display: flex; align-items: center; justify-content: center;';
-      infoBtn.innerHTML = '<svg viewBox="0 0 512 512" width="28" height="28" fill="currentColor"><path d="M32 32v432a16 16 0 0 0 16 16h432" stroke="currentColor" stroke-width="32" fill="none" stroke-linecap="round"/><rect x="96" y="224" width="80" height="192" rx="8"/><rect x="224" y="128" width="80" height="288" rx="8"/><rect x="352" y="64" width="80" height="352" rx="8"/></svg>';
+      infoBtn.style.cssText = ${JSON.stringify(style.infoBtnCss)};
+      infoBtn.innerHTML = '<svg viewBox="0 0 512 512" width="${style.infoIconPx}" height="${style.infoIconPx}" fill="currentColor"><path d="M32 32v432a16 16 0 0 0 16 16h432" stroke="currentColor" stroke-width="32" fill="none" stroke-linecap="round"/><rect x="96" y="224" width="80" height="192" rx="8"/><rect x="224" y="128" width="80" height="288" rx="8"/><rect x="352" y="64" width="80" height="352" rx="8"/></svg>';
       infoBtn.title = 'Show analysis';
       infoBtn.onclick = function(e) {
         e.stopPropagation();
@@ -583,7 +673,10 @@ function buildOverlayUiCode(payload: StoreOverlayPayload): string {
   `
 }
 
-function buildStoreOverlayScript(payload: StoreOverlayPayload): string {
+function buildStoreOverlayScript(
+  payload: StoreOverlayPayload,
+  style: StoreBadgeStyle
+): string {
   return `
     (function() {
       const existing = document.getElementById('protondb-store-badge');
@@ -592,9 +685,48 @@ function buildStoreOverlayScript(payload: StoreOverlayPayload): string {
       if (existingOverlay) existingOverlay.remove();
 ${buildOverlayPreambleCode(payload)}
 ${buildOverlayAnalysisHelpersCode(payload.appId)}
-${buildOverlayUiCode(payload)}
+${buildOverlayUiCode(payload, style)}
     })();
   `
+}
+
+function isStoreSocketReady(): boolean {
+  return (
+    !!storeWebSocket && storeWebSocket.readyState === WebSocket.OPEN && wsReady
+  )
+}
+
+// Draw the badge from already fetched data, using the current settings
+function renderStoreBadge(payload: StoreOverlayPayload) {
+  if (!storeWebSocket || !isStoreSocketReady()) {
+    return
+  }
+  const style = buildStoreBadgeStyle(payload, SettingsContext.value)
+  storeWebSocket.send(
+    JSON.stringify({
+      id: messageId++,
+      method: 'Runtime.evaluate',
+      params: { expression: buildStoreOverlayScript(payload, style) }
+    })
+  )
+}
+
+// Called when a store setting changes, so the badge on screen updates
+// without having to leave the page
+function refreshStoreBadge() {
+  if (!SettingsContext.value.enableStoreBadge) {
+    removeBadgeFromStore()
+    return
+  }
+  const appId = storeAppId$.value
+  if (!appId) {
+    return
+  }
+  if (lastStorePayload?.appId === appId) {
+    renderStoreBadge(lastStorePayload)
+  } else {
+    injectBadgeIntoStore(appId)
+  }
 }
 
 // Inject badge into store page via WebSocket debugger
@@ -604,11 +736,7 @@ async function injectBadgeIntoStore(appId: string) {
     return
   }
 
-  if (
-    !storeWebSocket ||
-    storeWebSocket.readyState !== WebSocket.OPEN ||
-    !wsReady
-  ) {
+  if (!isStoreSocketReady()) {
     return
   }
 
@@ -694,16 +822,17 @@ async function injectBadgeIntoStore(appId: string) {
     settingsResult.status === 'fulfilled' ? settingsResult.value : null
   )
 
-  // The user may have moved to another page while the data was downloading
+  // The user may have moved to another game, left the store or turned the
+  // badge off while the requests were running
   if (
     storeAppId$.value !== appId ||
-    !storeWebSocket ||
-    storeWebSocket.readyState !== WebSocket.OPEN
+    !SettingsContext.value.enableStoreBadge ||
+    !isStoreSocketReady()
   ) {
     return
   }
 
-  const injectScript = buildStoreOverlayScript({
+  lastStorePayload = {
     appId,
     tierLabel,
     tierColor,
@@ -714,15 +843,8 @@ async function injectBadgeIntoStore(appId: string) {
     recentReportsData,
     versionsData,
     settingsData
-  })
-
-  storeWebSocket.send(
-    JSON.stringify({
-      id: messageId++,
-      method: 'Runtime.evaluate',
-      params: { expression: injectScript }
-    })
-  )
+  }
+  renderStoreBadge(lastStorePayload)
 }
 
 // Remove badge from store page
@@ -923,6 +1045,7 @@ function disconnectStoreDebugger() {
   isStoreMounted = false
   storeVisit++
   wsReady = false
+  lastStorePayload = null
   storeAppId$.next('')
 
   if (storeWebSocket) {
@@ -960,8 +1083,24 @@ export function initStorePatch(): () => void {
     handleLocationChange(info.pathname)
   })
 
+  // Redraw the badge when a store setting changes
+  let previous = SettingsContext.value
+  const settingsSub = SettingsContext.subscribe((current) => {
+    const changed =
+      current.enableStoreBadge !== previous.enableStoreBadge ||
+      current.storeBadgeSize !== previous.storeBadgeSize ||
+      current.storeBadgePosition !== previous.storeBadgePosition ||
+      current.roundedCorners !== previous.roundedCorners ||
+      current.showAnalysisButton !== previous.showAnalysisButton
+    previous = current
+    if (changed && isStoreMounted) {
+      refreshStoreBadge()
+    }
+  })
+
   // Return cleanup function
   return () => {
+    settingsSub.unsubscribe()
     if (historyUnlisten) {
       historyUnlisten()
       historyUnlisten = null

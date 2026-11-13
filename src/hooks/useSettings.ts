@@ -9,7 +9,8 @@ export type Settings = {
   disableSubmit: boolean
   enableLibraryBadge: boolean
   enableStoreBadge: boolean
-  storeBadgePosition: 'bc' | 'bl' | 'br' | 'tm'
+  storeBadgeSize?: 'regular' | 'small' | 'minimalist'
+  storeBadgePosition: 'tl' | 'tm' | 'tr' | 'bl' | 'bc' | 'br'
   showAnalysisButton?: boolean
   roundedCorners?: boolean
   showLibraryIcons?: boolean
@@ -24,6 +25,7 @@ const DEFAULT_SETTINGS: Settings = {
   disableSubmit: false,
   enableLibraryBadge: true,
   enableStoreBadge: true,
+  storeBadgeSize: 'regular',
   storeBadgePosition: 'bc',
   showAnalysisButton: true,
   roundedCorners: false,
@@ -103,6 +105,10 @@ export const useSettings = () => {
     updateSettings('enableStoreBadge', value)
   }
 
+  function setStoreBadgeSize(value: Settings['storeBadgeSize']) {
+    updateSettings('storeBadgeSize', value)
+  }
+
   function setStoreBadgePosition(value: Settings['storeBadgePosition']) {
     updateSettings('storeBadgePosition', value)
   }
@@ -137,6 +143,7 @@ export const useSettings = () => {
     setDisableSubmit,
     setEnableLibraryBadge,
     setEnableStoreBadge,
+    setStoreBadgeSize,
     setStoreBadgePosition,
     setShowAnalysisButton,
     setRoundedCorners,
