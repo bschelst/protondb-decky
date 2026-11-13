@@ -54,6 +54,9 @@ let isStoreMounted = false
 let storeWebSocket: WebSocket | null = null
 let historyUnlisten: (() => void) | null = null
 let messageId = 1
+// Changes every time the user leaves the store, so timers and sockets left
+// over from an earlier visit can tell they are outdated
+let storeVisit = 0
 
 interface Tab {
   id: string
@@ -689,6 +692,15 @@ async function injectBadgeIntoStore(appId: string) {
     settingsResult.status === 'fulfilled' ? settingsResult.value : null
   )
 
+  // The user may have moved to another page while the data was downloading
+  if (
+    storeAppId$.value !== appId ||
+    !storeWebSocket ||
+    storeWebSocket.readyState !== WebSocket.OPEN
+  ) {
+    return
+  }
+
   const injectScript = buildStoreOverlayScript({
     appId,
     tierLabel,
@@ -761,8 +773,11 @@ function updateAppIdFromUrl(url: string) {
 }
 
 // Connect to Chrome WebSocket debugger to listen for store navigation
-async function connectToStoreDebugger(retries = 3): Promise<void> {
-  if (retries <= 0 || !isStoreMounted) {
+async function connectToStoreDebugger(
+  visit: number,
+  retries = 3
+): Promise<void> {
+  if (retries <= 0 || visit !== storeVisit || !isStoreMounted) {
     return
   }
 
@@ -771,6 +786,11 @@ async function connectToStoreDebugger(retries = 3): Promise<void> {
     const response = await fetchNoCors('http://localhost:8080/json')
     const tabs: Tab[] = await response.json()
 
+    // The user may have left the store while we were waiting
+    if (visit !== storeVisit || !isStoreMounted) {
+      return
+    }
+
     // Find the Steam store tab
     const storeTab = tabs.find((tab) =>
       tab.url.includes('store.steampowered.com')
@@ -778,7 +798,7 @@ async function connectToStoreDebugger(retries = 3): Promise<void> {
 
     if (!storeTab) {
       // Store tab not found, retry after delay
-      setTimeout(() => connectToStoreDebugger(retries - 1), 1000)
+      setTimeout(() => connectToStoreDebugger(visit, retries - 1), 1000)
       return
     }
 
@@ -787,8 +807,11 @@ async function connectToStoreDebugger(retries = 3): Promise<void> {
 
     // Connect to WebSocket debugger
     storeWebSocket = new WebSocket(storeTab.webSocketDebuggerUrl)
+    let opened = false
+    let urlRequestId = 0
 
     storeWebSocket.onopen = (event) => {
+      opened = true
       const ws = event.target as WebSocket
       // Enable page events to receive navigation notifications
       ws.send(JSON.stringify({ id: messageId++, method: 'Page.enable' }))
@@ -797,20 +820,39 @@ async function connectToStoreDebugger(retries = 3): Promise<void> {
 
       // Mark WebSocket as ready after a short delay for Runtime to initialize
       setTimeout(() => {
+        if (visit !== storeVisit) return
         wsReady = true
-        // Inject badge for initial URL if we have an app ID
-        const currentAppId = storeAppId$.value
-        if (currentAppId) {
-          injectBadgeIntoStore(currentAppId)
-        }
+        // Steam may have moved the store to another page (e.g. its home page)
+        // before we started listening, so ask the page where it is now
+        urlRequestId = messageId++
+        ws.send(
+          JSON.stringify({
+            id: urlRequestId,
+            method: 'Runtime.evaluate',
+            params: { expression: 'location.href', returnByValue: true }
+          })
+        )
       }, 300)
     }
 
     storeWebSocket.onmessage = (event) => {
-      if (!isStoreMounted) return
+      if (visit !== storeVisit) return
 
       try {
         const data = JSON.parse(event.data)
+        // The page's current URL, asked for once the connection was ready
+        const url = data.id === urlRequestId && data.result?.result?.value
+        if (typeof url === 'string') {
+          const appId = extractAppIdFromUrl(url)
+          if (appId && appId === storeAppId$.value) {
+            // Still on the page we connected to: draw its badge
+            injectBadgeIntoStore(appId)
+          } else {
+            // The page changed: draw or remove the badge to match
+            updateAppIdFromUrl(url)
+          }
+          return
+        }
         // Listen for frame navigation events
         if (data.method === 'Page.frameNavigated' && data.params?.frame?.url) {
           // Delay injection to let the page load
@@ -823,23 +865,23 @@ async function connectToStoreDebugger(retries = 3): Promise<void> {
       }
     }
 
-    storeWebSocket.onerror = () => {
-      if (isStoreMounted) {
-        setTimeout(() => connectToStoreDebugger(retries - 1), 1000)
-      }
-    }
-
+    // No onerror handler: a failed socket always closes too, and onclose
+    // handles reconnecting
     storeWebSocket.onclose = () => {
+      // Closed because the user left the store
+      if (visit !== storeVisit) return
       storeWebSocket = null
       wsReady = false
-      // Reconnect if still mounted
-      if (isStoreMounted) {
-        setTimeout(() => connectToStoreDebugger(retries), 1000)
-      }
+      // Reconnect if still mounted. A connection that worked gets a fresh
+      // set of retries; one that never opened uses one up.
+      setTimeout(
+        () => connectToStoreDebugger(visit, opened ? 3 : retries - 1),
+        1000
+      )
     }
   } catch (e) {
     if (isStoreMounted) {
-      setTimeout(() => connectToStoreDebugger(retries - 1), 1000)
+      setTimeout(() => connectToStoreDebugger(visit, retries - 1), 1000)
     }
   }
 }
@@ -850,6 +892,7 @@ function disconnectStoreDebugger() {
   removeBadgeFromStore()
 
   isStoreMounted = false
+  storeVisit++
   wsReady = false
   storeAppId$.next('')
 
@@ -862,9 +905,12 @@ function disconnectStoreDebugger() {
 // Handle location changes in Steam's router
 function handleLocationChange(pathname: string) {
   if (pathname === '/steamweb') {
-    // User entered the store view
-    isStoreMounted = true
-    connectToStoreDebugger()
+    // User entered the store view. Steam can report this several times per
+    // visit, so only connect the first time.
+    if (!isStoreMounted) {
+      isStoreMounted = true
+      connectToStoreDebugger(storeVisit)
+    }
   } else if (isStoreMounted) {
     // User left the store view
     disconnectStoreDebugger()
