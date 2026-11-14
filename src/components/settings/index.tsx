@@ -7,7 +7,6 @@ import {
   PanelSection,
   PanelSectionProps,
   PanelSectionRow,
-  showModal,
   ToggleField
 } from '@decky/ui'
 import { toaster } from '@decky/api'
@@ -31,9 +30,9 @@ import { PLUGIN_VERSION } from '../../constants'
 import useTranslations from '../../hooks/useTranslations'
 import { useSettings } from '../../hooks/useSettings'
 import Spinner from '../spinner'
-import HelpModal from '../helpModal'
 
 const GITHUB_URL = 'https://github.com/bschelst/protondb-decky'
+const INSTRUCTIONS_URL = 'https://protondb.schelstraete.org/instructions'
 
 type ExtendedPanelSectionProps = PanelSectionProps & {
   children: ReactNode
@@ -433,7 +432,7 @@ export default function Index() {
           <DeckButtonItem
             bottomSeparator="standard"
             layout="below"
-            onClick={() => showModal(<HelpModal />)}
+            onClick={() => Navigation.NavigateToExternalWeb(INSTRUCTIONS_URL)}
           >
             <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
               <FaQuestionCircle size={20} />
