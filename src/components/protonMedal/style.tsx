@@ -104,7 +104,7 @@ export default (
       margin-left: 0;
       font-size: 12px;
       width: auto;
-      line-height: 12px;
+      line-height: 1.2;
       margin-right: 0;
     }
 
