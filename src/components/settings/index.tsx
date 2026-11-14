@@ -16,6 +16,7 @@ import {
   FaChartBar,
   FaChevronDown,
   FaChevronUp,
+  FaGamepad,
   FaGithub,
   FaGlobe,
   FaLink,
@@ -162,7 +163,11 @@ export default function Index() {
   }
   return (
     <div>
-      <DeckPanelSection title={t('sectionLibrary')}>
+      <CollapsibleSection
+        title={t('sectionLibrary')}
+        icon={<FaGamepad size={14} />}
+        defaultExpanded
+      >
         <DeckPanelSectionRow>
           <ToggleField
             label={t('enableLibraryBadge')}
@@ -311,7 +316,7 @@ export default function Index() {
               />
             </DeckPanelSectionRow>
           )}
-      </DeckPanelSection>
+      </CollapsibleSection>
 
       <CollapsibleSection
         title={t('sectionStore')}
