@@ -46,15 +46,19 @@ export async function updateCache(appId: string, newData: ProtonDBCache) {
   return newCache
 }
 
-export function clearCache(appId?: string) {
+export async function clearCache(appId?: string) {
   if (appId?.length) {
-    localforage.removeItem(appId)
-    reportsStore.removeItem(appId)
-    versionsStore.removeItem(appId)
+    await Promise.all([
+      localforage.removeItem(appId),
+      reportsStore.removeItem(appId),
+      versionsStore.removeItem(appId)
+    ])
   } else {
-    localforage.clear()
-    reportsStore.clear()
-    versionsStore.clear()
+    await Promise.all([
+      localforage.clear(),
+      reportsStore.clear(),
+      versionsStore.clear()
+    ])
   }
 }
 

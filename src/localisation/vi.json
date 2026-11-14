@@ -110,7 +110,8 @@
     "helpAnalysisColorRed": "Đỏ — Trò chơi không hoạt động hoặc có vấn đề nghiêm trọng",
     "helpAnalysisColorGray": "Xám — Không đủ dữ liệu để xác định trạng thái",
     "helpAnalysisToggle": "Bạn có thể bật hoặc tắt nút phân tích trong Cài đặt mục Tính năng nâng cao.",
-    "clearCacheSuccess": "Đã xóa bộ nhớ đệm"
+    "clearCacheSuccess": "Đã xóa bộ nhớ đệm",
+    "clearCacheError": "Không thể xóa bộ nhớ đệm"
 ,    "settingsTabCount": "{with} trong {total} báo cáo bao gồm tùy chọn khởi chạy (chỉ tích cực)",
     "settingsTabHint": "Nhấn Sao chép và dán vào Steam > Thuộc tính trò chơi > Tùy chọn khởi chạy trước %command%",
     "settingsTabExample": "Ví dụ: PROTON_ENABLE_NVAPI=1 %command%",

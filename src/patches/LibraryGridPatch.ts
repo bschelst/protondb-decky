@@ -116,6 +116,17 @@ function getBigPictureDocument(): Document | null {
   }
 }
 
+// The grid answers from these before it touches storage, so emptying the stored
+// cache on its own leaves the old dots sitting on screen until a restart.
+export function clearGridCaches(): void {
+  statusCache.clear()
+  resolveCache.clear()
+  pendingIds.clear()
+  const bpDoc = getBigPictureDocument()
+  if (!bpDoc) return
+  for (const dot of bpDoc.querySelectorAll(`.${DOT_CLASS}`)) dot.remove()
+}
+
 // The icons belong to the analysis button feature, so hiding that hides them too
 function libraryIconsEnabled(): boolean {
   const { showAnalysisButton, showLibraryIcons } = SettingsContext.value

@@ -110,7 +110,8 @@
     "helpAnalysisColorRed": "Červená — Hra nefunguje nebo má závažné problémy",
     "helpAnalysisColorGray": "Šedá — Nedostatek dat pro určení stavu",
     "helpAnalysisToggle": "Tlačítko analýzy můžete zapnout nebo vypnout v Nastavení pod Rozšířené funkce.",
-    "clearCacheSuccess": "Mezipaměť byla úspěšně vymazána"
+    "clearCacheSuccess": "Mezipaměť byla úspěšně vymazána",
+    "clearCacheError": "Mezipaměť se nepodařilo vymazat"
 ,    "settingsTabCount": "{with} z {total} hlášení obsahuje možnosti spuštění (pouze pozitivní)",
     "settingsTabHint": "Klepněte na Kopírovat a vložte do Steam > Vlastnosti hry > Možnosti spuštění před %command%",
     "settingsTabExample": "Příklad: PROTON_ENABLE_NVAPI=1 %command%",

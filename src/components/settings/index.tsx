@@ -26,6 +26,7 @@ import {
   FaTrash
 } from 'react-icons/fa'
 import { clearCache } from '../../cache/protobDbCache'
+import { clearGridCaches } from '../../patches/LibraryGridPatch'
 import { PLUGIN_VERSION } from '../../constants'
 import useTranslations from '../../hooks/useTranslations'
 import { useSettings } from '../../hooks/useSettings'
@@ -404,13 +405,22 @@ export default function Index() {
             label={t('clearCacheLabel')}
             bottomSeparator="none"
             layout="below"
-            onClick={() => {
-              clearCache()
-              toaster.toast({
-                title: 'ProtonDB Badges',
-                body: t('clearCacheSuccess'),
-                duration: 3000
-              })
+            onClick={async () => {
+              try {
+                await clearCache()
+                clearGridCaches()
+                toaster.toast({
+                  title: 'ProtonDB Badges',
+                  body: t('clearCacheSuccess'),
+                  duration: 3000
+                })
+              } catch {
+                toaster.toast({
+                  title: 'ProtonDB Badges',
+                  body: t('clearCacheError'),
+                  duration: 3000
+                })
+              }
             }}
           >
             {t('clearCache')}

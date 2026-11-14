@@ -110,7 +110,8 @@
     "helpAnalysisColorRed": "Punainen — Peli ei toimi tai sillä on merkittäviä ongelmia",
     "helpAnalysisColorGray": "Harmaa — Ei tarpeeksi tietoa tilan määrittämiseen",
     "helpAnalysisToggle": "Voit ottaa analyysipainikkeen käyttöön tai poistaa sen käytöstä Asetuksissa kohdassa Lisäominaisuudet.",
-    "clearCacheSuccess": "Välimuisti tyhjennetty"
+    "clearCacheSuccess": "Välimuisti tyhjennetty",
+    "clearCacheError": "Välimuistin tyhjennys epäonnistui"
 ,    "settingsTabCount": "{with} / {total} raportista sisältää käynnistysasetuksia (vain positiiviset)",
     "settingsTabHint": "Paina Kopioi ja liitä Steam > Pelin ominaisuudet > Käynnistysasetukset ennen %command%",
     "settingsTabExample": "Esimerkki: PROTON_ENABLE_NVAPI=1 %command%",

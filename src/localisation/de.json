@@ -110,7 +110,8 @@
     "helpAnalysisColorRed": "Rot — Spiel funktioniert nicht oder hat erhebliche Probleme",
     "helpAnalysisColorGray": "Grau — Nicht genügend Daten zur Statusbestimmung",
     "helpAnalysisToggle": "Sie können den Analyse-Button in den Einstellungen unter Erweiterte Funktionen ein- oder ausschalten.",
-    "clearCacheSuccess": "Cache erfolgreich geleert"
+    "clearCacheSuccess": "Cache erfolgreich geleert",
+    "clearCacheError": "Cache konnte nicht geleert werden"
 ,    "settingsTabCount": "{with} von {total} Berichten enthalten Startoptionen (nur positive)",
     "settingsTabHint": "Tippe auf Kopieren und füge es in Steam > Spieleigenschaften > Startoptionen vor %command% ein",
     "settingsTabExample": "Beispiel: PROTON_ENABLE_NVAPI=1 %command%",

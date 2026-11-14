@@ -110,7 +110,8 @@
     "helpAnalysisColorRed": "Röd — Spelet fungerar inte eller har betydande problem",
     "helpAnalysisColorGray": "Grå — Inte tillräckligt med data för att bestämma status",
     "helpAnalysisToggle": "Du kan aktivera eller inaktivera analysknappen i Inställningar under Utökade funktioner.",
-    "clearCacheSuccess": "Cache rensad"
+    "clearCacheSuccess": "Cache rensad",
+    "clearCacheError": "Det gick inte att rensa cachen"
 ,    "settingsTabCount": "{with} av {total} rapporter inkluderar startalternativ (bara positiva)",
     "settingsTabHint": "Tryck på Kopiera och klistra in i Steam > Spelegenskaper > Startalternativ före %command%",
     "settingsTabExample": "Exempel: PROTON_ENABLE_NVAPI=1 %command%",

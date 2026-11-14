@@ -110,7 +110,8 @@
     "helpAnalysisColorRed": "Roșu — Jocul nu funcționează sau are probleme semnificative",
     "helpAnalysisColorGray": "Gri — Date insuficiente pentru a determina starea",
     "helpAnalysisToggle": "Puteți activa sau dezactiva butonul de analiză în Setări, la Funcții avansate.",
-    "clearCacheSuccess": "Cache-ul a fost șters"
+    "clearCacheSuccess": "Cache-ul a fost șters",
+    "clearCacheError": "Cache-ul nu a putut fi șters"
 ,    "settingsTabCount": "{with} din {total} rapoarte includ opțiuni de lansare (doar pozitive)",
     "settingsTabHint": "Apasă Copiază și lipește în Steam > Proprietăți joc > Opțiuni de lansare înainte de %command%",
     "settingsTabExample": "Exemplu: PROTON_ENABLE_NVAPI=1 %command%",

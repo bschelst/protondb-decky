@@ -110,7 +110,8 @@
     "helpAnalysisColorRed": "紅色 — 遊戲無法運行或存在嚴重問題",
     "helpAnalysisColorGray": "灰色 — 沒有足夠的資料來確定狀態",
     "helpAnalysisToggle": "您可以在設定的進階功能中啟用或停用分析按鈕。",
-    "clearCacheSuccess": "快取已清除"
+    "clearCacheSuccess": "快取已清除",
+    "clearCacheError": "無法清除快取"
 ,    "settingsTabCount": "{total}份報告中有{with}份包含啟動選項（僅正面報告）",
     "settingsTabHint": "點擊複製並貼上到 Steam > 遊戲屬性 > 啟動選項中 %command% 之前",
     "settingsTabExample": "範例：PROTON_ENABLE_NVAPI=1 %command%",

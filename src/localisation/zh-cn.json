@@ -110,7 +110,8 @@
     "helpAnalysisColorRed": "红色 — 游戏无法运行或存在严重问题",
     "helpAnalysisColorGray": "灰色 — 没有足够的数据来确定状态",
     "helpAnalysisToggle": "您可以在设置的增强功能中启用或禁用分析按钮。",
-    "clearCacheSuccess": "缓存已清除"
+    "clearCacheSuccess": "缓存已清除",
+    "clearCacheError": "无法清除缓存"
 ,    "settingsTabCount": "{total}份报告中有{with}份包含启动选项（仅正面报告）",
     "settingsTabHint": "点击复制并粘贴到 Steam > 游戏属性 > 启动选项中 %command% 之前",
     "settingsTabExample": "示例：PROTON_ENABLE_NVAPI=1 %command%",

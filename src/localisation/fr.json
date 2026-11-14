@@ -110,7 +110,8 @@
     "helpAnalysisColorRed": "Rouge — Le jeu ne fonctionne pas ou a des problèmes importants",
     "helpAnalysisColorGray": "Gris — Pas assez de données pour déterminer le statut",
     "helpAnalysisToggle": "Vous pouvez activer ou désactiver le bouton d'analyse dans les Paramètres, sous Fonctionnalités avancées.",
-    "clearCacheSuccess": "Cache vidé avec succès"
+    "clearCacheSuccess": "Cache vidé avec succès",
+    "clearCacheError": "Impossible de vider le cache"
 ,    "settingsTabCount": "{with} des {total} rapports incluent des options de lancement (positifs uniquement)",
     "settingsTabHint": "Appuyez sur Copier et collez dans Steam > Propriétés du jeu > Options de lancement avant %command%",
     "settingsTabExample": "Exemple : PROTON_ENABLE_NVAPI=1 %command%",

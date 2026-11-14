@@ -110,7 +110,8 @@
     "helpAnalysisColorRed": "Rood — Game werkt niet of heeft aanzienlijke problemen",
     "helpAnalysisColorGray": "Grijs — Niet genoeg gegevens om de status te bepalen",
     "helpAnalysisToggle": "Je kunt de analyseknop in- of uitschakelen bij Instellingen onder Uitgebreide functies.",
-    "clearCacheSuccess": "Cache gewist"
+    "clearCacheSuccess": "Cache gewist",
+    "clearCacheError": "Cache kon niet gewist worden"
 ,    "settingsTabCount": "{with} van {total} rapporten bevatten startopties (alleen positieve)",
     "settingsTabHint": "Tik op Kopiëren en plak het in Steam > Speleigenschappen > Startopties vóór %command%",
     "settingsTabExample": "Voorbeeld: PROTON_ENABLE_NVAPI=1 %command%",

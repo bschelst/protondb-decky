@@ -113,6 +113,7 @@
     "libraryIconPosition": "Icon Position",
     "libraryIconPositionDesc": "Position of the status icon on game covers",
     "clearCacheSuccess": "Cache cleared successfully",
+    "clearCacheError": "Could not clear the cache",
     "sectionAbout": "About",
     "name": "Name",
     "version": "Version",
