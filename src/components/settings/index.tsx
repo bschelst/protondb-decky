@@ -84,7 +84,7 @@ const CollapsibleSection: FC<{
         {isExpanded ? <FaChevronUp size={12} /> : <FaChevronDown size={12} />}
       </Focusable>
 
-      {isExpanded && <div style={{ paddingLeft: '4px' }}>{children}</div>}
+      {isExpanded && <DeckPanelSection>{children}</DeckPanelSection>}
     </div>
   )
 }
