@@ -30,7 +30,7 @@ const DEFAULT_SETTINGS: Settings = {
   showAnalysisButton: true,
   roundedCorners: false,
   showLibraryIcons: true,
-  libraryIconsOnFocusOnly: false,
+  libraryIconsOnFocusOnly: true,
   libraryIconPosition: 'bl'
 }
 
