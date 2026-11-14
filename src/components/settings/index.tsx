@@ -260,6 +260,57 @@ export default function Index() {
             }}
           />
         </DeckPanelSectionRow>
+        {settings.showAnalysisButton !== false && (
+          <DeckPanelSectionRow>
+            <ToggleField
+              label={t('showLibraryIcons')}
+              description={t('showLibraryIconsDesc')}
+              checked={settings.showLibraryIcons === true}
+              onChange={(checked: boolean) => {
+                setShowLibraryIcons(checked)
+              }}
+            />
+          </DeckPanelSectionRow>
+        )}
+        {settings.showAnalysisButton !== false &&
+          settings.showLibraryIcons === true && (
+            <DeckPanelSectionRow>
+              <ToggleField
+                label={t('libraryIconsOnFocusOnly')}
+                description={t('libraryIconsOnFocusOnlyDesc')}
+                checked={settings.libraryIconsOnFocusOnly === true}
+                onChange={(checked: boolean) => {
+                  setLibraryIconsOnFocusOnly(checked)
+                }}
+              />
+            </DeckPanelSectionRow>
+          )}
+        {settings.showAnalysisButton !== false &&
+          settings.showLibraryIcons === true && (
+            <DeckPanelSectionRow>
+              <DropdownItem
+                label={t('libraryIconPosition')}
+                description={t('libraryIconPositionDesc')}
+                menuLabel={t('libraryIconPosition')}
+                rgOptions={libraryIconPositionOptions.map((o) => ({
+                  data: o.data,
+                  label: o.label
+                }))}
+                selectedOption={
+                  libraryIconPositionOptions.find(
+                    (o) => o.value === (settings.libraryIconPosition || 'bl')
+                  )?.data || 0
+                }
+                onChange={(newVal: { data: number; label: string }) => {
+                  const newPos =
+                    libraryIconPositionOptions.find(
+                      (o) => o.data === newVal.data
+                    )?.value || 'bl'
+                  setLibraryIconPosition(newPos)
+                }}
+              />
+            </DeckPanelSectionRow>
+          )}
       </DeckPanelSection>
 
       <CollapsibleSection
@@ -340,57 +391,6 @@ export default function Index() {
             }}
           />
         </DeckPanelSectionRow>
-        {settings.showAnalysisButton !== false && (
-          <DeckPanelSectionRow>
-            <ToggleField
-              label={t('showLibraryIcons')}
-              description={t('showLibraryIconsDesc')}
-              checked={settings.showLibraryIcons === true}
-              onChange={(checked: boolean) => {
-                setShowLibraryIcons(checked)
-              }}
-            />
-          </DeckPanelSectionRow>
-        )}
-        {settings.showAnalysisButton !== false &&
-          settings.showLibraryIcons === true && (
-            <DeckPanelSectionRow>
-              <ToggleField
-                label={t('libraryIconsOnFocusOnly')}
-                description={t('libraryIconsOnFocusOnlyDesc')}
-                checked={settings.libraryIconsOnFocusOnly === true}
-                onChange={(checked: boolean) => {
-                  setLibraryIconsOnFocusOnly(checked)
-                }}
-              />
-            </DeckPanelSectionRow>
-          )}
-        {settings.showAnalysisButton !== false &&
-          settings.showLibraryIcons === true && (
-            <DeckPanelSectionRow>
-              <DropdownItem
-                label={t('libraryIconPosition')}
-                description={t('libraryIconPositionDesc')}
-                menuLabel={t('libraryIconPosition')}
-                rgOptions={libraryIconPositionOptions.map((o) => ({
-                  data: o.data,
-                  label: o.label
-                }))}
-                selectedOption={
-                  libraryIconPositionOptions.find(
-                    (o) => o.value === (settings.libraryIconPosition || 'bl')
-                  )?.data || 0
-                }
-                onChange={(newVal: { data: number; label: string }) => {
-                  const newPos =
-                    libraryIconPositionOptions.find(
-                      (o) => o.data === newVal.data
-                    )?.value || 'bl'
-                  setLibraryIconPosition(newPos)
-                }}
-              />
-            </DeckPanelSectionRow>
-          )}
       </CollapsibleSection>
 
       <CollapsibleSection title={t('caching')} icon={<FaTrash size={14} />}>

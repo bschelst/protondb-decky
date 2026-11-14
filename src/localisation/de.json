@@ -40,7 +40,7 @@
     "noReport": "KEIN BERICHT",
     "disableSubmit": "Senden deaktivieren",
     "disableSubmitDesc": "Verstecke den Senden-Button für ProtonDB Berichte",
-    "enableLibraryBadge": "Abzeichen in Bibliothek aktivieren",
+    "enableLibraryBadge": "Abzeichen auf Spielseite aktivieren",
     "enableLibraryBadgeDesc": "Zeige ProtonDB Abzeichen auf Spieleseiten in deiner Bibliothek",
     "enableStoreBadge": "Abzeichen auf Store-Seiten aktivieren",
     "enableStoreBadgeDesc": "Zeige ProtonDB Abzeichen als Overlay auf Store-Seiten",

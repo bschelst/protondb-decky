@@ -40,7 +40,7 @@
     "noReport": "SIN INFORME",
     "disableSubmit": "Desactivar envío",
     "disableSubmitDesc": "Ocultar el botón de envío de informes a ProtonDB",
-    "enableLibraryBadge": "Activar insignia en biblioteca",
+    "enableLibraryBadge": "Activar insignia en la página del juego",
     "enableLibraryBadgeDesc": "Mostrar insignia de ProtonDB en las páginas de juegos de tu biblioteca",
     "enableStoreBadge": "Activar insignia en páginas de la tienda",
     "enableStoreBadgeDesc": "Mostrar insignia de ProtonDB como superposición en páginas de la tienda",

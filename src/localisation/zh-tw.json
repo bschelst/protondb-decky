@@ -40,7 +40,7 @@
     "noReport": "無報告",
     "disableSubmit": "停用提交",
     "disableSubmitDesc": "Hide the submit button that allows contributing reports to ProtonDB",
-    "enableLibraryBadge": "Enable Badge on Library",
+    "enableLibraryBadge": "Enable Badge on Game Page",
     "enableLibraryBadgeDesc": "Show ProtonDB badge on game pages in your library",
     "enableStoreBadge": "在商店頁面啟用徽章",
     "enableStoreBadgeDesc": "Show ProtonDB badge as overlay on store pages",

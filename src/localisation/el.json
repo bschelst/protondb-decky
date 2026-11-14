@@ -40,7 +40,7 @@
     "noReport": "ΧΩΡΙΣ ΑΝΑΦΟΡΑ",
     "disableSubmit": "Απενεργοποίηση υποβολής",
     "disableSubmitDesc": "Hide the submit button that allows contributing reports to ProtonDB",
-    "enableLibraryBadge": "Enable Badge on Library",
+    "enableLibraryBadge": "Enable Badge on Game Page",
     "enableLibraryBadgeDesc": "Show ProtonDB badge on game pages in your library",
     "enableStoreBadge": "Ενεργοποίηση σήματος στις σελίδες καταστήματος",
     "enableStoreBadgeDesc": "Show ProtonDB badge as overlay on store pages",

@@ -40,7 +40,7 @@
     "noReport": "НЕМАЄ ЗВІТУ",
     "disableSubmit": "Вимкнути надсилання",
     "disableSubmitDesc": "Приховати кнопку для надсилання звітів на ProtonDB",
-    "enableLibraryBadge": "Увімкнути значок у бібліотеці",
+    "enableLibraryBadge": "Увімкнути значок на сторінці гри",
     "enableLibraryBadgeDesc": "Показати значок ProtonDB на сторінках ігор у вашій бібліотеці",
     "enableStoreBadge": "Увімкнути значок на сторінках магазину",
     "enableStoreBadgeDesc": "Показати значок ProtonDB як оверлей на сторінках магазину",

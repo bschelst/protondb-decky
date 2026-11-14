@@ -40,7 +40,7 @@
     "noReport": "НЕТ ОТЧЁТА",
     "disableSubmit": "Отключить отправку",
     "disableSubmitDesc": "Скрыть кнопку отправки отчётов в ProtonDB",
-    "enableLibraryBadge": "Включить значок в библиотеке",
+    "enableLibraryBadge": "Включить значок на странице игры",
     "enableLibraryBadgeDesc": "Показывать значок ProtonDB на страницах игр в вашей библиотеке",
     "enableStoreBadge": "Включить значок на страницах магазина",
     "enableStoreBadgeDesc": "Показывать значок ProtonDB в виде оверлея на страницах магазина",

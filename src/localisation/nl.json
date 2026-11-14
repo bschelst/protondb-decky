@@ -40,7 +40,7 @@
     "noReport": "GEEN RAPPORT",
     "disableSubmit": "Verzenden uitschakelen",
     "disableSubmitDesc": "Verberg de verzendknop voor ProtonDB rapporten",
-    "enableLibraryBadge": "Badge in bibliotheek inschakelen",
+    "enableLibraryBadge": "Badge op spelpagina inschakelen",
     "enableLibraryBadgeDesc": "Toon ProtonDB badge op spelpagina's in je bibliotheek",
     "enableStoreBadge": "Badge inschakelen op winkelpagina's",
     "enableStoreBadgeDesc": "Toon ProtonDB badge als overlay op winkelpagina's",

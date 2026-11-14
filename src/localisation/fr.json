@@ -40,7 +40,7 @@
     "noReport": "AUCUN RAPPORT",
     "disableSubmit": "Désactiver l'envoi",
     "disableSubmitDesc": "Masquer le bouton d'envoi pour les rapports ProtonDB",
-    "enableLibraryBadge": "Activer le badge dans la bibliothèque",
+    "enableLibraryBadge": "Activer le badge sur la page du jeu",
     "enableLibraryBadgeDesc": "Afficher le badge ProtonDB sur les pages de jeux de votre bibliothèque",
     "enableStoreBadge": "Activer le badge sur les pages du magasin",
     "enableStoreBadgeDesc": "Afficher le badge ProtonDB en superposition sur les pages du magasin",
