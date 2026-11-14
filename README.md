@@ -42,11 +42,36 @@ This plugin was created to:
 
 ## 🛠️ Features & Options
 
-- **Badge size**: Regular, Small, or Minimalist (icon-only)
-- **Badge position**: Multiple positions around the game header. (Hero)
-- **Submit button toggle**: Disable report submission if desired.
-- **Library badge button toggle**: Disable the badges in library.
-- **Store badge button toggle**: Disable the badge in Steam store pages.
+All settings live in the Quick Access Menu, in the same groups as below.
+
+**Library**
+- **Enable Badge on Game Page**: show or hide the badge on game pages.
+- **Disable Submit**: hide the button that submits reports to ProtonDB.
+- **Badge Size**: Regular, Small, or Minimalist (icon-only).
+- **Badge Position**: multiple positions around the game header. (Hero)
+- **Rounded Corners**: round off the badge and its buttons.
+- **Library Status Icons**: status dots on the game covers in the library grid.
+- **Show icons only when game is focused**: keeps the covers clean otherwise.
+- **Icon Position**: which corner of the cover the dot sits in.
+
+**Store**
+- **Enable Badge on Store Pages**: badge as an overlay on Steam store pages.
+- **Store Badge Size** and **Store Badge Position**: set separately from the library badge.
+
+**Enhanced Features**
+- **Show Analysis Button**: the bar chart icon that opens the compatibility analysis.
+
+**Caching**
+- **Clear ProtonDB Cache**: throw away the stored data and fetch it again. Useful when a rating looks stuck.
+
+### 📖 Instructions
+
+The **Instructions** button in the plugin opens the full guide, which explains every setting and
+how to submit reports:
+
+https://protondb.schelstraete.org/instructions
+
+The page is available in 29 languages and follows your browser language, with a picker to change it.
 
 
 ---
@@ -94,8 +119,8 @@ PROTON_ENABLE_NVAPI=1 %command%
 ## ⚠️ Limitations
 
 **ProtonDB device registration**  
-The first time you want to submit a report on Steam Deck, you will need to open the protondb website in desktop mode in order to register the Steam Deck.
-This is a limitation of the protondb website, and this is only a one-time action.
+The first time you want to submit a report, you will need to open the protondb website in desktop mode
+in order to register your device. This is a limitation of the protondb website, and it is a one-time action.
 
 **Steam Store page ProtonDB badges**  
 - Currently the badges are visible as an overlay, which doesn't look the same as the badges on the library.
@@ -106,7 +131,9 @@ This is a limitation of the protondb website, and this is only a one-time action
 
 ## 🌍 Translations
 
-Some translations were added or updated using AI, as I don't know yet how Crowdine works.'   This is only temporary.
+The plugin ships with 29 languages, kept in `src/localisation/` and maintained directly in this
+repository. The instructions page on the gateway uses the same strings.
+
 If you spot an incorrect or awkward translation, pull requests are welcome.
 
 ---
