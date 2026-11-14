@@ -134,7 +134,7 @@ function buildOverlayPreambleCode(payload: StoreOverlayPayload): string {
     var gameAppId = ${payload.appId};
 
     function esc(s) {
-      if (!s) return '';
+      if (s === null || s === undefined) return '';
       return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
     }
 
@@ -181,7 +181,7 @@ function buildOverlayAnalysisHelpersCode(appId: string): string {
         var bg = i % 2 === 0 ? 'rgba(255,255,255,0.04)' : 'transparent';
         var labelColor = sub ? '#888' : '#c0c0c0';
         var labelPad = sub ? '6px 10px 6px 20px' : '6px 10px';
-        html += '<tr style="background:' + bg + '"><td style="padding:' + labelPad + ';color:' + labelColor + ';width:55%;font-weight:bold;vertical-align:top;">' + row[0] + '</td><td style="padding:6px 10px;vertical-align:top;">' + row[1] + '</td></tr>';
+        html += '<tr style="background:' + bg + '"><td style="padding:' + labelPad + ';color:' + labelColor + ';width:55%;font-weight:bold;vertical-align:top;">' + row[0] + '</td><td style="padding:6px 10px;vertical-align:top;">' + esc(row[1]) + '</td></tr>';
       });
       html += '</table>';
       return html;
