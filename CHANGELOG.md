@@ -1,6 +1,50 @@
 # Changelog
 All important changes to the ProtonDB Badges plugin are documented here.
 
+## [1.4.0] - 2026-11-15
+
+Thanks for all the feedback & big thanks to the contributors.
+
+### Store page badge
+- Size and position settings for the store badge — independent of the library badge, same six positions, defaults to Bottom Middle. (Kenneth Thomson, #20)
+- No more stale badge when the store opens — the store could briefly show the previous game's rating. (Kenneth Thomson)
+- Fixed a CEF debugger WebSocket leak — every store visit opened a socket that was never closed. (Kenneth Thomson, #19)
+- Badge still appears when the store page goes quiet — falls back to the URL from the tab list after 1s instead of showing nothing. (Bart S)
+- Exponential backoff on debugger reconnects — 1s, 2s, 4s capped, instead of burning all five attempts in three seconds. (Bart S)
+
+### Library grid status icons
+- Status icons on game covers, with an option to show them only on the focused game. (David Beall, #8)
+- Icons are cleaned up properly when the feature is switched off — they used to linger. (David Beall)
+- Fixed: icons stayed visible after turning off "Show Analysis Button" — they belong to that feature and now hide with it. (Bart S, #11)
+- New default: focus-only icons are now ON for fresh installs. (Bart S, based on the work of David Beall, #8)
+- Cosmetic fix for small icon. (Bart S, #4)
+
+### Proton versions
+- Proton version now applied correctly from the analysis modal — two commits on the same bug. (Bart S)
+- Launch options and compat tools can be applied directly from the analysis modal, instead of setting them by hand in Steam. (Bart S)
+
+### Settings panel
+- Sections are now collapsible (Store, Enhanced Features, Links) — the QAM panel had grown too long. (Bart S)
+- The About section is always visible — it used to disappear in some states. (Bart S)
+- Collapsible sections now line up with the rest of the panel — their contents were indented 4px instead of using Steam's own gutter. (Bart S)
+- Plugin version in the QAM comes from package metadata instead of being hardcoded. (David Beall)
+- Store badge size setting translated, and four unused position keys removed from all 29 locale files. (Bart S)
+  ==> ****Note: Translations done with Google Translate, scripted***
+
+### Build and housekeeping
+- CI now matches the latest Decky store builder — Node 26, pnpm 12.18.0. (Bart S)
+- Dependency pins actually take effect now (Bart S)
+- Fixed a .gitignore rule that could have excluded a newly added localisation file. (Bart S)
+- Removed an unused json import, general maintenance. (Bart S)
+
+### Other
+- Reverted the useParams fallback — a this was only a temporary solution (Bart S)
+- relabel enableLibraryBadge → "Enable Badge on Game Page", move the three icon settings into the Library section (Bart S, #18)
+  ==> ****Note: Translations done with Google Translate, scripted***
+- Fix some minor old clearing protondb cache issue (Bart S, #21)
+- Removed instructions helpmodal, and replacing it by a link to the instructions page.
+  Reason: updating the plugin for changing the instructions is a burden for everyone. By pointing to a weblink, we can change it without updating the plugin all the time, decrease plugin size , and we can ask web dev team to update the pages, without the need to Decky plugin coding knowledge.
+
 ## [1.3.3] - 2026-05-21
 ### Fixed
 - delivery fixes
