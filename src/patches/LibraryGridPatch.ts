@@ -1,4 +1,5 @@
 import { fetchNoCors } from '@decky/api'
+import { findClassModule, Router } from '@decky/ui'
 import { SettingsContext } from '../hooks/useSettings'
 import { GATEWAY_BASE_URL, GATEWAY_API_KEY, appTypes } from '../constants'
 import {
@@ -15,7 +16,6 @@ const BATCH_DELAY_MS = 3000
 const SCAN_INTERVAL_MS = 3000
 const GRID_CACHE_MAX_AGE_MS = 7 * 24 * 60 * 60 * 1000
 const DOT_CLASS = 'protondb-grid-dot'
-const COVER_SELECTOR = '._1pwP4eeP1zQD7PEgmsep0W'
 const FOCUS_ONLY_STYLE_ID = 'protondb-grid-focus-only'
 const APP_ID_FROM_SRC = /\/(?:assets|customimages)\/(\d+)/
 
@@ -24,8 +24,6 @@ const STATUS_COLORS: Record<string, string> = {
   not_working: 'rgb(200, 30, 30)',
   unknown: 'rgb(166, 166, 166)'
 }
-
-declare const SteamUIStore: any
 
 const statusCache = new Map<string, string>()
 const resolveCache = new Map<string, string | null>()
@@ -107,13 +105,33 @@ async function resolveToSteamAppId(rawId: string): Promise<string | null> {
 
 function getBigPictureDocument(): Document | null {
   try {
+    const mainWindow = Router?.WindowStore?.GamepadUIMainWindowInstance as
+      | { BrowserWindow?: Window; m_BrowserWindow?: Window }
+      | undefined
     return (
-      SteamUIStore?.WindowStore?.GamepadUIMainWindowInstance?.m_BrowserWindow
-        ?.document ?? null
+      (mainWindow?.BrowserWindow ?? mainWindow?.m_BrowserWindow)?.document ??
+      null
     )
   } catch {
     return null
   }
+}
+
+// Cover image wraper of a library tile. We look it up by name in Decky's
+// class map, Steam renames the hashed classes on every client update.
+// when its not found we get null and the grid shows no icons
+let cachedCoverSelector: string | null = null
+
+function coverSelector(): string | null {
+  if (cachedCoverSelector) return cachedCoverSelector
+  const cls = findClassModule(
+    (m) =>
+      typeof m?.PortraitImage === 'string' && typeof m?.Capsule === 'string'
+  )?.PortraitImage
+  const name = typeof cls === 'string' ? cls.split(' ')[0] : ''
+  if (!name) return null
+  cachedCoverSelector = `.${CSS.escape(name)}`
+  return cachedCoverSelector
 }
 
 // The grid answers from these before it touches storage, so emptying the stored
@@ -133,9 +151,7 @@ function libraryIconsEnabled(): boolean {
   return showAnalysisButton !== false && showLibraryIcons === true
 }
 
-function syncFocusOnlyStyle(
-  bpDoc: Document | null = getBigPictureDocument()
-) {
+function syncFocusOnlyStyle(bpDoc: Document | null = getBigPictureDocument()) {
   if (!bpDoc) return
 
   const existing = bpDoc.getElementById(FOCUS_ONLY_STYLE_ID)
@@ -149,14 +165,17 @@ function syncFocusOnlyStyle(
     return
   }
   if (existing) return
+  const cover = coverSelector()
+  if (!cover) return
 
   const style = bpDoc.createElement('style')
   style.id = FOCUS_ONLY_STYLE_ID
   style.textContent = `
-${COVER_SELECTOR} .${DOT_CLASS} { opacity: 0; }
-${COVER_SELECTOR}.gpfocuswithin .${DOT_CLASS},
-${COVER_SELECTOR}:focus-within .${DOT_CLASS},
-${COVER_SELECTOR}:hover .${DOT_CLASS} { opacity: 1; }
+${cover} .${DOT_CLASS} { opacity: 0; }
+.gpfocus ${cover} .${DOT_CLASS},
+${cover}.gpfocuswithin .${DOT_CLASS},
+${cover}:focus-within .${DOT_CLASS},
+${cover}:hover .${DOT_CLASS} { opacity: 1; }
 `
   bpDoc.head.appendChild(style)
 }
@@ -272,9 +291,13 @@ function injectDot(bpDoc: Document, coverDiv: Element, status: string) {
       existing.remove()
     }
 
-    const container =
-      (coverDiv.firstElementChild as HTMLElement) || (coverDiv as HTMLElement)
-    container.style.position = 'relative'
+    // the cover self holds the img, its first child is a <input> on the new
+    // client and a dot inside a input is never rendered
+    const container = coverDiv as HTMLElement
+    const view = bpDoc.defaultView
+    if (view && view.getComputedStyle(container).position === 'static') {
+      container.style.position = 'relative'
+    }
     const color = STATUS_COLORS[status] || STATUS_COLORS.unknown
     const pos = SettingsContext.value.libraryIconPosition || 'bl'
     const posStyles: Record<string, string> = {
@@ -338,14 +361,12 @@ async function processBatch(bpDoc: Document) {
       const status = await fetchAndCacheStatus(steamId)
       statusCache.set(rawId, status)
 
+      const sel = coverSelector()
+      if (!sel) continue
       const cover =
-        bpDoc.querySelector(`[data-id="${rawId}"] ${COVER_SELECTOR}`) ||
-        bpDoc
-          .querySelector(`img[src*="/assets/${rawId}/"]`)
-          ?.closest(COVER_SELECTOR) ||
-        bpDoc
-          .querySelector(`img[src*="/customimages/${rawId}"]`)
-          ?.closest(COVER_SELECTOR)
+        bpDoc.querySelector(`[data-id="${rawId}"] ${sel}`) ||
+        bpDoc.querySelector(`img[src*="/assets/${rawId}/"]`)?.closest(sel) ||
+        bpDoc.querySelector(`img[src*="/customimages/${rawId}"]`)?.closest(sel)
       if (cover) injectDot(bpDoc, cover, status)
     } catch {
       // skip failed fetch
@@ -389,7 +410,9 @@ async function scanTiles() {
     if (!bpDoc) return
     syncFocusOnlyStyle(bpDoc)
 
-    const covers = bpDoc.querySelectorAll(COVER_SELECTOR)
+    const sel = coverSelector()
+    if (!sel) return
+    const covers = bpDoc.querySelectorAll(sel)
     const needsDiskCheck: Array<{ rawId: string; cover: Element }> = []
 
     for (const cover of covers) {
@@ -484,7 +507,9 @@ function reinjectCached() {
       for (const dot of oldDots) dot.remove()
     }
 
-    const covers = bpDoc.querySelectorAll(COVER_SELECTOR)
+    const sel = coverSelector()
+    if (!sel) return
+    const covers = bpDoc.querySelectorAll(sel)
     for (const cover of covers) {
       const appId = getAppIdFromCover(cover)
       if (!appId) continue
@@ -605,7 +630,8 @@ export function initLibraryGridPatch(): () => void {
     settingsSubscription.unsubscribe()
     const bpDoc = getBigPictureDocument()
     bpDoc?.getElementById(FOCUS_ONLY_STYLE_ID)?.remove()
-    for (const dot of bpDoc?.querySelectorAll(`.${DOT_CLASS}`) ?? []) dot.remove()
+    for (const dot of bpDoc?.querySelectorAll(`.${DOT_CLASS}`) ?? [])
+      dot.remove()
     if (scanInterval) {
       clearInterval(scanInterval)
       scanInterval = null

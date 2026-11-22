@@ -1,5 +1,5 @@
 import { fetchNoCors } from '@decky/api'
-import { findModuleExport } from '@decky/ui'
+import { Router } from '@decky/ui'
 import { BehaviorSubject } from 'rxjs'
 import { Settings, SettingsContext } from '../hooks/useSettings'
 import { GATEWAY_BASE_URL, GATEWAY_API_KEY } from '../constants'
@@ -95,11 +95,22 @@ interface StoreBadgeStyle {
 // the badge without fetching again
 let lastStorePayload: StoreOverlayPayload | null = null
 
-// Find Steam's internal history object
-const HistoryModule = findModuleExport(
-  (exp: any) => exp?.m_history !== undefined
-)
-const History = HistoryModule?.m_history
+interface SteamHistory {
+  location?: { pathname?: string }
+  listen: (cb: (info: { pathname: string }) => void) => () => void
+}
+
+function isSteamHistory(value: unknown): value is SteamHistory {
+  return typeof (value as SteamHistory | undefined)?.listen === 'function'
+}
+
+// steam router history, the main window from Decky's Router is owning it
+function getSteamHistory(): SteamHistory | null {
+  const mainWindow = Router?.WindowStore?.GamepadUIMainWindowInstance as
+    | { m_history?: unknown }
+    | undefined
+  return isSteamHistory(mainWindow?.m_history) ? mainWindow.m_history : null
+}
 
 // Track if WebSocket is ready for injection
 let wsReady = false
@@ -1071,7 +1082,11 @@ function handleLocationChange(pathname: string) {
 
 // Initialize store patching
 export function initStorePatch(): () => void {
+  const History = getSteamHistory()
   if (!History) {
+    console.warn(
+      '[ProtonDB Store] Steam history not found, store badge disabled'
+    )
     return () => {}
   }
 
