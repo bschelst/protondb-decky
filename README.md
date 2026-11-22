@@ -141,9 +141,9 @@ If you spot an incorrect or awkward translation, pull requests are welcome.
 ## 🤖 Use of AI
 
 AI was used for:
-* The translations, which have been done with Google Translate (technically not really AI)
-* Scanning of the backend for vulnerabilities
-* CSS optimisations of the backend.
+* The translations, which have been done with Google Translate (technically not really AI)  [backend, not Decky plugin]
+* Scanning of the backend for vulnerabilities. [backend mainly,but in order to check the backend, it also scanned the plugin. Just because that's a must nowadays :'(]
+* CSS optimisations of the backend.  [backend, not Decky plugin]
 
 ---
 
