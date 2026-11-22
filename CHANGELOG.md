@@ -1,6 +1,18 @@
 # Changelog
 All important changes to the ProtonDB Badges plugin are documented here.
 
+## [1.4.1] - 2026-11-22
+
+> **Only tested on the Steam Beta client.** These fixes target the current Steam client beta. They have not been tested on the stable Steam client.
+
+### Store page badge
+- Badge shows again on the new Steam beta — the plugin could not find Steam's navigation anymore and silently skipped the store page. It now uses Decky's own Router. (Bart S)
+
+### Library grid status icons
+- Icons show again on the new Steam beta — Steam renamed its internal class names, so the plugin found no covers. Covers are now looked up by name via Decky's class map, so the next rename should not break it again. (Bart S)
+- Icons were placed inside an invisible element on the new client — they are now placed on the cover itself. (Bart S)
+- "Only on focused game" works again — focus moved to the tile around the cover in the new client. (Bart S)
+
 ## [1.4.0] - 2026-11-15
 
 Thanks for all the feedback & big thanks to the contributors.
